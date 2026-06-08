@@ -1,24 +1,31 @@
 const PILLARS = [
   {
     index: '01',
-    title: 'Products',
+    title: 'Industrial IoT Products',
     href: '#products',
     body: 'Field-proven hardware for monitoring, control and connectivity — manufactured and supported in Europe.',
-    points: ['IQsocket', 'Industrial Weather Stations', 'Monitoring Systems'],
+    points: ['IQSocket', 'Weather Stations', 'Monitoring Systems'],
   },
   {
     index: '02',
-    title: 'Engineering Services',
+    title: 'Electronics Development',
     href: '#engineering',
-    body: 'A full electronics design house — from concept and schematic to production-ready firmware and OEM volume.',
-    points: ['Custom Electronics', 'OEM Development', 'Embedded Software'],
+    body: 'A full electronics design house taking products from concept to certified, production-ready hardware.',
+    points: ['Hardware', 'Firmware', 'Certification'],
   },
   {
     index: '03',
-    title: 'Laboratories',
+    title: 'Accredited Laboratories',
     href: '#laboratories',
-    body: 'Accredited in-house facilities to characterise, certify and qualify products before they ship.',
+    body: 'In-house facilities to characterise, certify and qualify products before they ship.',
     points: ['EMC Laboratory', 'Microwave Laboratory', 'Wind Tunnel'],
+  },
+  {
+    index: '04',
+    title: 'Industrial Enclosures',
+    href: '#enclosures',
+    body: 'Own tooling and plastic injection moulding for housings tailored to your hardware and brand.',
+    points: ['Own Tooling', 'Plastic Injection Moulds', 'OEM Customization'],
   },
 ]
 
@@ -28,14 +35,14 @@ export function Pillars() {
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
         <div className="max-w-2xl">
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-            Three pillars
+            Four business pillars
           </div>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-            One team across the whole product lifecycle.
+            One partner across the whole product lifecycle.
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border md:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
           {PILLARS.map((pillar) => (
             <a
               key={pillar.title}

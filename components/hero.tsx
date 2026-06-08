@@ -11,16 +11,17 @@ export function Hero() {
           </div>
 
           <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            Industrial intelligence,
+            Engineering since 1999.
             <br />
-            engineered to endure.
+            Industrial IoT since 2003.
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
-            IQtronic Technologies designs, builds and certifies connected
-            hardware for demanding industrial environments — from field-proven
-            IoT products to bespoke electronics and accredited test
-            laboratories.
+            From concept to certified product.
+            <br className="hidden sm:block" />
+            <span className="font-medium text-foreground">
+              Hardware. Firmware. Testing. Manufacturing.
+            </span>
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -60,16 +61,16 @@ export function Hero() {
         <div className="relative lg:col-span-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-border bg-card lg:aspect-auto lg:h-full">
             <Image
-              src="/images/hero-electronics.png"
-              alt="Macro view of an IQtronic industrial circuit board with surface-mount components"
+              src="/images/hero-products.png"
+              alt="IQtronic industrial IoT product family — smart power socket, monitoring gateway and weather sensor"
               fill
               priority
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
-            <div className="absolute left-4 top-4 flex items-center gap-2 rounded-sm bg-background/85 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground backdrop-blur">
+            <div className="absolute left-4 top-4 flex items-center gap-2 rounded-sm border border-border bg-background/90 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground backdrop-blur">
               <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
-              In-house PCB design & validation
+              Designed & manufactured in Europe
             </div>
           </div>
 
@@ -91,14 +92,14 @@ export function Hero() {
 
 function Marquee() {
   const items = [
-    'Industrial IoT',
-    'Custom Electronics',
+    'Industrial IoT Products',
+    'Electronics Development',
     'EMC Laboratory',
     'Microwave Laboratory',
     'Wind Tunnel',
-    'OEM Development',
-    'Embedded Software',
-    'Telemetry',
+    'Industrial Enclosures',
+    'Injection Moulding',
+    'OEM Customization',
   ]
   return (
     <div className="border-y border-border bg-card">
