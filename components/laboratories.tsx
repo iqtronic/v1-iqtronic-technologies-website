@@ -43,9 +43,9 @@ export function Laboratories() {
           {LABS.map((lab) => (
             <article
               key={lab.name}
-              className="group relative flex flex-col overflow-hidden rounded-sm border border-border"
+              className="group flex flex-col overflow-hidden rounded-sm border border-border bg-card transition-shadow hover:shadow-md"
             >
-              <div className="relative aspect-[3/4] w-full overflow-hidden">
+              <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-border">
                 <Image
                   src={lab.image || '/placeholder.svg'}
                   alt={`IQtronic ${lab.name}`}
@@ -53,25 +53,24 @@ export function Laboratories() {
                   sizes="(min-width: 1024px) 33vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/20 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6 text-background">
-                  <h3 className="text-xl font-medium tracking-tight">
-                    {lab.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-background/80">
-                    {lab.body}
-                  </p>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {lab.tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="rounded-sm border border-background/30 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-background/90"
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="text-xl font-medium tracking-tight">
+                  {lab.name}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {lab.body}
+                </p>
+                <ul className="mt-5 flex flex-wrap gap-2 border-t border-border pt-5">
+                  {lab.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </article>
           ))}

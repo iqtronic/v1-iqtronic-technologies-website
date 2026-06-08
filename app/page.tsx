@@ -5,6 +5,7 @@ import { Pillars } from '@/components/pillars'
 import { Products } from '@/components/products'
 import { Engineering } from '@/components/engineering'
 import { Laboratories } from '@/components/laboratories'
+import { Enclosures } from '@/components/enclosures'
 import { Contact } from '@/components/contact'
 import { SiteFooter } from '@/components/site-footer'
 
@@ -18,6 +19,7 @@ export default function Page() {
         <Products />
         <Engineering />
         <Laboratories />
+        <Enclosures />
         <Company />
         <Contact />
       </main>

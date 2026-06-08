@@ -3,19 +3,19 @@ import { Logo } from '@/components/logo'
 const COLUMNS = [
   {
     title: 'Products',
-    links: ['IQsocket', 'Weather Stations', 'Monitoring Systems'],
+    links: ['IQSocket', 'Weather Stations', 'Monitoring Systems'],
   },
   {
-    title: 'Engineering',
-    links: ['Custom Electronics', 'OEM Development', 'Embedded Software'],
+    title: 'Development',
+    links: ['Hardware', 'Firmware', 'Certification'],
   },
   {
     title: 'Laboratories',
     links: ['EMC Laboratory', 'Microwave Laboratory', 'Wind Tunnel'],
   },
   {
-    title: 'Company',
-    links: ['About', 'Quality & Certifications', 'Careers', 'Contact'],
+    title: 'Enclosures',
+    links: ['Own Tooling', 'Injection Moulds', 'OEM Customization'],
   },
 ]
 

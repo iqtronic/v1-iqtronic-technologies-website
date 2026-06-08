@@ -3,18 +3,18 @@ import Image from 'next/image'
 const SERVICES = [
   {
     code: 'E-01',
-    title: 'Custom Electronics Development',
+    title: 'Hardware',
     body: 'From requirements and schematic capture to multilayer PCB layout, prototyping and design-for-manufacture.',
   },
   {
     code: 'E-02',
-    title: 'OEM Development',
-    body: 'White-label hardware engineered to your brand and volume — qualified, documented and ready for production.',
+    title: 'Firmware',
+    body: 'Embedded software, RTOS and connectivity stacks built for reliability, low power and long-term field maintenance.',
   },
   {
     code: 'E-03',
-    title: 'Embedded Software',
-    body: 'Firmware, RTOS and connectivity stacks built for reliability, low power and long-term field maintenance.',
+    title: 'Certification',
+    body: 'Compliance testing and documentation in our own laboratories — CE marking, EMC and RF qualification.',
   },
 ]
 
@@ -25,7 +25,7 @@ export function Engineering() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-              Engineering services
+              Electronics development
             </div>
             <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               Your electronics team, on demand.
