@@ -168,18 +168,37 @@ export function DistributorDirectory() {
                   </h3>
                 </div>
 
-                {orderedCountries.map((c) => (
-                  <div key={c} className="mt-8">
-                    <h4 className="text-sm font-medium tracking-tight text-muted-foreground">
-                      {c}
-                    </h4>
-                    <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {byCountry.get(c)!.map((d) => (
-                        <DistributorCard key={d.company} distributor={d} />
-                      ))}
+                {orderedCountries.map((c) => {
+                  const entries = byCountry.get(c)!
+                  return (
+                    <div key={c} className="mt-8">
+                      {/* Country header: flag + name + subtle separator */}
+                      <div className="flex items-center gap-3 border-b border-border pb-3">
+                        <img
+                          src={`https://flagcdn.com/${entries[0].countryCode}.svg`}
+                          alt={`${c} flag`}
+                          width={22}
+                          height={16}
+                          className="h-4 w-[22px] shrink-0 rounded-[2px] border border-border object-cover"
+                          loading="lazy"
+                        />
+                        <h4 className="text-sm font-medium tracking-tight text-foreground">
+                          {c}
+                        </h4>
+                        <span className="font-mono text-xs text-muted-foreground">
+                          {entries.length}
+                        </span>
+                      </div>
+
+                      {/* Compact horizontal rows */}
+                      <div className="flex flex-col divide-y divide-border">
+                        {entries.map((d) => (
+                          <DistributorRow key={d.company} distributor={d} />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             )
           })}
@@ -189,59 +208,78 @@ export function DistributorDirectory() {
   )
 }
 
-function DistributorCard({
+function DistributorRow({
   distributor: d,
 }: {
   distributor: (typeof DISTRIBUTORS)[number]
 }) {
+  // Build a compact monogram from the company name as a lightweight logo stand-in.
+  const monogram = d.company
+    .replace(/[^A-Za-z0-9 ]/g, '')
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase()
+
   return (
-    <div className="flex flex-col rounded-sm border border-border bg-card p-6">
-      <div className="flex items-start justify-between gap-3">
-        <h5 className="text-base font-medium tracking-tight">{d.company}</h5>
-        <span className="shrink-0 rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+    <div className="grid grid-cols-1 items-center gap-x-6 gap-y-3 py-5 md:grid-cols-12">
+      {/* Logo + company name */}
+      <div className="flex items-center gap-3 md:col-span-4">
+        <span
+          className="flex size-9 shrink-0 items-center justify-center rounded-sm border border-border bg-muted font-mono text-xs font-medium tracking-tight text-foreground"
+          aria-hidden="true"
+        >
+          {monogram}
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-medium tracking-tight text-foreground">
+            {d.company}
+          </p>
+          <p className="truncate text-xs text-muted-foreground">{d.focus}</p>
+        </div>
+      </div>
+
+      {/* City / region */}
+      <div className="md:col-span-2">
+        <p className="text-sm text-foreground">{d.city}</p>
+        <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+          {d.region}
+        </p>
+      </div>
+
+      {/* Contact: website, email, phone */}
+      <div className="flex flex-col gap-1 md:col-span-4">
+        <a
+          href={`https://${d.website}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="truncate text-sm text-foreground transition-colors hover:text-accent"
+        >
+          {d.website}
+        </a>
+        <a
+          href={`mailto:${d.email}`}
+          className="truncate text-sm text-muted-foreground transition-colors hover:text-accent"
+        >
+          {d.email}
+        </a>
+        <a
+          href={`tel:${d.phone.replace(/\s+/g, '')}`}
+          className="text-sm text-muted-foreground transition-colors hover:text-accent"
+        >
+          {d.phone}
+        </a>
+      </div>
+
+      {/* Distributor type */}
+      <div className="md:col-span-2 md:text-right">
+        <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+          <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
           {d.type}
         </span>
       </div>
-
-      <dl className="mt-5 flex flex-col gap-3 border-t border-border pt-5 text-sm">
-        <div className="flex items-baseline justify-between gap-4">
-          <dt className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-            Location
-          </dt>
-          <dd className="text-right text-foreground">
-            {d.city}, {d.country}
-          </dd>
-        </div>
-        <div className="flex items-baseline justify-between gap-4">
-          <dt className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-            Focus
-          </dt>
-          <dd className="text-right text-foreground">{d.focus}</dd>
-        </div>
-        <div className="flex items-baseline justify-between gap-4">
-          <dt className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-            Email
-          </dt>
-          <dd className="text-right">
-            <a
-              href={`mailto:${d.email}`}
-              className="text-foreground transition-colors hover:text-accent"
-            >
-              {d.email}
-            </a>
-          </dd>
-        </div>
-      </dl>
-
-      <a
-        href={`https://${d.website}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
-      >
-        Visit website
-        <span aria-hidden="true">→</span>
-      </a>
     </div>
   )
 }
