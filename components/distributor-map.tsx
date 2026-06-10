@@ -7,18 +7,31 @@ import {
   Geography,
   Marker,
 } from 'react-simple-maps'
-import { REGION_MARKERS, type Region } from '@/lib/distributors'
+import {
+  DISTRIBUTORS,
+  GEO_NAME_BY_COUNTRY,
+  REGION_MARKERS,
+  type Distributor,
+  type Region,
+} from '@/lib/distributors'
 
 const GEO_URL = '/world-110m.json'
 
-// Warm IQtronic map palette (no blue): light beige-orange land, darker orange on hover.
-const COUNTRY_FILL = 'oklch(0.93 0.035 58)'
-const COUNTRY_HOVER = 'oklch(0.72 0.14 45)'
-const COUNTRY_STROKE = 'oklch(0.88 0.02 60)'
+// Warm IQtronic map palette (no blue):
+// light orange land by default, darker orange on hover, dark orange when selected.
+const COUNTRY_FILL = 'oklch(0.93 0.045 60)'
+const COUNTRY_HOVER = 'oklch(0.78 0.13 50)'
+const COUNTRY_SELECTED = 'oklch(0.62 0.17 42)'
+const COUNTRY_STROKE = 'oklch(0.86 0.02 60)'
+
+// Geo names (world-110m `properties.name`) that have at least one distributor.
+const COUNTRY_GEO_NAMES = new Set(
+  DISTRIBUTORS.map((d) => GEO_NAME_BY_COUNTRY[d.country]).filter(Boolean),
+)
 
 type Tooltip = {
-  label: string
-  partners: number
+  distributors: Distributor[]
+  country: string
   x: number
   y: number
 }
@@ -26,11 +39,14 @@ type Tooltip = {
 export function DistributorMap({
   activeRegion,
   onSelectRegion,
+  onSelectCountry,
 }: {
   activeRegion: Region | 'All'
   onSelectRegion: (region: Region | 'All') => void
+  onSelectCountry: (country: string) => void
 }) {
-  const [hovered, setHovered] = useState<Region | null>(null)
+  const [hoveredGeo, setHoveredGeo] = useState<string | null>(null)
+  const [selectedGeo, setSelectedGeo] = useState<string | null>(null)
   const [tooltip, setTooltip] = useState<Tooltip | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -43,19 +59,25 @@ export function DistributorMap({
     })),
   ]
 
-  function moveTooltip(
-    e: React.MouseEvent,
-    label: string,
-    partners: number,
-  ) {
+  function geoNameFor(country: string) {
+    return GEO_NAME_BY_COUNTRY[country]
+  }
+
+  function positionTooltip(e: React.MouseEvent) {
     const rect = containerRef.current?.getBoundingClientRect()
-    if (!rect) return
-    setTooltip({
-      label,
-      partners,
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    })
+    if (!rect) return { x: 0, y: 0 }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top }
+  }
+
+  function showMarkerTooltip(e: React.MouseEvent, country: string) {
+    const list = DISTRIBUTORS.filter((d) => d.country === country)
+    const { x, y } = positionTooltip(e)
+    setTooltip({ distributors: list, country, x, y })
+  }
+
+  function selectCountry(country: string) {
+    setSelectedGeo(geoNameFor(country) ?? null)
+    onSelectCountry(country)
   }
 
   return (
@@ -74,7 +96,10 @@ export function DistributorMap({
               role="tab"
               type="button"
               aria-selected={isActive}
-              onClick={() => onSelectRegion(tab.value)}
+              onClick={() => {
+                setSelectedGeo(null)
+                onSelectRegion(tab.value)
+              }}
               className={`-mb-px border-b-2 pb-3 pt-1 text-sm font-medium tracking-tight transition-colors ${
                 isActive
                   ? 'border-accent text-foreground'
@@ -92,7 +117,7 @@ export function DistributorMap({
         })}
       </div>
 
-      {/* Map on clean background, no frame */}
+      {/* Map on clean white background, no frame */}
       <div ref={containerRef} className="relative mt-8 w-full bg-background">
         <ComposableMap
           projection="geoEqualEarth"
@@ -100,103 +125,114 @@ export function DistributorMap({
           width={980}
           height={460}
           style={{ width: '100%', height: 'auto' }}
-          aria-label="World map of IQtronic distributor regions"
+          aria-label="Interactive world map of IQtronic distributors"
         >
           <Geographies geography={GEO_URL}>
             {({ geographies }) =>
-              geographies.map((geo) => (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  style={{
-                    default: {
-                      fill: COUNTRY_FILL,
-                      stroke: COUNTRY_STROKE,
-                      strokeWidth: 0.5,
-                      outline: 'none',
-                    },
-                    hover: {
-                      fill: COUNTRY_HOVER,
-                      stroke: COUNTRY_STROKE,
-                      strokeWidth: 0.5,
-                      outline: 'none',
-                    },
-                    pressed: {
-                      fill: COUNTRY_HOVER,
-                      outline: 'none',
-                    },
-                  }}
-                />
-              ))
+              geographies.map((geo) => {
+                const name = geo.properties.name as string
+                const hasPartner = COUNTRY_GEO_NAMES.has(name)
+                const isSelected = selectedGeo === name
+                const isHovered = hoveredGeo === name
+
+                let fill = COUNTRY_FILL
+                if (isSelected) fill = COUNTRY_SELECTED
+                else if (isHovered && hasPartner) fill = COUNTRY_HOVER
+
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    onMouseEnter={() => setHoveredGeo(name)}
+                    onMouseLeave={() => setHoveredGeo(null)}
+                    onClick={() => {
+                      if (!hasPartner) return
+                      const match = DISTRIBUTORS.find(
+                        (d) => GEO_NAME_BY_COUNTRY[d.country] === name,
+                      )
+                      if (match) selectCountry(match.country)
+                    }}
+                    style={{
+                      default: {
+                        fill,
+                        stroke: COUNTRY_STROKE,
+                        strokeWidth: 0.5,
+                        outline: 'none',
+                        cursor: hasPartner ? 'pointer' : 'default',
+                        transition: 'fill 0.15s ease',
+                      },
+                      hover: {
+                        fill: hasPartner ? COUNTRY_HOVER : COUNTRY_FILL,
+                        stroke: COUNTRY_STROKE,
+                        strokeWidth: 0.5,
+                        outline: 'none',
+                        cursor: hasPartner ? 'pointer' : 'default',
+                      },
+                      pressed: {
+                        fill: COUNTRY_SELECTED,
+                        outline: 'none',
+                      },
+                    }}
+                  />
+                )
+              })
             }
           </Geographies>
 
-          {REGION_MARKERS.map((marker) => {
-            const isActive =
-              activeRegion === marker.region || hovered === marker.region
-            return (
-              <Marker
-                key={marker.region}
-                coordinates={marker.coordinates}
-                onMouseEnter={(e) => {
-                  setHovered(marker.region)
-                  moveTooltip(e, marker.label, marker.partners)
-                }}
-                onMouseMove={(e) =>
-                  moveTooltip(e, marker.label, marker.partners)
-                }
-                onMouseLeave={() => {
-                  setHovered(null)
-                  setTooltip(null)
-                }}
-                onClick={() => onSelectRegion(marker.region)}
-                style={{
-                  default: { cursor: 'pointer' },
-                  hover: { cursor: 'pointer' },
-                  pressed: { cursor: 'pointer' },
-                }}
-              >
-                {isActive && (
-                  <circle r={13} fill="var(--color-accent)" opacity={0.18} />
-                )}
-                <circle
-                  r={isActive ? 6.5 : 5.5}
-                  fill="var(--color-accent)"
-                  stroke="var(--color-background)"
-                  strokeWidth={1.5}
-                />
-                <text
-                  textAnchor="middle"
-                  y={-13}
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: 11,
-                    letterSpacing: '0.04em',
-                    fill: 'var(--color-foreground)',
-                    fontWeight: 500,
-                    pointerEvents: 'none',
-                    opacity: isActive ? 1 : 0.85,
-                  }}
-                >
-                  {marker.label}
-                </text>
-              </Marker>
-            )
-          })}
+          {/* Individual distributor markers */}
+          {DISTRIBUTORS.map((d) => (
+            <Marker
+              key={d.company}
+              coordinates={d.coordinates}
+              onMouseEnter={(e) => showMarkerTooltip(e, d.country)}
+              onMouseMove={(e) => showMarkerTooltip(e, d.country)}
+              onMouseLeave={() => setTooltip(null)}
+              onClick={() => selectCountry(d.country)}
+              style={{
+                default: { cursor: 'pointer' },
+                hover: { cursor: 'pointer' },
+                pressed: { cursor: 'pointer' },
+              }}
+            >
+              <circle
+                r={9}
+                fill="var(--color-accent)"
+                opacity={0.18}
+              />
+              <circle
+                r={4.5}
+                fill="var(--color-accent)"
+                stroke="var(--color-background)"
+                strokeWidth={1.5}
+              />
+            </Marker>
+          ))}
         </ComposableMap>
 
-        {/* Hover tooltip */}
+        {/* Marker tooltip with distributor information */}
         {tooltip && (
           <div
-            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-sm border border-border bg-card px-3 py-2 shadow-sm"
+            className="pointer-events-none absolute z-10 w-56 -translate-x-1/2 -translate-y-full rounded-sm border border-border bg-card px-3 py-2.5 shadow-sm"
             style={{ left: tooltip.x, top: tooltip.y - 14 }}
             role="status"
           >
-            <p className="text-sm font-medium tracking-tight text-foreground">
-              {tooltip.label}
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              {tooltip.country}
             </p>
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-              {tooltip.partners} partner{tooltip.partners === 1 ? '' : 's'}
+            <ul className="mt-1.5 flex flex-col gap-1.5">
+              {tooltip.distributors.map((d) => (
+                <li key={d.company}>
+                  <p className="text-sm font-medium leading-tight tracking-tight text-foreground">
+                    {d.company}
+                  </p>
+                  <p className="text-xs leading-tight text-muted-foreground">
+                    {d.city} · {d.type}
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 border-t border-border pt-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-accent">
+              Click to view details
             </p>
           </div>
         )}

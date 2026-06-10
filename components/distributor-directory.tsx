@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import {
   DISTRIBUTORS,
   REGIONS,
+  countrySlug,
   type Region,
 } from '@/lib/distributors'
 import { DistributorMap } from '@/components/distributor-map'
@@ -35,6 +36,19 @@ export function DistributorDirectory() {
     setCountry('All')
   }
 
+  // When a country is selected on the map, clear filters so the target
+  // section is rendered, then smooth-scroll to that country's anchor.
+  function handleCountrySelect(countryName: string) {
+    setRegion('All')
+    setCountry('All')
+    if (typeof window !== 'undefined') {
+      requestAnimationFrame(() => {
+        const el = document.getElementById(countrySlug(countryName))
+        el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
+  }
+
   // Group filtered results by region, then country.
   const grouped = useMemo(() => {
     const map = new Map<Region, Map<string, typeof DISTRIBUTORS>>()
@@ -52,7 +66,11 @@ export function DistributorDirectory() {
   return (
     <div>
       {/* Map */}
-      <DistributorMap activeRegion={region} onSelectRegion={handleRegion} />
+      <DistributorMap
+        activeRegion={region}
+        onSelectRegion={handleRegion}
+        onSelectCountry={handleCountrySelect}
+      />
 
       {/* Filters */}
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:max-w-xl">
@@ -130,7 +148,7 @@ export function DistributorDirectory() {
                 {orderedCountries.map((c) => {
                   const entries = byCountry.get(c)!
                   return (
-                    <div key={c} className="mt-8">
+                    <div key={c} id={countrySlug(c)} className="mt-8 scroll-mt-28">
                       {/* Country header: flag + name + subtle separator */}
                       <div className="flex items-center gap-3 border-b border-border pb-3">
                         <img
