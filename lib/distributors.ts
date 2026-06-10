@@ -21,12 +21,44 @@ export type Distributor = {
   country: string
   countryCode: string // ISO 3166-1 alpha-2, lowercase, for flag rendering
   city: string
+  coordinates: [number, number] // [longitude, latitude] of the city, for map markers
   website: string
   email: string
   phone: string
   focus: string
   type: PartnerType
   region: Region
+}
+
+// Shared slug used for the in-page anchor of each country's distributor section.
+// Both the map (scroll target) and the directory (anchor id) rely on this.
+export function countrySlug(country: string): string {
+  return (
+    'distributors-' +
+    country
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+  )
+}
+
+// Maps our country names to the `properties.name` used in world-110m.json,
+// so the map can highlight the correct country polygon.
+export const GEO_NAME_BY_COUNTRY: Record<string, string> = {
+  'Czech Republic': 'Czechia',
+  Poland: 'Poland',
+  Germany: 'Germany',
+  Switzerland: 'Switzerland',
+  Spain: 'Spain',
+  'United States': 'United States of America',
+  Canada: 'Canada',
+  Brazil: 'Brazil',
+  'United Arab Emirates': 'United Arab Emirates',
+  'Saudi Arabia': 'Saudi Arabia',
+  Singapore: 'Singapore',
+  Japan: 'Japan',
+  'South Africa': 'South Africa',
+  Australia: 'Australia',
 }
 
 // Approximate marker coordinates [longitude, latitude] for each region hub.
@@ -71,6 +103,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Czech Republic',
     countryCode: 'cz',
     city: 'Brno',
+    coordinates: [16.61, 49.2],
     website: 'nordic-industrial.example.com',
     email: 'sales@nordic-industrial.example.com',
     phone: '+420 533 110 200',
@@ -83,6 +116,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Poland',
     countryCode: 'pl',
     city: 'Wrocław',
+    coordinates: [17.04, 51.11],
     website: 'baltic-automation.example.com',
     email: 'info@baltic-automation.example.com',
     phone: '+48 71 332 4180',
@@ -95,6 +129,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Germany',
     countryCode: 'de',
     city: 'Munich',
+    coordinates: [11.58, 48.14],
     website: 'meteotech.example.com',
     email: 'kontakt@meteotech.example.com',
     phone: '+49 89 4521 7700',
@@ -107,6 +142,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Switzerland',
     countryCode: 'ch',
     city: 'Zürich',
+    coordinates: [8.54, 47.37],
     website: 'helvetia-controls.example.com',
     email: 'sales@helvetia-controls.example.com',
     phone: '+41 44 562 1190',
@@ -119,6 +155,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Spain',
     countryCode: 'es',
     city: 'Barcelona',
+    coordinates: [2.17, 41.39],
     website: 'iberia-sensors.example.com',
     email: 'ventas@iberia-sensors.example.com',
     phone: '+34 93 220 7340',
@@ -133,6 +170,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'United States',
     countryCode: 'us',
     city: 'Denver',
+    coordinates: [-104.99, 39.74],
     website: 'cascade-telemetry.example.com',
     email: 'sales@cascade-telemetry.example.com',
     phone: '+1 303 555 0148',
@@ -145,6 +183,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Canada',
     countryCode: 'ca',
     city: 'Toronto',
+    coordinates: [-79.38, 43.65],
     website: 'maplegrid.example.com',
     email: 'contact@maplegrid.example.com',
     phone: '+1 416 555 0172',
@@ -159,6 +198,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Brazil',
     countryCode: 'br',
     city: 'São Paulo',
+    coordinates: [-46.63, -23.55],
     website: 'andinatech.example.com',
     email: 'comercial@andinatech.example.com',
     phone: '+55 11 4003 2210',
@@ -173,6 +213,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'United Arab Emirates',
     countryCode: 'ae',
     city: 'Dubai',
+    coordinates: [55.27, 25.2],
     website: 'gulf-instrumentation.example.com',
     email: 'sales@gulf-instrumentation.example.com',
     phone: '+971 4 350 1180',
@@ -185,6 +226,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Saudi Arabia',
     countryCode: 'sa',
     city: 'Riyadh',
+    coordinates: [46.72, 24.71],
     website: 'levant-systems.example.com',
     email: 'info@levant-systems.example.com',
     phone: '+966 11 460 3320',
@@ -199,6 +241,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Singapore',
     countryCode: 'sg',
     city: 'Singapore',
+    coordinates: [103.82, 1.35],
     website: 'lioncity-iot.example.com',
     email: 'sales@lioncity-iot.example.com',
     phone: '+65 6320 1140',
@@ -211,6 +254,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Japan',
     countryCode: 'jp',
     city: 'Osaka',
+    coordinates: [135.5, 34.69],
     website: 'nippon-sensor.example.com',
     email: 'contact@nippon-sensor.example.com',
     phone: '+81 6 6105 7720',
@@ -225,6 +269,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'South Africa',
     countryCode: 'za',
     city: 'Cape Town',
+    coordinates: [18.42, -33.92],
     website: 'cape-telemetry.example.com',
     email: 'sales@cape-telemetry.example.com',
     phone: '+27 21 555 0190',
@@ -239,6 +284,7 @@ export const DISTRIBUTORS: Distributor[] = [
     country: 'Australia',
     countryCode: 'au',
     city: 'Sydney',
+    coordinates: [151.21, -33.87],
     website: 'southerncross-controls.example.com',
     email: 'sales@southerncross-controls.example.com',
     phone: '+61 2 8090 4410',
