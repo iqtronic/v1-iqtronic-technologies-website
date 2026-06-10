@@ -17,10 +17,10 @@ export function Contact() {
 
             <dl className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
               {[
-                { label: 'General', value: 'hello@iqtronic.com' },
-                { label: 'Engineering', value: 'engineering@iqtronic.com' },
-                { label: 'Laboratories', value: 'labs@iqtronic.com' },
+                { label: 'Response time', value: 'Within 1 business day' },
                 { label: 'Phone', value: '+420 000 000 000' },
+                { label: 'Hours', value: 'Mon–Fri · 08:00–17:00 CET' },
+                { label: 'Best way to reach us', value: 'Use the form →' },
               ].map((item) => (
                 <div key={item.label}>
                   <dt className="font-mono text-xs uppercase tracking-[0.14em] text-primary-foreground/50">

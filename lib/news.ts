@@ -57,6 +57,18 @@ export function getArticle(slug: string) {
   return NEWS.find((a) => a.slug === slug)
 }
 
+// Returns articles sorted newest-first by publication date.
+export function getSortedNews() {
+  return [...NEWS].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  )
+}
+
+// Always returns the single most recent article.
+export function getLatestArticle() {
+  return getSortedNews()[0]
+}
+
 export function formatNewsDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
