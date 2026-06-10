@@ -1,20 +1,23 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
 
 const NAV_LINKS = [
-  { label: 'Products', href: '#products' },
-  { label: 'Development', href: '#engineering' },
-  { label: 'Laboratories', href: '#laboratories' },
-  { label: 'Enclosures', href: '#enclosures' },
-  { label: 'Company', href: '#company' },
+  { label: 'Products', href: '/products' },
+  { label: 'Distributor', href: '/distributor' },
+  { label: 'Who We Are', href: '/who-we-are' },
+  { label: 'Downloads', href: '/downloads' },
+  { label: 'Support', href: '/support' },
 ]
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
@@ -22,6 +25,9 @@ export function SiteHeader() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
     <header
@@ -33,30 +39,35 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
-        <a href="#top" className="text-foreground">
+        <Link href="/" className="text-foreground">
           <Logo />
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className={cn(
+                'text-sm transition-colors hover:text-foreground',
+                isActive(link.href)
+                  ? 'text-foreground'
+                  : 'text-muted-foreground',
+              )}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="hidden md:block">
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
           >
             Contact us
             <span aria-hidden="true">→</span>
-          </a>
+          </Link>
         </div>
 
         <button
@@ -93,22 +104,22 @@ export function SiteHeader() {
         <div className="border-t border-border bg-background md:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col px-6 py-4">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="border-b border-border py-3 text-sm text-foreground last:border-0"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               onClick={() => setOpen(false)}
               className="mt-4 inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
             >
               Contact us
-            </a>
+            </Link>
           </nav>
         </div>
       )}
