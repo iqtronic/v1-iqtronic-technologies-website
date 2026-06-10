@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const TIMELINE = [
   {
     year: '1999',
@@ -44,6 +46,13 @@ export function Company() {
               That continuity, from first principles to final compliance report,
               is what our clients rely on.
             </p>
+            <Link
+              href="/who-we-are"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
+            >
+              Learn more about us
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           <div className="lg:col-span-7">

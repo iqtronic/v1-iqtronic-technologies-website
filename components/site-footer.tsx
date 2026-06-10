@@ -1,21 +1,38 @@
+import Link from 'next/link'
 import { Logo } from '@/components/logo'
 
 const COLUMNS = [
   {
     title: 'Products',
-    links: ['IQSocket', 'Weather Stations', 'Monitoring Systems'],
+    links: [
+      { label: 'IQSocket', href: '/products/iqsocket' },
+      { label: 'Weather Stations', href: '/products/weather-stations' },
+      { label: 'Monitoring Systems', href: '/products/monitoring-systems' },
+    ],
   },
   {
-    title: 'Development',
-    links: ['Hardware', 'Firmware', 'Certification'],
+    title: 'Company',
+    links: [
+      { label: 'Who We Are', href: '/who-we-are' },
+      { label: 'Distributor', href: '/distributor' },
+      { label: 'Contact', href: '/contact' },
+    ],
   },
   {
-    title: 'Laboratories',
-    links: ['EMC Laboratory', 'Microwave Laboratory', 'Wind Tunnel'],
+    title: 'Resources',
+    links: [
+      { label: 'Download Center', href: '/downloads' },
+      { label: 'Technical Support', href: '/support' },
+      { label: 'Products', href: '/products' },
+    ],
   },
   {
-    title: 'Enclosures',
-    links: ['Own Tooling', 'Injection Moulds', 'OEM Customization'],
+    title: 'Capabilities',
+    links: [
+      { label: 'Development', href: '/#engineering' },
+      { label: 'Laboratories', href: '/#laboratories' },
+      { label: 'Enclosures', href: '/#enclosures' },
+    ],
   },
 ]
 
@@ -43,13 +60,13 @@ export function SiteFooter() {
               </h3>
               <ul className="mt-4 flex flex-col gap-3">
                 {column.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
                       className="text-sm text-foreground transition-colors hover:text-accent"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -60,15 +77,15 @@ export function SiteFooter() {
         <div className="mt-14 flex flex-col gap-4 border-t border-border pt-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} IQtronic Technologies. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="transition-colors hover:text-foreground">
+            <Link href="#" className="transition-colors hover:text-foreground">
               Privacy
-            </a>
-            <a href="#" className="transition-colors hover:text-foreground">
+            </Link>
+            <Link href="#" className="transition-colors hover:text-foreground">
               Terms
-            </a>
-            <a href="#" className="transition-colors hover:text-foreground">
+            </Link>
+            <Link href="#" className="transition-colors hover:text-foreground">
               Imprint
-            </a>
+            </Link>
           </div>
         </div>
       </div>

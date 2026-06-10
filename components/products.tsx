@@ -1,7 +1,9 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 const PRODUCTS = [
   {
+    slug: 'iqsocket',
     name: 'IQsocket',
     category: 'Remote Power Control',
     image: '/images/iqsocket.png',
@@ -9,6 +11,7 @@ const PRODUCTS = [
     specs: ['GSM / Wi-Fi / Ethernet', 'Temperature sensing', 'Scheduling & alerts'],
   },
   {
+    slug: 'weather-stations',
     name: 'Industrial Weather Stations',
     category: 'Environmental Sensing',
     image: '/images/weather-station.png',
@@ -16,6 +19,7 @@ const PRODUCTS = [
     specs: ['IP66 enclosure', 'Calibrated sensors', 'Solar / battery powered'],
   },
   {
+    slug: 'monitoring-systems',
     name: 'Monitoring Systems',
     category: 'Telemetry & SCADA',
     image: '/images/monitoring-system.png',
@@ -37,10 +41,19 @@ export function Products() {
               Hardware built to survive the field.
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Designed, manufactured and supported in-house. Every unit is
-            tested in our own laboratories before it leaves the building.
-          </p>
+          <div className="flex max-w-sm flex-col items-start gap-4">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Designed, manufactured and supported in-house. Every unit is
+              tested in our own laboratories before it leaves the building.
+            </p>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
+            >
+              View all products
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -83,13 +96,13 @@ export function Products() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="#contact"
+                <Link
+                  href={`/products/${product.slug}`}
                   className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
                 >
-                  Request datasheet
+                  Learn more
                   <span aria-hidden="true">→</span>
-                </a>
+                </Link>
               </div>
             </article>
           ))}
