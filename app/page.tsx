@@ -6,7 +6,9 @@ import { Products } from '@/components/products'
 import { Engineering } from '@/components/engineering'
 import { Laboratories } from '@/components/laboratories'
 import { Enclosures } from '@/components/enclosures'
+import { LatestNews } from '@/components/latest-news'
 import { Contact } from '@/components/contact'
+import { StayInformed } from '@/components/stay-informed'
 import { SiteFooter } from '@/components/site-footer'
 
 export default function Page() {
@@ -21,7 +23,9 @@ export default function Page() {
         <Laboratories />
         <Enclosures />
         <Company />
+        <LatestNews />
         <Contact />
+        <StayInformed />
       </main>
       <SiteFooter />
     </>

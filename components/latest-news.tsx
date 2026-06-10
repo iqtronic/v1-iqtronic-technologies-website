@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { NEWS, formatNewsDate } from '@/lib/news'
+import { getLatestArticle, formatNewsDate } from '@/lib/news'
 
 export function LatestNews() {
-  const latest = NEWS[0]
+  const latest = getLatestArticle()
 
   return (
     <section id="news" className="border-b border-border bg-card">
