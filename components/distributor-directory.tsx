@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import {
   DISTRIBUTORS,
   REGIONS,
-  REGION_MARKERS,
   type Region,
 } from '@/lib/distributors'
 import { DistributorMap } from '@/components/distributor-map'
@@ -54,46 +53,6 @@ export function DistributorDirectory() {
     <div>
       {/* Map */}
       <DistributorMap activeRegion={region} onSelectRegion={handleRegion} />
-
-      {/* Region marker legend */}
-      <div className="mt-6 flex flex-wrap gap-px overflow-hidden rounded-sm border border-border bg-border">
-        <button
-          type="button"
-          onClick={() => handleRegion('All')}
-          aria-pressed={region === 'All'}
-          className={`flex items-center gap-2 bg-card px-4 py-3 font-mono text-xs uppercase tracking-[0.14em] transition-colors hover:text-foreground ${
-            region === 'All' ? 'text-foreground' : 'text-muted-foreground'
-          }`}
-        >
-          <span
-            className={`inline-block size-1.5 ${
-              region === 'All' ? 'bg-accent' : 'bg-muted-foreground'
-            }`}
-            aria-hidden="true"
-          />
-          All regions
-        </button>
-        {REGION_MARKERS.map((m) => (
-          <button
-            key={m.region}
-            type="button"
-            onClick={() => handleRegion(m.region)}
-            aria-pressed={region === m.region}
-            className={`flex items-center gap-2 bg-card px-4 py-3 font-mono text-xs uppercase tracking-[0.14em] transition-colors hover:text-foreground ${
-              region === m.region ? 'text-foreground' : 'text-muted-foreground'
-            }`}
-          >
-            <span
-              className={`inline-block size-1.5 ${
-                region === m.region ? 'bg-accent' : 'bg-muted-foreground'
-              }`}
-              aria-hidden="true"
-            />
-            {m.label}
-            <span className="text-muted-foreground/70">{m.partners}</span>
-          </button>
-        ))}
-      </div>
 
       {/* Filters */}
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:max-w-xl">
