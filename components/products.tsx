@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const PRODUCTS = [
   {
-    slug: 'iqsocket',
+    slug: 'iqsocket-lan',
     name: 'IQsocket',
     category: 'Remote Power Control',
     image: '/images/iqsocket.png',
@@ -11,7 +11,7 @@ const PRODUCTS = [
     specs: ['GSM / Wi-Fi / Ethernet', 'Temperature sensing', 'Scheduling & alerts'],
   },
   {
-    slug: 'weather-stations',
+    slug: 'envistation-pro',
     name: 'Industrial Weather Stations',
     category: 'Environmental Sensing',
     image: '/images/weather-station.png',
@@ -19,7 +19,7 @@ const PRODUCTS = [
     specs: ['IP66 enclosure', 'Calibrated sensors', 'Solar / battery powered'],
   },
   {
-    slug: 'monitoring-systems',
+    slug: 'bms-100',
     name: 'Monitoring Systems',
     category: 'Telemetry & SCADA',
     image: '/images/monitoring-system.png',

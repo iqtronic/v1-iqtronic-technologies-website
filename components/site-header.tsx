@@ -1,9 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Logo } from '@/components/logo'
+import {
+  ProductsMegaMobile,
+  ProductsMegaPanel,
+} from '@/components/products-mega-menu'
 import { cn } from '@/lib/utils'
 
 const NAV_LINKS = [
@@ -17,6 +21,8 @@ const NAV_LINKS = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [megaOpen, setMegaOpen] = useState(false)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -25,6 +31,21 @@ export function SiteHeader() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Close the mega menu whenever the route changes.
+  useEffect(() => {
+    setMegaOpen(false)
+  }, [pathname])
+
+  const openMega = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setMegaOpen(true)
+  }
+
+  const scheduleCloseMega = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 120)
+  }
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href)
@@ -44,20 +65,61 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'text-sm transition-colors hover:text-foreground',
-                isActive(link.href)
-                  ? 'text-foreground'
-                  : 'text-muted-foreground',
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            if (link.href === '/products') {
+              return (
+                <div
+                  key={link.href}
+                  className="static"
+                  onMouseEnter={openMega}
+                  onMouseLeave={scheduleCloseMega}
+                  onFocus={openMega}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                      scheduleCloseMega()
+                    }
+                  }}
+                >
+                  <Link
+                    href={link.href}
+                    aria-haspopup="true"
+                    aria-expanded={megaOpen}
+                    className={cn(
+                      'flex items-center gap-1 text-sm transition-colors hover:text-foreground',
+                      isActive(link.href)
+                        ? 'text-foreground'
+                        : 'text-muted-foreground',
+                    )}
+                  >
+                    {link.label}
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        'text-[10px] transition-transform',
+                        megaOpen && 'rotate-180',
+                      )}
+                    >
+                      ▾
+                    </span>
+                  </Link>
+                </div>
+              )
+            }
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'text-sm transition-colors hover:text-foreground',
+                  isActive(link.href)
+                    ? 'text-foreground'
+                    : 'text-muted-foreground',
+                )}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="hidden md:block">
@@ -100,19 +162,39 @@ export function SiteHeader() {
         </button>
       </div>
 
+      {/* Desktop products mega menu */}
+      {megaOpen && (
+        <div
+          className="absolute inset-x-0 top-full hidden border-b border-border bg-background/95 shadow-sm backdrop-blur-md md:block"
+          onMouseEnter={openMega}
+          onMouseLeave={scheduleCloseMega}
+        >
+          <div className="mx-auto max-w-7xl px-6 lg:px-10">
+            <ProductsMegaPanel onNavigate={() => setMegaOpen(false)} />
+          </div>
+        </div>
+      )}
+
       {open && (
         <div className="border-t border-border bg-background md:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col px-6 py-4">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-border py-3 text-sm text-foreground last:border-0"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.href === '/products' ? (
+                <ProductsMegaMobile
+                  key={link.href}
+                  onNavigate={() => setOpen(false)}
+                />
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="border-b border-border py-3 text-sm text-foreground last:border-0"
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
             <Link
               href="/contact"
               onClick={() => setOpen(false)}

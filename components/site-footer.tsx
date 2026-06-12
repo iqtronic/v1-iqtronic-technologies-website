@@ -5,9 +5,9 @@ const COLUMNS = [
   {
     title: 'Products',
     links: [
-      { label: 'IQSocket', href: '/products/iqsocket' },
-      { label: 'Weather Stations', href: '/products/weather-stations' },
-      { label: 'Monitoring Systems', href: '/products/monitoring-systems' },
+      { label: 'IQsocket', href: '/products/iqsocket-lan' },
+      { label: 'Weather Stations', href: '/products/envistation-pro' },
+      { label: 'Gateways', href: '/products/iqgate-gs400' },
     ],
   },
   {
