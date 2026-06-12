@@ -84,10 +84,10 @@ export function Products() {
                   ))}
                 </ul>
                 <a
-                  href="#contact"
+                  href="/products"
                   className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
                 >
-                  Request datasheet
+                  Explore products
                   <span aria-hidden="true">→</span>
                 </a>
               </div>

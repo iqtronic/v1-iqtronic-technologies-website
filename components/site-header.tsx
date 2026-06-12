@@ -1,11 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { Logo } from '@/components/logo'
 import { cn } from '@/lib/utils'
+import {
+  ProductsMegaPanel,
+  ProductsMegaMobile,
+} from '@/components/products-mega-menu'
 
 const NAV_LINKS = [
-  { label: 'Products', href: '/#products' },
   { label: 'Development', href: '/#engineering' },
   { label: 'Laboratories', href: '/#laboratories' },
   { label: 'Enclosures', href: '/#enclosures' },
@@ -16,6 +20,8 @@ const NAV_LINKS = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [megaOpen, setMegaOpen] = useState(false)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
@@ -24,11 +30,20 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const openMega = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setMegaOpen(true)
+  }
+  const scheduleCloseMega = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => setMegaOpen(false), 120)
+  }
+
   return (
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
-        scrolled
+        scrolled || megaOpen
           ? 'border-b border-border bg-background/90 backdrop-blur-md'
           : 'border-b border-transparent',
       )}
@@ -39,6 +54,32 @@ export function SiteHeader() {
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
+          {/* Products with mega menu */}
+          <div
+            className="static"
+            onMouseEnter={openMega}
+            onMouseLeave={scheduleCloseMega}
+          >
+            <Link
+              href="/products"
+              className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              aria-expanded={megaOpen}
+              aria-haspopup="true"
+              onFocus={openMega}
+            >
+              Products
+              <span
+                aria-hidden="true"
+                className={cn(
+                  'text-[10px] transition-transform',
+                  megaOpen && 'rotate-180',
+                )}
+              >
+                ▾
+              </span>
+            </Link>
+          </div>
+
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -90,9 +131,33 @@ export function SiteHeader() {
         </button>
       </div>
 
+      {/* Desktop mega menu panel */}
+      <div
+        className={cn(
+          'absolute inset-x-0 top-16 hidden md:block',
+          megaOpen ? 'pointer-events-auto' : 'pointer-events-none',
+        )}
+        onMouseEnter={openMega}
+        onMouseLeave={scheduleCloseMega}
+      >
+        <div
+          className={cn(
+            'mx-auto max-w-7xl px-6 transition-all duration-150 lg:px-10',
+            megaOpen
+              ? 'translate-y-0 opacity-100'
+              : '-translate-y-2 opacity-0',
+          )}
+        >
+          <div className="overflow-hidden rounded-sm border border-border bg-background shadow-lg">
+            <ProductsMegaPanel onNavigate={() => setMegaOpen(false)} />
+          </div>
+        </div>
+      </div>
+
       {open && (
         <div className="border-t border-border bg-background md:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col px-6 py-4">
+            <ProductsMegaMobile onNavigate={() => setOpen(false)} />
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
