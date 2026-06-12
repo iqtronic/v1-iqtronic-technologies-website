@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+<<<<<<< HEAD
 import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
@@ -51,11 +52,24 @@ const CATEGORIES: { title: string; eyebrow: string; items: DownloadItem[] }[] = 
   },
 ]
 
+=======
+import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
+import { Downloads } from '@/components/downloads'
+
+export const metadata: Metadata = {
+  title: 'Downloads — IQtronic Technologies',
+  description:
+    'Download datasheets, manuals, software and firmware for IQtronic industrial IoT products.',
+}
+
+>>>>>>> origin/support-section-and-navigation
 export default function DownloadsPage() {
   return (
     <>
       <SiteHeader />
       <main>
+<<<<<<< HEAD
         <PageHero
           eyebrow="Download Center"
           title="Documentation, firmware and tools."
@@ -138,6 +152,9 @@ export default function DownloadsPage() {
             </div>
           </div>
         </section>
+=======
+        <Downloads />
+>>>>>>> origin/support-section-and-navigation
       </main>
       <SiteFooter />
     </>

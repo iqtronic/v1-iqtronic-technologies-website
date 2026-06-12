@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+<<<<<<< HEAD
 import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
@@ -64,11 +65,24 @@ const FAQ = [
   },
 ]
 
+=======
+import { SiteHeader } from '@/components/site-header'
+import { Support } from '@/components/support'
+import { SiteFooter } from '@/components/site-footer'
+
+export const metadata: Metadata = {
+  title: 'Support — IQtronic Technologies',
+  description:
+    'The IQtronic support hub: open a support ticket, download datasheets, manuals, software and firmware, manage licenses, and find warranty and service information.',
+}
+
+>>>>>>> origin/support-section-and-navigation
 export default function SupportPage() {
   return (
     <>
       <SiteHeader />
       <main>
+<<<<<<< HEAD
         <PageHero
           eyebrow="Technical Support"
           title="Support from the engineers who built it."
@@ -203,6 +217,9 @@ export default function SupportPage() {
             </div>
           </div>
         </section>
+=======
+        <Support />
+>>>>>>> origin/support-section-and-navigation
       </main>
       <SiteFooter />
     </>

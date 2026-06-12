@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Logo } from '@/components/logo'
 import {
-  ProductsMegaMobile,
   ProductsMegaPanel,
+  ProductsMegaMobile,
 } from '@/components/products-mega-menu'
 import { cn } from '@/lib/utils'
 
@@ -54,7 +54,7 @@ export function SiteHeader() {
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
-        scrolled
+        scrolled || megaOpen
           ? 'border-b border-border bg-background/90 backdrop-blur-md'
           : 'border-b border-transparent',
       )}

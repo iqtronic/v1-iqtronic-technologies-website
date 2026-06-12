@@ -96,11 +96,19 @@ export function Products() {
                     </li>
                   ))}
                 </ul>
+<<<<<<< HEAD
                 <Link
                   href={`/products/${product.slug}`}
                   className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
                 >
                   Learn more
+=======
+                <a
+                  href="/products"
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
+                >
+                  Explore products
+>>>>>>> origin/support-section-and-navigation
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>
