@@ -335,6 +335,74 @@ export function ProductDetail({ product }: { product: Product }) {
         </section>
       ) : null}
 
+      {/* Recommended accessories */}
+      {product.accessories.length > 0 ? (
+        <section className="border-b border-border bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
+            <div className="max-w-2xl">
+              <SectionEyebrow>Recommended Accessories</SectionEyebrow>
+              <h2 className="mt-4 text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
+                Recommended accessories
+              </h2>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {product.accessories.map((accessory) => (
+                <article
+                  key={accessory.name}
+                  className="flex gap-4 rounded-sm border border-border bg-card p-4"
+                >
+                  <div className="relative size-20 shrink-0 overflow-hidden rounded-sm border border-border bg-secondary">
+                    <Image
+                      src={accessory.image || '/placeholder.svg'}
+                      alt={accessory.name}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium tracking-tight">
+                      {accessory.name}
+                    </h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      {accessory.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* Product family */}
+      {related.length > 0 ? (
+        <section className="border-b border-border bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div className="max-w-2xl">
+                <SectionEyebrow>Product Family</SectionEyebrow>
+                <h2 className="mt-4 text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
+                  More from the {family?.name} family
+                </h2>
+              </div>
+              <Link
+                href={`/products#${product.category}`}
+                className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
+              >
+                View all {family?.name}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {related.map((item) => (
+                <ProductCard key={item.slug} product={item} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* Applications */}
       <section className="border-b border-border bg-background">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
