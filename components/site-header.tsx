@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { label: 'Development', href: '/#engineering' },
   { label: 'Laboratories', href: '/#laboratories' },
   { label: 'Enclosures', href: '/#enclosures' },
-  { label: 'Company', href: '/#company' },
+  { label: 'Who We Are', href: '/#company' },
   { label: 'Support', href: '/support' },
 ]
 

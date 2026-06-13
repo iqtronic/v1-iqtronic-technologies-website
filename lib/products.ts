@@ -1,4 +1,4 @@
-export type Lifecycle = 'active' | 'phase-out' | 'obsolete'
+export type Lifecycle = 'active' | 'phase-out' | 'obsolete' | 'planned'
 export type Availability =
   | 'in-stock'
   | 'made-to-order'
@@ -44,6 +44,23 @@ export interface Accessory {
   description: string
 }
 
+/**
+ * A single entry in a product's evolution timeline. The administrator only
+ * supplies the referenced product slug, the production year range and an
+ * optional note. Name, URL, thumbnail and lifecycle status are resolved
+ * automatically from the referenced product via `getProductEvolution`.
+ */
+export interface EvolutionEntry {
+  /** Slug of the referenced product. */
+  product: string
+  /** Production start year. */
+  yearFrom: number
+  /** Production end year. Omit for current or planned products. */
+  yearTo?: number
+  /** Optional short note (e.g. "First generation", "Under Development"). */
+  note?: string
+}
+
 export interface Product {
   slug: string
   name: string
@@ -75,6 +92,12 @@ export interface Product {
   licenseTiers?: LicenseTier[]
   /** Optional explicit replacement product slug for phase-out / obsolete items. */
   replacement?: string
+  /**
+   * Optional product evolution timeline showing previous, current and future
+   * generations from the same family. If omitted, the evolution panel is not
+   * displayed for this product.
+   */
+  evolution?: EvolutionEntry[]
   keywords: string[]
 }
 
@@ -176,6 +199,7 @@ export const LIFECYCLE_LABELS: Record<Lifecycle, string> = {
   active: 'Active Product',
   'phase-out': 'Phase Out',
   obsolete: 'Obsolete',
+  planned: 'Planned',
 }
 
 export const AVAILABILITY_LABELS: Record<Availability, string> = {
@@ -310,6 +334,12 @@ export const PRODUCTS: Product[] = [
       },
     ],
     keywords: ['IP watchdog', 'network watchdog', 'remote reboot', 'remote power control', 'industrial watchdog'],
+    evolution: [
+      { product: 'iqsocket-classic', yearFrom: 2003, yearTo: 2008, note: 'First generation' },
+      { product: 'iqsocket-gsm', yearFrom: 2008, yearTo: 2012, note: 'GSM / SMS control' },
+      { product: 'iqsocket-rs232', yearFrom: 2012, yearTo: 2018, note: 'Serial integration' },
+      { product: 'iqsocket-lan', yearFrom: 2018, note: 'Current generation' },
+    ],
   },
   {
     slug: 'iqsocket-rs232',
@@ -860,4 +890,46 @@ export function getRelatedProducts(product: Product): Product[] {
   return PRODUCTS.filter(
     (p) => p.family === product.family && p.slug !== product.slug,
   )
+}
+
+export interface ResolvedEvolutionEntry {
+  slug: string
+  name: string
+  href: string
+  image: string
+  lifecycle: Lifecycle
+  yearFrom: number
+  yearTo?: number
+  note?: string
+  /** Whether this entry refers to the product currently being viewed. */
+  isCurrent: boolean
+}
+
+/**
+ * Resolves a product's evolution timeline into fully populated entries. The
+ * name, URL, thumbnail and lifecycle status are read automatically from the
+ * referenced product. Entries whose referenced product cannot be found are
+ * skipped. Returns an empty array when the product has no evolution data.
+ */
+export function getProductEvolution(
+  product: Product,
+): ResolvedEvolutionEntry[] {
+  if (!product.evolution || product.evolution.length === 0) return []
+  return product.evolution
+    .map((entry) => {
+      const referenced = getProduct(entry.product)
+      if (!referenced) return null
+      return {
+        slug: referenced.slug,
+        name: referenced.name,
+        href: `/products/${referenced.slug}`,
+        image: referenced.image,
+        lifecycle: referenced.lifecycle,
+        yearFrom: entry.yearFrom,
+        yearTo: entry.yearTo,
+        note: entry.note,
+        isCurrent: referenced.slug === product.slug,
+      }
+    })
+    .filter((entry): entry is ResolvedEvolutionEntry => entry !== null)
 }

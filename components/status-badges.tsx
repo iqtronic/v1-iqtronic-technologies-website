@@ -10,6 +10,7 @@ const LIFECYCLE_STYLES: Record<Lifecycle, string> = {
   active: 'border-accent/40 bg-accent/10 text-accent',
   'phase-out': 'border-foreground/30 bg-secondary text-foreground',
   obsolete: 'border-border bg-muted text-muted-foreground',
+  planned: 'border-foreground/30 bg-secondary text-foreground',
 }
 
 export function LifecycleBadge({
