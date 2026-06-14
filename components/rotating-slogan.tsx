@@ -48,7 +48,7 @@ export function RotatingSlogan() {
   return (
     <p
       aria-live="polite"
-      className={`flex min-h-[3.25rem] max-w-xl items-start whitespace-pre-line text-balance text-xl font-medium leading-snug tracking-tight text-foreground transition-opacity duration-500 sm:min-h-[4rem] sm:text-2xl ${
+      className={`flex min-h-[4rem] max-w-xl items-start whitespace-pre-line text-balance text-2xl font-semibold leading-snug tracking-tight text-foreground transition-opacity duration-500 sm:min-h-[5rem] sm:text-3xl ${
         visible ? 'opacity-100' : 'opacity-0'
       }`}
     >

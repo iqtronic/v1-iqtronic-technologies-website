@@ -44,7 +44,7 @@ export function Hero() {
           <dl className="mt-12 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-sm border border-border bg-border">
             {[
               { value: '25+', label: 'Years of engineering' },
-              { value: '3', label: 'Accredited laboratories' },
+              { value: '100,000+', label: 'Devices delivered' },
               { value: '40+', label: 'Countries served' },
             ].map((stat) => (
               <div key={stat.label} className="bg-card px-4 py-5">
@@ -71,15 +71,8 @@ export function Hero() {
             />
             <div className="absolute left-4 top-4 flex items-center gap-2 rounded-sm border border-border bg-background/90 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground backdrop-blur">
               <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
-              Designed & manufactured in Europe
+              Proudly designed in Czechia
             </div>
-          </div>
-
-          <div className="absolute -bottom-4 left-4 hidden rounded-sm border border-border bg-card px-4 py-3 shadow-sm sm:block lg:-left-6">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Proudly designed
-            </p>
-            <p className="mt-1 text-sm font-medium">In Czechia</p>
           </div>
         </div>
       </div>
