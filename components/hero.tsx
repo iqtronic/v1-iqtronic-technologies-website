@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { RotatingBadge } from '@/components/rotating-badge'
+import { RotatingSlogan } from '@/components/rotating-slogan'
 
 export function Hero() {
   return (
@@ -17,12 +17,12 @@ export function Hero() {
             Industrial IoT since 2003.
           </h1>
 
-          <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
-            From concept to certified product.
-            <br className="hidden sm:block" />
-            <span className="font-medium text-foreground">
-              Hardware. Firmware. Testing. Manufacturing.
-            </span>
+          <div className="mt-6">
+            <RotatingSlogan />
+          </div>
+
+          <p className="mt-4 max-w-xl text-pretty text-base font-medium leading-relaxed text-foreground">
+            Hardware. Firmware. Testing. Manufacturing.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -75,8 +75,11 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="absolute -bottom-4 left-4 hidden w-56 rounded-sm border border-border bg-card px-4 py-3 shadow-sm sm:block lg:-left-6">
-            <RotatingBadge />
+          <div className="absolute -bottom-4 left-4 hidden rounded-sm border border-border bg-card px-4 py-3 shadow-sm sm:block lg:-left-6">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              Proudly designed
+            </p>
+            <p className="mt-1 text-sm font-medium">In Czechia</p>
           </div>
         </div>
       </div>

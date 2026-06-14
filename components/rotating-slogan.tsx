@@ -25,7 +25,7 @@ const MESSAGES = [
   'Proud to be among the innovators.',
 ]
 
-export function RotatingBadge() {
+export function RotatingSlogan() {
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(true)
 
@@ -48,7 +48,7 @@ export function RotatingBadge() {
   return (
     <p
       aria-live="polite"
-      className={`flex min-h-[2.25rem] items-center whitespace-pre-line text-sm font-medium leading-snug transition-opacity duration-500 ${
+      className={`flex min-h-[3.25rem] max-w-xl items-start whitespace-pre-line text-balance text-xl font-medium leading-snug tracking-tight text-foreground transition-opacity duration-500 sm:min-h-[4rem] sm:text-2xl ${
         visible ? 'opacity-100' : 'opacity-0'
       }`}
     >
