@@ -8,12 +8,13 @@ import {
   ProductsMegaPanel,
   ProductsMegaMobile,
 } from '@/components/products-mega-menu'
+import { SearchOverlay } from '@/components/search-overlay'
 
 const NAV_LINKS = [
   { label: 'Development', href: '/#engineering' },
   { label: 'Laboratories', href: '/#laboratories' },
   { label: 'Enclosures', href: '/#enclosures' },
-  { label: 'Who We Are', href: '/#company' },
+  { label: 'Who We Are', href: '/who-we-are' },
   { label: 'Support', href: '/support' },
 ]
 
@@ -21,6 +22,7 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [megaOpen, setMegaOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -91,7 +93,15 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-3 md:flex">
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            className="flex size-9 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            aria-label="Open search"
+          >
+            <SearchGlyph className="size-5" />
+          </button>
           <a
             href="/#contact"
             className="inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
@@ -101,34 +111,44 @@ export function SiteHeader() {
           </a>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="flex size-10 items-center justify-center rounded-sm border border-border md:hidden"
-          aria-label="Toggle navigation menu"
-          aria-expanded={open}
-        >
-          <span className="flex flex-col gap-1.5">
-            <span
-              className={cn(
-                'block h-0.5 w-5 bg-foreground transition-transform',
-                open && 'translate-y-2 rotate-45',
-              )}
-            />
-            <span
-              className={cn(
-                'block h-0.5 w-5 bg-foreground transition-opacity',
-                open && 'opacity-0',
-              )}
-            />
-            <span
-              className={cn(
-                'block h-0.5 w-5 bg-foreground transition-transform',
-                open && '-translate-y-2 -rotate-45',
-              )}
-            />
-          </span>
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            className="flex size-10 items-center justify-center rounded-sm border border-border"
+            aria-label="Open search"
+          >
+            <SearchGlyph className="size-5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="flex size-10 items-center justify-center rounded-sm border border-border"
+            aria-label="Toggle navigation menu"
+            aria-expanded={open}
+          >
+            <span className="flex flex-col gap-1.5">
+              <span
+                className={cn(
+                  'block h-0.5 w-5 bg-foreground transition-transform',
+                  open && 'translate-y-2 rotate-45',
+                )}
+              />
+              <span
+                className={cn(
+                  'block h-0.5 w-5 bg-foreground transition-opacity',
+                  open && 'opacity-0',
+                )}
+              />
+              <span
+                className={cn(
+                  'block h-0.5 w-5 bg-foreground transition-transform',
+                  open && '-translate-y-2 -rotate-45',
+                )}
+              />
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Desktop mega menu panel */}
@@ -178,6 +198,26 @@ export function SiteHeader() {
           </nav>
         </div>
       )}
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
+  )
+}
+
+function SearchGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="7" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
   )
 }

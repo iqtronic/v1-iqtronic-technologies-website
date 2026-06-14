@@ -1,6 +1,6 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
-import { Company } from '@/components/company'
+import { WhoWeAreTeaser } from '@/components/who-we-are-teaser'
 import { Pillars } from '@/components/pillars'
 import { Products } from '@/components/products'
 import { Engineering } from '@/components/engineering'
@@ -20,7 +20,7 @@ export default function Page() {
         <Engineering />
         <Laboratories />
         <Enclosures />
-        <Company />
+        <WhoWeAreTeaser />
         <Contact />
       </main>
       <SiteFooter />
