@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { RotatingBadge } from '@/components/rotating-badge'
 
 export function Hero() {
   return (
@@ -74,13 +75,8 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="absolute -bottom-4 left-4 hidden rounded-sm border border-border bg-card px-4 py-3 shadow-sm sm:block lg:-left-6">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Certified to
-            </p>
-            <p className="mt-1 text-sm font-medium">
-              ISO 9001 · CE · EN 61000
-            </p>
+          <div className="absolute -bottom-4 left-4 hidden w-56 rounded-sm border border-border bg-card px-4 py-3 shadow-sm sm:block lg:-left-6">
+            <RotatingBadge />
           </div>
         </div>
       </div>
