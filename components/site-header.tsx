@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { label: 'Laboratories', href: '/#laboratories' },
   { label: 'Enclosures', href: '/#enclosures' },
   { label: 'Who We Are', href: '/who-we-are' },
+  { label: 'Distributor', href: '/distributor' },
   { label: 'Support', href: '/support' },
 ]
 
