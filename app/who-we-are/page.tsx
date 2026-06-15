@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { SiteHeader } from '@/components/site-header'
-import { Company } from '@/components/company'
+import { InnovationTimeline } from '@/components/innovation-timeline'
 import { SiteFooter } from '@/components/site-footer'
 
 export const metadata: Metadata = {
@@ -10,12 +10,101 @@ export const metadata: Metadata = {
   alternates: { canonical: '/who-we-are' },
 }
 
+const STATS = [
+  { value: '100,000+', label: 'Devices delivered' },
+  { value: '40+', label: 'Countries served' },
+  { value: '25+', label: 'Years of engineering' },
+]
+
 export default function WhoWeArePage() {
   return (
     <>
       <SiteHeader />
       <main className="pt-16">
-        <Company />
+        {/* Hero */}
+        <section className="border-b border-border bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-20 text-center lg:px-10 lg:py-28">
+            <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+              Who we are
+            </div>
+            <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              25+ Years of Innovation
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+              Engineering Since 1999.
+              <br />
+              Industrial IoT Since 2003.
+            </p>
+          </div>
+        </section>
+
+        {/* Company introduction */}
+        <section className="border-b border-border bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+              <div className="lg:col-span-5">
+                <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+                  The company
+                </div>
+                <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+                  A quarter century of disciplined engineering.
+                </h2>
+              </div>
+              <div className="lg:col-span-7">
+                <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
+                  We are an independent European engineering company. We do not
+                  chase trends — we build instrumentation, control and
+                  connectivity hardware that is expected to run for years in
+                  harsh, regulated environments.
+                </p>
+                <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+                  Every product we ship is designed, tested and certified by the
+                  same team.
+                </p>
+                <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+                  That continuity, from first principles to final compliance
+                  report, is what our clients rely on.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Innovation timeline */}
+        <InnovationTimeline />
+
+        {/* Closing section */}
+        <section className="bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+            <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-3">
+              {STATS.map((stat) => (
+                <div key={stat.label} className="bg-card px-6 py-10 text-center">
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd>
+                    <div className="text-4xl font-semibold tracking-tight sm:text-5xl">
+                      {stat.value}
+                    </div>
+                    <div className="mt-2 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-16 border-t border-border pt-12 text-center">
+              <p className="text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
+                Products Designed To Last.
+              </p>
+              <p className="mt-2 text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
+                Engineering Before Marketing.
+              </p>
+              <p className="mt-6 font-mono text-sm uppercase tracking-[0.18em] text-accent">
+                Original Ideas. Real Engineering. Since 1999.
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </>
