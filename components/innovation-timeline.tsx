@@ -1,3 +1,6 @@
+'use client'
+
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 type Block =
@@ -485,7 +488,7 @@ function TimelineMedia({
       </div>
 
       {extra > 0 ? (
-        <div className="mt-3 grid grid-cols-3 gap-3">
+        <div className="mt-2 grid grid-cols-3 gap-3">
           {Array.from({ length: extra }).map((_, i) => (
             <div
               key={i}
@@ -497,7 +500,7 @@ function TimelineMedia({
         </div>
       ) : null}
 
-      <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+      <figcaption className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
         {caption}
       </figcaption>
     </figure>
@@ -512,34 +515,34 @@ function MilestoneEntry({ milestone }: { milestone: Milestone }) {
         count={milestone.imageCount}
         video={milestone.video}
       />
-      <div className="mt-6">
+      <div className="mt-3">
         <div className="font-mono text-3xl font-semibold tracking-tight text-accent sm:text-4xl">
           {milestone.year}
         </div>
-        <h3 className="mt-2 text-balance text-xl font-semibold tracking-tight sm:text-2xl">
+        <h3 className="mt-1.5 text-balance text-xl font-semibold tracking-tight sm:text-2xl">
           {milestone.title}
         </h3>
-        <div className="mt-4 flex flex-col gap-4">
+        <div className="mt-3 flex flex-col gap-2.5">
           {milestone.content.map((block, idx) =>
             block.type === 'paragraph' ? (
               <p
                 key={idx}
-                className="text-pretty leading-relaxed text-muted-foreground"
+                className="text-pretty leading-normal text-muted-foreground"
               >
                 {block.text}
               </p>
             ) : (
-              <ul key={idx} className="flex flex-col gap-2">
+              <ul key={idx} className="flex flex-col gap-1.5">
                 {block.items.map((item) => (
                   <li
                     key={item}
                     className="flex gap-3 text-muted-foreground"
                   >
                     <span
-                      className="mt-2 size-1.5 shrink-0 bg-accent"
+                      className="mt-1.5 size-1.5 shrink-0 bg-accent"
                       aria-hidden="true"
                     />
-                    <span className="leading-relaxed">{item}</span>
+                    <span className="leading-normal">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -551,10 +554,89 @@ function MilestoneEntry({ milestone }: { milestone: Milestone }) {
   )
 }
 
+/**
+ * Fraction of the previous milestone's height at which the next (opposite-side)
+ * milestone begins. Lower = denser, more interlocked.
+ */
+const START_FRACTION = 0.22
+/** Minimum vertical gap (px) kept between two milestones on the SAME side. */
+const SAME_SIDE_GAP = 8
+/** Desktop breakpoint at which the interlocking layout activates. */
+const DESKTOP_QUERY = '(min-width: 1024px)'
+
 export function InnovationTimeline() {
+  const itemRefs = useRef<Array<HTMLLIElement | null>>([])
+
+  /**
+   * Measures every milestone and applies a negative top margin so each entry
+   * begins at ~START_FRACTION of the previous one, while clamping so two
+   * milestones on the same side never overlap (full readability). Runs only on
+   * desktop; on smaller screens the natural stacked spacing is restored.
+   */
+  const layout = useCallback(() => {
+    const items = itemRefs.current.filter(Boolean) as HTMLLIElement[]
+    if (items.length === 0) return
+
+    const isDesktop =
+      typeof window !== 'undefined' &&
+      window.matchMedia(DESKTOP_QUERY).matches
+
+    if (!isDesktop) {
+      // Restore default flow spacing on mobile / tablet.
+      items.forEach((el) => {
+        el.style.marginTop = ''
+      })
+      return
+    }
+
+    // Reset before measuring so heights are independent of prior margins.
+    items.forEach((el) => {
+      el.style.marginTop = '0px'
+    })
+
+    const heights = items.map((el) => el.offsetHeight)
+    const tops: number[] = []
+    tops[0] = 0
+
+    for (let i = 1; i < items.length; i++) {
+      const candidate = tops[i - 1] + START_FRACTION * heights[i - 1]
+      // A milestone two steps back sits on the same side; keep them apart.
+      const sameSideFloor =
+        i >= 2 ? tops[i - 2] + heights[i - 2] + SAME_SIDE_GAP : 0
+      tops[i] = Math.max(candidate, sameSideFloor)
+    }
+
+    // Translate absolute tops into the margin adjustment vs. natural flow.
+    for (let i = 1; i < items.length; i++) {
+      const naturalTop = tops[i - 1] + heights[i - 1]
+      items[i].style.marginTop = `${Math.round(tops[i] - naturalTop)}px`
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    layout()
+  }, [layout])
+
+  useEffect(() => {
+    const onResize = () => layout()
+    window.addEventListener('resize', onResize)
+
+    const ro = new ResizeObserver(() => layout())
+    itemRefs.current.forEach((el) => el && ro.observe(el))
+
+    const mql = window.matchMedia(DESKTOP_QUERY)
+    mql.addEventListener('change', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+      ro.disconnect()
+      mql.removeEventListener('change', onResize)
+    }
+  }, [layout])
+
   return (
     <section className="border-b border-border bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
         <header className="mx-auto max-w-2xl text-center">
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
             Innovation timeline
@@ -569,7 +651,7 @@ export function InnovationTimeline() {
           </p>
         </header>
 
-        <div className="relative mt-16 lg:mt-24">
+        <div className="relative mt-10 lg:mt-14">
           {/* Continuous central axis */}
           <div
             aria-hidden="true"
@@ -581,13 +663,10 @@ export function InnovationTimeline() {
               return (
                 <li
                   key={`${milestone.year}-${milestone.title}`}
-                  className={cn(
-                    'relative',
-                    // Pull alternating milestones upward on desktop so the next
-                    // entry begins partway up the previous one — a compact,
-                    // interleaved timeline. The first item keeps its position.
-                    i > 0 && 'lg:-mt-48',
-                  )}
+                  ref={(el) => {
+                    itemRefs.current[i] = el
+                  }}
+                  className="relative"
                 >
                   {/* IQtronic "Q" marker sitting on the axis */}
                   <span
