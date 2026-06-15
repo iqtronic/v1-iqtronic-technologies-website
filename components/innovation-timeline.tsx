@@ -428,6 +428,34 @@ function PlayIcon({ className }: { className?: string }) {
   )
 }
 
+/**
+ * IQtronic-branded timeline marker. The circular ring forms the "O" loop of a
+ * capital "Q", and the short diagonal stroke at the lower-right forms its tail.
+ * The opaque fill masks the orange axis running behind it.
+ */
+function QMarker({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle
+        cx="10.5"
+        cy="10.5"
+        r="7.75"
+        className="fill-background stroke-accent"
+        strokeWidth="2.25"
+      />
+      <line
+        x1="13.4"
+        y1="13.4"
+        x2="19.5"
+        y2="19.5"
+        className="stroke-accent"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 function TimelineMedia({
   caption,
   count = 1,
@@ -542,19 +570,32 @@ export function InnovationTimeline() {
         </header>
 
         <div className="relative mt-16 lg:mt-24">
+          {/* Continuous central axis */}
           <div
             aria-hidden="true"
-            className="absolute bottom-0 left-5 top-0 w-px bg-border lg:left-1/2 lg:-translate-x-1/2"
+            className="absolute bottom-0 left-5 top-0 w-0.5 -translate-x-1/2 bg-accent lg:left-1/2"
           />
-          <ol className="flex flex-col gap-20 lg:gap-32">
+          <ol className="flex flex-col gap-16 lg:block lg:gap-0">
             {MILESTONES.map((milestone, i) => {
               const isLeft = i % 2 === 0
               return (
-                <li key={`${milestone.year}-${milestone.title}`} className="relative">
+                <li
+                  key={`${milestone.year}-${milestone.title}`}
+                  className={cn(
+                    'relative',
+                    // Pull alternating milestones upward on desktop so the next
+                    // entry begins partway up the previous one — a compact,
+                    // interleaved timeline. The first item keeps its position.
+                    i > 0 && 'lg:-mt-48',
+                  )}
+                >
+                  {/* IQtronic "Q" marker sitting on the axis */}
                   <span
-                    className="absolute left-5 top-2 size-3 -translate-x-1/2 rounded-full bg-accent ring-4 ring-background lg:left-1/2"
+                    className="absolute left-5 top-1 z-10 -translate-x-1/2 lg:left-1/2"
                     aria-hidden="true"
-                  />
+                  >
+                    <QMarker className="size-7" />
+                  </span>
                   <div
                     className={cn(
                       'pl-12 lg:w-[calc(50%-3rem)] lg:pl-0',
