@@ -443,7 +443,7 @@ function QMarker({ className }: { className?: string }) {
         cx="10.5"
         cy="10.5"
         r="7.75"
-        className="fill-background stroke-accent"
+        className="fill-background stroke-accent transition-colors duration-200 group-hover:fill-accent"
         strokeWidth="2.25"
       />
       <line
@@ -655,7 +655,7 @@ export function InnovationTimeline() {
           {/* Continuous central axis */}
           <div
             aria-hidden="true"
-            className="absolute bottom-0 left-5 top-0 w-0.5 -translate-x-1/2 bg-accent lg:left-1/2"
+            className="absolute bottom-0 left-5 top-0 w-1.5 -translate-x-1/2 bg-accent lg:left-1/2"
           />
           <ol className="flex flex-col gap-16 lg:block lg:gap-0">
             {MILESTONES.map((milestone, i) => {
@@ -666,22 +666,29 @@ export function InnovationTimeline() {
                   ref={(el) => {
                     itemRefs.current[i] = el
                   }}
-                  className="relative"
+                  className="group pointer-events-none relative"
                 >
                   {/* IQtronic "Q" marker sitting on the axis */}
                   <span
-                    className="absolute left-5 top-1 z-10 -translate-x-1/2 lg:left-1/2"
+                    className="pointer-events-auto absolute left-5 top-1 z-10 -translate-x-1/2 transition-transform duration-200 group-hover:scale-[1.06] lg:left-1/2"
                     aria-hidden="true"
                   >
-                    <QMarker className="size-7" />
+                    <QMarker className="size-9" />
                   </span>
                   <div
                     className={cn(
-                      'pl-12 lg:w-[calc(50%-3rem)] lg:pl-0',
+                      'pointer-events-auto relative pl-12 lg:w-[calc(50%-3rem)] lg:pl-0',
                       isLeft ? 'lg:mr-auto' : 'lg:ml-auto',
                     )}
                   >
-                    <MilestoneEntry milestone={milestone} />
+                    {/* Subtle light-orange highlight, almost invisible until hover */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-x-4 -inset-y-3 rounded-sm bg-accent opacity-0 transition-opacity duration-200 group-hover:opacity-[0.04]"
+                    />
+                    <div className="relative">
+                      <MilestoneEntry milestone={milestone} />
+                    </div>
                   </div>
                 </li>
               )
