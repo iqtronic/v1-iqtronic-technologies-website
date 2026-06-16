@@ -76,35 +76,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-
-      <Marquee />
     </section>
-  )
-}
-
-function Marquee() {
-  const items = [
-    'Industrial IoT Products',
-    'Electronics Development',
-    'EMC Laboratory',
-    'Microwave Laboratory',
-    'Wind Tunnel',
-    'Industrial Enclosures',
-    'Injection Moulding',
-    'OEM Customization',
-  ]
-  return (
-    <div className="border-y border-border bg-card">
-      <div className="mx-auto flex max-w-7xl items-center gap-8 overflow-x-auto px-6 py-4 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground lg:px-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {items.map((item) => (
-          <span key={item} className="flex shrink-0 items-center gap-8">
-            {item}
-            <span className="text-accent" aria-hidden="true">
-              /
-            </span>
-          </span>
-        ))}
-      </div>
-    </div>
   )
 }

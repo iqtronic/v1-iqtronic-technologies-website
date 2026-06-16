@@ -7,7 +7,7 @@ export function CurrentDevelopment() {
   return (
     <section
       aria-labelledby="current-development-title"
-      className="border-b border-border bg-card"
+      className="bg-card"
     >
       <div className="mx-auto max-w-7xl px-6 py-3 lg:px-10">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-8">
