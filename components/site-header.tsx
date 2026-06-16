@@ -103,6 +103,45 @@ export function SiteHeader() {
           >
             <SearchGlyph className="size-5" />
           </button>
+
+          {/* Language selector — visual placeholder for future implementation */}
+          <div className="group relative">
+            <button
+              type="button"
+              className="flex h-9 items-center gap-1 rounded-sm px-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              aria-label="Select language (placeholder)"
+            >
+              <GlobeGlyph className="size-5" />
+              <span className="font-mono text-xs uppercase tracking-[0.12em]">
+                EN
+              </span>
+              <span aria-hidden="true" className="text-[10px]">
+                ▾
+              </span>
+            </button>
+            <div className="pointer-events-none absolute right-0 top-full min-w-full pt-1 opacity-0 transition-opacity duration-150 group-hover:pointer-events-auto group-hover:opacity-100">
+              <ul className="overflow-hidden rounded-sm border border-border bg-background shadow-lg">
+                {['EN', 'DE', 'CZ'].map((lang) => (
+                  <li
+                    key={lang}
+                    className="px-3 py-1.5 text-center font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground"
+                  >
+                    {lang}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Shopping cart — visual placeholder for future webshop */}
+          <button
+            type="button"
+            className="flex size-9 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            aria-label="Shopping cart (placeholder)"
+          >
+            <CartGlyph className="size-5" />
+          </button>
+
           <a
             href="/#contact"
             className="inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
@@ -219,6 +258,44 @@ function SearchGlyph({ className }: { className?: string }) {
     >
       <circle cx="11" cy="11" r="7" />
       <path d="m21 21-4.3-4.3" />
+    </svg>
+  )
+}
+
+function GlobeGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18" />
+    </svg>
+  )
+}
+
+function CartGlyph({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="20" r="1.4" />
+      <circle cx="18" cy="20" r="1.4" />
+      <path d="M2 3h2.5l2.2 12.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L21 7H6" />
     </svg>
   )
 }
