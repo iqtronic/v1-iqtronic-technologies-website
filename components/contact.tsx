@@ -34,7 +34,7 @@ export function Contact() {
               href="/contact"
               className="mt-10 inline-flex items-center gap-2 rounded-sm border border-primary-foreground/20 px-5 py-3 text-sm font-medium transition-colors hover:border-primary-foreground/50"
             >
-              Direct Contacts
+              Contact Information
               <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -101,7 +101,7 @@ export function Contact() {
                     name="gdpr-consent"
                     type="checkbox"
                     required
-                    className="mt-0.5 size-4 shrink-0 rounded-sm border border-primary-foreground/30 accent-accent"
+                    className="mt-0.5 size-4 shrink-0 cursor-pointer rounded-sm border border-primary-foreground/40 bg-primary-foreground/10 accent-accent"
                   />
                   <span>
                     I agree to the GDPR terms and privacy policy.
