@@ -108,6 +108,10 @@ export function Contact() {
                   </span>
                 </label>
 
+                <p className="-mt-2 text-xs leading-relaxed text-primary-foreground/50">
+                  No spam. Only important product updates and engineering news.
+                </p>
+
                 <button
                   type="submit"
                   className="inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
