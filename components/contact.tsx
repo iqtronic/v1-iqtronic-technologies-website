@@ -101,8 +101,26 @@ export function Contact() {
                     name="gdpr-consent"
                     type="checkbox"
                     required
-                    className="mt-0.5 size-4 shrink-0 cursor-pointer rounded-sm border border-primary-foreground/40 bg-primary-foreground/10 accent-accent"
+                    className="peer sr-only"
                   />
+                  {/* Custom-drawn checkbox: guarantees visibility on the dark
+                      background regardless of native checkbox rendering. */}
+                  <span
+                    aria-hidden="true"
+                    className="mt-0.5 flex size-[14px] shrink-0 items-center justify-center rounded-[2px] border border-primary-foreground/60 bg-primary-foreground/10 text-accent-foreground transition-colors peer-checked:border-accent peer-checked:bg-accent peer-focus-visible:ring-2 peer-focus-visible:ring-accent peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-primary [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100"
+                  >
+                    <svg
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="size-2.5"
+                    >
+                      <path d="M2.5 6.5 5 9l4.5-5" />
+                    </svg>
+                  </span>
                   <span>
                     I agree to the GDPR terms and privacy policy.
                   </span>
