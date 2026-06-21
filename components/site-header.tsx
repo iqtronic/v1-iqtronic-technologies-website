@@ -12,7 +12,6 @@ import { SearchOverlay } from '@/components/search-overlay'
 
 const NAV_LINKS = [
   { label: 'Development', href: '/#engineering' },
-  { label: 'Laboratories', href: '/#laboratories' },
   { label: 'Enclosures', href: '/#enclosures' },
   { label: 'Who We Are', href: '/who-we-are' },
   { label: 'Where to Buy', href: '/distributor' },
