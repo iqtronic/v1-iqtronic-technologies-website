@@ -30,10 +30,6 @@ export function SiteFooter() {
               Independent European engineering. Industrial IoT products, custom
               electronics and accredited test laboratories since 1999.
             </p>
-            <div className="mt-6 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-              <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
-              ISO 9001 certified
-            </div>
           </div>
 
           {COLUMNS.map((column) => (
