@@ -17,8 +17,8 @@ export default function Page() {
       <main>
         <Hero />
         <CurrentDevelopment />
-        <Pillars />
         <Products />
+        <Pillars />
         <Engineering />
         <Laboratories />
         <Enclosures />
