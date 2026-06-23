@@ -21,7 +21,7 @@ export function WhoWeAreTeaser() {
               <p className="text-accent">Proudly Designed in Czechia.</p>
             </div>
             <Link
-              href="/who-we-are"
+              href="/why-iqtronic"
               className="mt-8 inline-flex items-center gap-2 rounded-sm border border-border bg-background px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
             >
               Learn More

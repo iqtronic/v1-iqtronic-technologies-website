@@ -4,10 +4,10 @@ import { InnovationTimeline } from '@/components/innovation-timeline'
 import { SiteFooter } from '@/components/site-footer'
 
 export const metadata: Metadata = {
-  title: 'Who We Are — IQtronic Technologies',
+  title: 'Why IQtronic — IQtronic Technologies',
   description:
     'IQtronic is an independent European engineering company. Engineering since 1999, Industrial IoT since 2003, proudly designed in Czechia — instrumentation, control and connectivity hardware built to run for years.',
-  alternates: { canonical: '/who-we-are' },
+  alternates: { canonical: '/why-iqtronic' },
 }
 
 const STATS = [
