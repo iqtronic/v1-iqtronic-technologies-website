@@ -60,19 +60,30 @@ export function Hero() {
         </div>
 
         <div className="relative lg:col-span-6">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-border bg-card lg:aspect-auto lg:h-full">
+          <div className="absolute right-0 top-0 z-10 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground">
+            <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
+            Proudly designed in Czechia
+            <svg
+              viewBox="0 0 18 12"
+              className="h-3 w-[18px] shrink-0"
+              role="img"
+              aria-label="Flag of Czechia"
+            >
+              <rect width="18" height="6" y="0" fill="#fff" />
+              <rect width="18" height="6" y="6" fill="#d7141a" />
+              <path d="M0 0 L9 6 L0 12 Z" fill="#11457e" />
+            </svg>
+          </div>
+          <div className="relative flex h-full items-center justify-center lg:justify-end">
             <Image
               src="/images/hero-main.png"
               alt="Hands holding a green globe with IQtronic IoT devices — solar panel, weather station, wind turbine and smart sensors around the IQtronic logo"
-              fill
+              width={1536}
+              height={1024}
               priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-contain"
+              sizes="(min-width: 1024px) 60vw, 100vw"
+              className="h-auto w-full origin-right object-contain lg:scale-[1.4]"
             />
-            <div className="absolute left-4 top-4 flex items-center gap-2 rounded-sm border border-border bg-background/90 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground backdrop-blur">
-              <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
-              Proudly designed in Czechia
-            </div>
           </div>
         </div>
       </div>
