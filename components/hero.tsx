@@ -59,8 +59,8 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="relative lg:col-span-6">
-          <div className="mb-4 flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:justify-end">
+        <div className="relative flex w-full flex-col items-center justify-center lg:col-span-6 lg:block">
+          <div className="mb-4 flex w-full items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:w-auto lg:justify-end">
             <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
             Proudly designed in Czechia
             <svg
@@ -74,7 +74,7 @@ export function Hero() {
               <path d="M0 0 L9 6 L0 12 Z" fill="#11457e" />
             </svg>
           </div>
-          <div className="relative flex h-full items-center justify-center lg:justify-end">
+          <div className="relative flex h-full w-full items-center justify-center lg:justify-end">
             <Image
               src="/images/hero-main.png"
               alt="Hands holding a green globe with IQtronic IoT devices — solar panel, weather station, wind turbine and smart sensors around the IQtronic logo"
@@ -82,7 +82,7 @@ export function Hero() {
               height={1024}
               priority
               sizes="(min-width: 1024px) 60vw, 100vw"
-              className="h-auto w-full origin-center -translate-x-4 object-contain lg:translate-x-0 lg:scale-[1.652]"
+              className="mx-auto h-auto w-full origin-center object-contain lg:scale-[1.652]"
             />
           </div>
         </div>
