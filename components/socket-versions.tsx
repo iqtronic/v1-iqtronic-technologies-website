@@ -76,7 +76,7 @@ export function SocketVersions() {
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SOCKET_VARIANTS.map((variant) => {
             const isSelected = selected === variant.suffix
             return (
@@ -86,29 +86,29 @@ export function SocketVersions() {
                 onClick={() => setSelected(variant.suffix)}
                 aria-pressed={isSelected}
                 className={cn(
-                  'flex h-full flex-col rounded-sm border bg-background p-4 text-left transition-colors',
+                  'flex items-center gap-4 rounded-sm border bg-background p-3 text-left transition-colors',
                   isSelected
                     ? 'border-accent ring-1 ring-accent'
                     : 'border-border hover:border-accent/50',
                 )}
               >
-                <div className="relative aspect-square w-full overflow-hidden rounded-sm border border-border bg-secondary">
+                <div className="relative size-[70px] shrink-0 overflow-hidden rounded-sm border border-border bg-secondary">
                   <Image
                     src={variant.image || '/placeholder.svg'}
                     alt={`${variant.type} socket`}
                     fill
-                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
-                    className="object-contain p-4"
+                    sizes="70px"
+                    className="object-contain p-2"
                   />
                 </div>
-                <div className="mt-4 flex flex-1 flex-col">
-                  <h3 className="text-base font-medium tracking-tight text-foreground">
+                <div className="flex min-w-0 flex-col">
+                  <h3 className="text-sm font-medium tracking-tight text-foreground">
                     {variant.type}
                   </h3>
-                  <p className="mt-1 font-mono text-sm text-accent">
+                  <p className="mt-0.5 font-mono text-xs text-accent">
                     {variant.suffix}
                   </p>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
                     {variant.region}
                   </p>
                 </div>

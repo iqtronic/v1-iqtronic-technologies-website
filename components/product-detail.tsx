@@ -12,6 +12,7 @@ import {
 import { ProductGallery } from '@/components/product-gallery'
 import { ProductCard } from '@/components/product-card'
 import { SocketVersions } from '@/components/socket-versions'
+import { SocketTypeSelector } from '@/components/socket-type-selector'
 import { ProductEvolution } from '@/components/product-evolution'
 import {
   AvailabilityBadge,
@@ -174,6 +175,9 @@ export function ProductDetail({ product }: { product: Product }) {
                   </span>
                 </div>
               ) : null}
+
+              {/* Socket type selector — IQsocket family only */}
+              {product.family === 'iqsocket' ? <SocketTypeSelector /> : null}
 
               {/* CTAs */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
