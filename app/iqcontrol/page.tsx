@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { PageHero } from '@/components/page-hero'
+import { ScreenshotCarousel } from '@/components/screenshot-carousel'
 
 export const metadata: Metadata = {
   title: 'IQcontrol Mobile Applications — IQtronic Technologies',
@@ -32,8 +32,14 @@ const APPS = [
       'Android support',
     ],
     shots: [
-      { src: '/iqcontrol-classic-terminal.png', alt: 'IQcontrol Classic terminal screen' },
-      { src: '/iqcontrol-classic-config.png', alt: 'IQcontrol Classic device configuration screen' },
+      { src: '/iqcontrol/classic/classic-1.png', alt: 'IQcontrol Classic — select connection type' },
+      { src: '/iqcontrol/classic/classic-2.png', alt: 'IQcontrol Classic — connection type with GSM SMS' },
+      { src: '/iqcontrol/classic/classic-3.jpg', alt: 'IQcontrol Classic — app screens overview' },
+      { src: '/iqcontrol/classic/classic-4.png', alt: 'IQcontrol Classic — device screen' },
+      { src: '/iqcontrol/classic/classic-5.png', alt: 'IQcontrol Classic — device controls' },
+      { src: '/iqcontrol/classic/classic-6.png', alt: 'IQcontrol Classic — communication log' },
+      { src: '/iqcontrol/classic/classic-7.png', alt: 'IQcontrol Classic — quick control' },
+      { src: '/iqcontrol/classic/classic-8.png', alt: 'IQcontrol Classic — settings' },
     ],
     downloads: [
       { label: 'Google Play', href: PLAY_CLASSIC, variant: 'primary' as const },
@@ -53,8 +59,17 @@ const APPS = [
       'Support for current and future devices',
     ],
     shots: [
-      { src: '/iqcontrol-next-dashboard.png', alt: 'IQ-Control Next Generation dashboard screen' },
-      { src: '/iqcontrol-next-devices.png', alt: 'IQ-Control Next Generation device list screen' },
+      { src: '/iqcontrol/next/next-1.png', alt: 'IQ-Control Next Generation — select connection type' },
+      { src: '/iqcontrol/next/next-2.png', alt: 'IQ-Control Next Generation — connection options' },
+      { src: '/iqcontrol/next/next-3.png', alt: 'IQ-Control Next Generation — device dashboard' },
+      { src: '/iqcontrol/next/next-4.jpg', alt: 'IQ-Control Next Generation — device controls' },
+      { src: '/iqcontrol/next/next-5.jpg', alt: 'IQ-Control Next Generation — status view' },
+      { src: '/iqcontrol/next/next-6.jpg', alt: 'IQ-Control Next Generation — configuration' },
+      { src: '/iqcontrol/next/next-7.jpg', alt: 'IQ-Control Next Generation — settings' },
+      { src: '/iqcontrol/next/next-8.png', alt: 'IQ-Control Next Generation — device list' },
+      { src: '/iqcontrol/next/next-9.png', alt: 'IQ-Control Next Generation — monitoring' },
+      { src: '/iqcontrol/next/next-10.jpg', alt: 'IQ-Control Next Generation — command view' },
+      { src: '/iqcontrol/next/next-11.png', alt: 'IQ-Control Next Generation — device details' },
     ],
     downloads: [
       { label: 'Android', href: PLAY_NEXT, variant: 'primary' as const },
@@ -221,22 +236,7 @@ export default function IQcontrolPage() {
 
                 {/* Screenshots column */}
                 <div className="lg:col-span-7">
-                  <div className="grid grid-cols-2 gap-6">
-                    {app.shots.map((shot) => (
-                      <div
-                        key={shot.src}
-                        className="relative aspect-[9/19] w-full overflow-hidden rounded-sm border border-border bg-background"
-                      >
-                        <Image
-                          src={shot.src || '/placeholder.svg'}
-                          alt={shot.alt}
-                          fill
-                          sizes="(min-width: 1024px) 25vw, 50vw"
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  <ScreenshotCarousel shots={app.shots} label={app.name} />
                 </div>
               </div>
             </div>
