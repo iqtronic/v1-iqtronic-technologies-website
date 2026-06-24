@@ -11,6 +11,7 @@ import {
 } from '@/lib/products'
 import { ProductGallery } from '@/components/product-gallery'
 import { ProductCard } from '@/components/product-card'
+import { SocketVersions } from '@/components/socket-versions'
 import { ProductEvolution } from '@/components/product-evolution'
 import {
   AvailabilityBadge,
@@ -267,6 +268,9 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
         </div>
       </section>
+
+      {/* Socket versions — IQsocket family only */}
+      {product.family === 'iqsocket' ? <SocketVersions /> : null}
 
       {/* Recommended accessories */}
       {product.accessories.length > 0 ? (
