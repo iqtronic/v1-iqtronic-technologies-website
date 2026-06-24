@@ -1,8 +1,4 @@
-'use client'
-
-import { useState } from 'react'
 import Image from 'next/image'
-import { cn } from '@/lib/utils'
 
 interface SocketVariant {
   suffix: string
@@ -50,11 +46,15 @@ const SOCKET_VARIANTS: SocketVariant[] = [
     region: 'USA and Canada',
     image: '/images/sockets/usa-type-b.png',
   },
+  {
+    suffix: 'IQTS_IP200-I',
+    type: 'Italian / Type L',
+    region: 'Italy',
+    image: '/images/sockets/italian-type-l.png',
+  },
 ]
 
 export function SocketVersions() {
-  const [selected, setSelected] = useState<string | null>(null)
-
   return (
     <section className="border-b border-border bg-card">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
@@ -76,57 +76,35 @@ export function SocketVersions() {
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SOCKET_VARIANTS.map((variant) => {
-            const isSelected = selected === variant.suffix
-            return (
-              <button
-                key={variant.suffix}
-                type="button"
-                onClick={() => setSelected(variant.suffix)}
-                aria-pressed={isSelected}
-                className={cn(
-                  'flex items-center gap-4 rounded-sm border bg-background p-3 text-left transition-colors',
-                  isSelected
-                    ? 'border-accent ring-1 ring-accent'
-                    : 'border-border hover:border-accent/50',
-                )}
-              >
-                <div className="relative size-[70px] shrink-0 overflow-hidden rounded-sm border border-border bg-secondary">
-                  <Image
-                    src={variant.image || '/placeholder.svg'}
-                    alt={`${variant.type} socket`}
-                    fill
-                    sizes="70px"
-                    className="object-contain p-2"
-                  />
-                </div>
-                <div className="flex min-w-0 flex-col">
-                  <h3 className="text-sm font-medium tracking-tight text-foreground">
-                    {variant.type}
-                  </h3>
-                  <p className="mt-0.5 font-mono text-xs text-accent">
-                    {variant.suffix}
-                  </p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                    {variant.region}
-                  </p>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-
-        {selected ? (
-          <div className="mt-8 rounded-sm border border-border bg-background p-5">
-            <div className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              Selected version
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {SOCKET_VARIANTS.map((variant) => (
+            <div
+              key={variant.suffix}
+              className="flex items-center gap-4 rounded-sm border border-border bg-background p-3"
+            >
+              <div className="relative size-[70px] shrink-0 overflow-hidden rounded-sm border border-border bg-secondary">
+                <Image
+                  src={variant.image || '/placeholder.svg'}
+                  alt={`${variant.type} socket`}
+                  fill
+                  sizes="70px"
+                  className="object-contain p-2"
+                />
+              </div>
+              <div className="flex min-w-0 flex-col">
+                <h3 className="text-sm font-medium tracking-tight text-foreground">
+                  {variant.type}
+                </h3>
+                <p className="mt-0.5 font-mono text-xs text-accent">
+                  {variant.suffix}
+                </p>
+                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                  {variant.region}
+                </p>
+              </div>
             </div>
-            <p className="mt-2 font-mono text-lg font-semibold tracking-tight text-foreground">
-              {selected}
-            </p>
-          </div>
-        ) : null}
+          ))}
+        </div>
 
         <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
           Availability depends on the current production batch. Please confirm

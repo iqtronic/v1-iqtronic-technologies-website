@@ -55,6 +55,13 @@ const SOCKET_OPTIONS: SocketOption[] = [
     image: '/images/sockets/usa-type-b.png',
     availability: 'Production on request',
   },
+  {
+    name: 'Italian',
+    suffix: 'I',
+    code: 'IQTS_IP200-I',
+    image: '/images/sockets/italian-type-l.png',
+    availability: 'Production on request',
+  },
 ]
 
 export function SocketTypeSelector() {
