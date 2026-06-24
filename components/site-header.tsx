@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import {
   ProductsMegaPanel,
@@ -52,7 +52,14 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
         <a href="/#top" className="text-foreground">
-          <Logo />
+          <Image
+            src="/images/iqtronic-logo.png"
+            alt="IQtronic Technologies"
+            width={281}
+            height={87}
+            priority
+            className="h-12 w-auto"
+          />
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">

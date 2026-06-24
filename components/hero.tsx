@@ -6,14 +6,10 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden pt-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 pb-16 pt-16 lg:grid-cols-12 lg:gap-8 lg:px-10 lg:pb-24 lg:pt-24">
         <div className="flex flex-col justify-center lg:col-span-6">
-          <Image
-            src="/images/iqtronic-logo.png"
-            alt="IQtronic Technologies"
-            width={281}
-            height={87}
-            priority
-            className="h-auto w-48"
-          />
+          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="inline-block size-2 bg-accent" aria-hidden="true" />
+            Engineering since 1999 · Industrial IoT since 2003
+          </div>
 
           <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
             Engineering since 1999.
