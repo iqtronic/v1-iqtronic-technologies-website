@@ -60,7 +60,7 @@ export function Hero() {
         </div>
 
         <div className="relative lg:col-span-6">
-          <div className="absolute right-0 top-0 z-10 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground">
+          <div className="mb-4 flex items-center justify-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:justify-end">
             <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
             Proudly designed in Czechia
             <svg
@@ -82,7 +82,7 @@ export function Hero() {
               height={1024}
               priority
               sizes="(min-width: 1024px) 60vw, 100vw"
-              className="h-auto w-full origin-center object-contain lg:scale-[1.652]"
+              className="h-auto w-full origin-center -translate-x-4 object-contain lg:translate-x-0 lg:scale-[1.652]"
             />
           </div>
         </div>
