@@ -22,13 +22,14 @@ const APPS = [
     id: 'iqcontrol-classic',
     name: 'IQcontrol Classic',
     description:
-      'IQcontrol is a terminal application designed to control IQtronic devices over Bluetooth and SMS communication.',
+      'IQcontrol Classic is a terminal-style application for communicating with IQtronic devices over Bluetooth and SMS. Send and receive commands, adjust device parameters, monitor live status and work directly with supported hardware from your Android phone.',
     features: [
-      'Bluetooth communication',
-      'Terminal mode',
-      'Device configuration',
-      'Monitoring',
-      'Firmware support',
+      'Bluetooth and SMS communication',
+      'Terminal command mode',
+      'Device parameter configuration',
+      'Live status monitoring',
+      'Firmware-aware command support',
+      'Android support',
     ],
     shots: [
       { src: '/iqcontrol-classic-terminal.png', alt: 'IQcontrol Classic terminal screen' },
@@ -42,13 +43,14 @@ const APPS = [
     id: 'iqcontrol-next',
     name: 'IQ-Control Next Generation',
     description:
-      'The next generation Bluetooth application for IQtronic devices.',
+      'IQ-Control Next Generation is the modern IQtronic mobile app, rebuilt with a cleaner interface and a streamlined workflow for pairing, configuring and controlling Bluetooth devices. Available for both Android and iOS, it offers broader device support and a more intuitive experience.',
     features: [
-      'Modern user interface',
-      'Bluetooth communication',
-      'Device configuration',
-      'Cross-platform support',
-      'Android and iOS support',
+      'Modern, redesigned interface',
+      'Bluetooth pairing and control',
+      'Guided device configuration',
+      'Live monitoring and status',
+      'Cross-platform: Android and iOS',
+      'Support for current and future devices',
     ],
     shots: [
       { src: '/iqcontrol-next-dashboard.png', alt: 'IQ-Control Next Generation dashboard screen' },
@@ -70,17 +72,17 @@ const SUPPORTED_DEVICES = [
 
 const DOWNLOAD_CARDS = [
   {
-    title: 'Google Play',
+    store: 'google-play' as const,
     subtitle: 'IQcontrol Classic',
     href: PLAY_CLASSIC,
   },
   {
-    title: 'Google Play',
+    store: 'google-play' as const,
     subtitle: 'IQ-Control Next Generation',
     href: PLAY_NEXT,
   },
   {
-    title: 'Apple App Store',
+    store: 'app-store' as const,
     subtitle: 'IQ-Control Next Generation',
     href: APP_STORE,
   },
@@ -114,6 +116,45 @@ function DownloadButton({
   )
 }
 
+function StoreBadge({
+  store,
+  href,
+  caption,
+}: {
+  store: 'google-play' | 'app-store'
+  href: string
+  caption: string
+}) {
+  const config =
+    store === 'google-play'
+      ? { src: '/badge-google-play.svg', top: 'Get it on', bottom: 'Google Play' }
+      : { src: '/badge-app-store.svg', top: 'Download on the', bottom: 'App Store' }
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${config.top} ${config.bottom} — ${caption}`}
+      className="inline-flex items-center gap-3 rounded-sm bg-primary px-5 py-3 text-primary-foreground transition-opacity hover:opacity-90"
+    >
+      <img
+        src={config.src || '/placeholder.svg'}
+        alt=""
+        aria-hidden="true"
+        className="size-7 shrink-0"
+      />
+      <span className="flex flex-col leading-tight">
+        <span className="text-[10px] uppercase tracking-wide opacity-80">
+          {config.top}
+        </span>
+        <span className="text-base font-semibold tracking-tight">
+          {config.bottom}
+        </span>
+      </span>
+    </a>
+  )
+}
+
 export default function IQcontrolPage() {
   return (
     <>
@@ -122,7 +163,7 @@ export default function IQcontrolPage() {
         <PageHero
           eyebrow="Mobile Applications"
           title="IQcontrol Mobile Applications"
-          description="Control IQtronic devices from your smartphone."
+          description="IQcontrol is the mobile platform for IQtronic Bluetooth devices. Configure, monitor and control supported devices directly from your smartphone."
           breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'IQcontrol' }]}
         />
 
@@ -247,31 +288,21 @@ export default function IQcontrolPage() {
 
             <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
               {DOWNLOAD_CARDS.map((card) => (
-                <a
-                  key={`${card.title}-${card.subtitle}`}
-                  href={card.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col justify-between rounded-sm border border-border bg-background p-8 transition-shadow hover:shadow-md"
+                <div
+                  key={`${card.store}-${card.subtitle}`}
+                  className="flex flex-col justify-between rounded-sm border border-border bg-background p-8"
                 >
-                  <div>
-                    <div className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                      {card.subtitle}
-                    </div>
-                    <h3 className="mt-4 text-xl font-medium tracking-tight text-foreground">
-                      {card.title}
-                    </h3>
+                  <div className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                    {card.subtitle}
                   </div>
-                  <span className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent">
-                    Download
-                    <span
-                      aria-hidden="true"
-                      className="transition-transform group-hover:translate-x-0.5"
-                    >
-                      →
-                    </span>
-                  </span>
-                </a>
+                  <div className="mt-8">
+                    <StoreBadge
+                      store={card.store}
+                      href={card.href}
+                      caption={card.subtitle}
+                    />
+                  </div>
+                </div>
               ))}
             </div>
           </div>
