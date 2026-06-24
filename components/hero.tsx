@@ -12,9 +12,9 @@ export function Hero() {
           </div>
 
           <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            Engineering since 1999.
+            Engineering since <span className="text-[#e0420b]">1999</span>.
             <br />
-            Industrial IoT since 2003.
+            Industrial IoT since <span className="text-[#e0420b]">2003</span>.
           </h1>
 
           <div className="mt-6">
@@ -62,12 +62,12 @@ export function Hero() {
         <div className="relative lg:col-span-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-border bg-card lg:aspect-auto lg:h-full">
             <Image
-              src="/images/hero-products.png"
-              alt="IQtronic industrial IoT product family — smart power socket, monitoring gateway and weather sensor"
+              src="/images/hero-main.png"
+              alt="Hands holding a green globe with IQtronic IoT devices — solar panel, weather station, wind turbine and smart sensors around the IQtronic logo"
               fill
               priority
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className="object-contain"
             />
             <div className="absolute left-4 top-4 flex items-center gap-2 rounded-sm border border-border bg-background/90 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-foreground backdrop-blur">
               <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
