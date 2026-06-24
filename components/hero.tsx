@@ -12,7 +12,7 @@ export function Hero() {
             width={281}
             height={87}
             priority
-            className="h-auto w-60"
+            className="h-auto w-48"
           />
 
           <h1 className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
