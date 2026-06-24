@@ -1,6 +1,13 @@
 import Link from 'next/link'
 import { NEWS_ITEMS } from '@/lib/news'
 
+// Local image lookup for the homepage highlight cards. Falls back to a
+// generic placeholder when a title has no dedicated image.
+const CARD_IMAGES: Record<string, string> = {
+  'Environmental Monitoring Platform': '/dev-environmental-monitoring.png',
+  'Ultrasonic Wind Sensor': '/dev-ultrasonic-wind-sensor.png',
+}
+
 export function CurrentDevelopment() {
   const highlights = NEWS_ITEMS.slice(0, 2)
 
@@ -23,26 +30,36 @@ export function CurrentDevelopment() {
               <li key={item.title} className="bg-card">
                 <Link
                   href="/news"
-                  className="group flex h-full flex-col gap-0.5 px-4 py-2.5 transition-colors hover:bg-background"
+                  className="group flex h-full gap-3 px-4 py-2.5 transition-colors hover:bg-background"
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                    {item.category}
-                  </span>
-                  <span className="text-sm font-medium tracking-tight text-foreground">
-                    {item.title}
-                  </span>
-                  <span className="line-clamp-1 text-xs leading-snug text-muted-foreground">
-                    {item.text}
-                  </span>
-                  <span className="mt-0.5 inline-flex items-center gap-1 text-xs font-medium text-accent">
-                    Read more
-                    <span
-                      aria-hidden="true"
-                      className="transition-transform group-hover:translate-x-0.5"
-                    >
-                      →
+                  {/* Image area: left side, ~35% width, height matches content */}
+                  <div className="relative w-[35%] shrink-0 self-stretch overflow-hidden rounded-sm bg-background">
+                    <img
+                      src={CARD_IMAGES[item.title] ?? '/placeholder.jpg'}
+                      alt={item.title}
+                      className="absolute inset-0 size-full object-cover"
+                    />
+                  </div>
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                      {item.category}
                     </span>
-                  </span>
+                    <span className="text-sm font-medium tracking-tight text-foreground">
+                      {item.title}
+                    </span>
+                    <span className="line-clamp-1 text-xs leading-snug text-muted-foreground">
+                      {item.text}
+                    </span>
+                    <span className="mt-0.5 inline-flex items-center gap-1 text-xs font-medium text-accent">
+                      Read more
+                      <span
+                        aria-hidden="true"
+                        className="transition-transform group-hover:translate-x-0.5"
+                      >
+                        →
+                      </span>
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))}
