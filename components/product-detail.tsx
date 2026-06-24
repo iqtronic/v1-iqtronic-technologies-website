@@ -268,6 +268,46 @@ export function ProductDetail({ product }: { product: Product }) {
         </div>
       </section>
 
+      {/* Recommended accessories */}
+      {product.accessories.length > 0 ? (
+        <section className="border-b border-border bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
+            <div className="max-w-2xl">
+              <SectionEyebrow>Recommended Accessories</SectionEyebrow>
+              <h2 className="mt-4 text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
+                Recommended accessories
+              </h2>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {product.accessories.map((accessory) => (
+                <article
+                  key={accessory.name}
+                  className="flex gap-4 rounded-sm border border-border bg-card p-4"
+                >
+                  <div className="relative size-20 shrink-0 overflow-hidden rounded-sm border border-border bg-secondary">
+                    <Image
+                      src={accessory.image || '/placeholder.svg'}
+                      alt={accessory.name}
+                      fill
+                      sizes="80px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium tracking-tight">
+                      {accessory.name}
+                    </h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      {accessory.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* Licensing */}
       {product.licenseTiers && product.licenseTiers.length > 0 ? (
         <section
@@ -331,46 +371,6 @@ export function ProductDetail({ product }: { product: Product }) {
               Get License
               <span aria-hidden="true">→</span>
             </a>
-          </div>
-        </section>
-      ) : null}
-
-      {/* Recommended accessories */}
-      {product.accessories.length > 0 ? (
-        <section className="border-b border-border bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-            <div className="max-w-2xl">
-              <SectionEyebrow>Recommended Accessories</SectionEyebrow>
-              <h2 className="mt-4 text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
-                Recommended accessories
-              </h2>
-            </div>
-            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {product.accessories.map((accessory) => (
-                <article
-                  key={accessory.name}
-                  className="flex gap-4 rounded-sm border border-border bg-card p-4"
-                >
-                  <div className="relative size-20 shrink-0 overflow-hidden rounded-sm border border-border bg-secondary">
-                    <Image
-                      src={accessory.image || '/placeholder.svg'}
-                      alt={accessory.name}
-                      fill
-                      sizes="80px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium tracking-tight">
-                      {accessory.name}
-                    </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      {accessory.description}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
           </div>
         </section>
       ) : null}
