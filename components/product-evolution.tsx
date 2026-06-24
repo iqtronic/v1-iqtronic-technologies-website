@@ -40,9 +40,10 @@ export function ProductEvolution({ product }: { product: Product }) {
       <div
         className={cn(
           'flex-1 overflow-x-auto p-4 lg:overflow-y-auto lg:overflow-x-hidden',
-          // Fixed scroll height on desktop so the panel stays aligned with the
-          // product image while supporting an unlimited number of items.
-          'lg:max-h-[28rem]',
+          // Let the scroll area fill the full stretched panel height (which
+          // matches the main product content block) instead of a fixed cap
+          // that clips content. min-h-0 enables scrolling within the flex column.
+          'lg:min-h-0',
         )}
       >
         <ol className="flex gap-4 lg:flex-col lg:gap-0">
