@@ -82,7 +82,7 @@ export function Hero() {
               height={1024}
               priority
               sizes="(min-width: 1024px) 60vw, 100vw"
-              className="h-auto w-full origin-right object-contain lg:scale-[1.4]"
+              className="h-auto w-full origin-center object-contain lg:scale-[1.652]"
             />
           </div>
         </div>
