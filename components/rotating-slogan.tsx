@@ -18,7 +18,7 @@ const MESSAGES = [
   'Products designed to evolve.',
   'Making More From Less.',
   'Original ideas.\nReal engineering.',
-  'Innovation starts here.\nOthers may follow.',
+  'Innovation starts here.\nOthers follow.',
   'Engineering the future,\nnot replicating the past.',
   'Twenty-five years of innovation.\nCountless products inspired by it.',
   "We don't follow the market.\nWe help shape it.",
