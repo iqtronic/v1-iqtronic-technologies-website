@@ -125,6 +125,12 @@ const DOWNLOAD_CARDS = [
     subtitle: 'IQ-Control Next Generation',
     href: APP_STORE,
   },
+  {
+    store: 'windows' as const,
+    title: 'IQcontrol Suite',
+    subtitle: 'Windows software package',
+    href: '#',
+  },
 ]
 
 function DownloadButton({
@@ -155,15 +161,48 @@ function DownloadButton({
   )
 }
 
+function WindowsIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M3 5.4 10.2 4.4v6.9H3V5.4Zm0 13.2 7.2 1v-6.8H3v5.8Zm8-13.4L21 3.8v8.5h-10V5.2Zm0 13.6L21 20.2v-8.5h-10v7.1Z" />
+    </svg>
+  )
+}
+
 function StoreBadge({
   store,
   href,
   caption,
 }: {
-  store: 'google-play' | 'app-store'
+  store: 'google-play' | 'app-store' | 'windows'
   href: string
   caption: string
 }) {
+  if (store === 'windows') {
+    return (
+      <a
+        href={href}
+        aria-label={`Download for Windows — ${caption}`}
+        className="inline-flex items-center gap-3 rounded-sm bg-primary px-5 py-3 text-primary-foreground transition-opacity hover:opacity-90"
+      >
+        <WindowsIcon className="size-7 shrink-0" />
+        <span className="flex flex-col leading-tight">
+          <span className="text-[10px] uppercase tracking-wide opacity-80">
+            Download for
+          </span>
+          <span className="text-base font-semibold tracking-tight">
+            Windows
+          </span>
+        </span>
+      </a>
+    )
+  }
+
   const config =
     store === 'google-play'
       ? { src: '/badge-google-play.svg', top: 'Get it on', bottom: 'Google Play' }
@@ -366,14 +405,25 @@ export default function IQcontrolPage() {
               </p>
             </div>
 
-            <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {DOWNLOAD_CARDS.map((card) => (
                 <div
                   key={`${card.store}-${card.subtitle}`}
                   className="flex flex-col justify-between rounded-sm border border-border bg-background p-8"
                 >
-                  <div className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                    {card.subtitle}
+                  <div>
+                    {'title' in card && card.title ? (
+                      <div className="text-base font-medium tracking-tight text-foreground">
+                        {card.title}
+                      </div>
+                    ) : null}
+                    <div
+                      className={`font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground${
+                        'title' in card && card.title ? ' mt-2' : ''
+                      }`}
+                    >
+                      {card.subtitle}
+                    </div>
                   </div>
                   <div className="mt-8">
                     <StoreBadge
