@@ -78,6 +78,30 @@ const APPS = [
   },
 ]
 
+const SUITE = {
+  id: 'iqcontrol-suite',
+  eyebrow: 'Windows Software',
+  name: 'IQcontrol Suite',
+  platform: 'Windows 10 / 11',
+  subtitle: 'Professional Windows administration software',
+  description:
+    'IQcontrol Suite is a complete desktop package for advanced device administration. Professional desktop software for configuration, administration and service of IQsocket devices.',
+  features: [
+    'Terminal application for direct device control',
+    'Command editor',
+    'Bulk import and editing of authorized phone numbers',
+    'Voice IVR editor',
+    'Custom voice self-service creation',
+    'Advanced device configuration',
+    'Maintenance and service tools',
+  ],
+  shots: [
+    { src: '/iqcontrol/suite/suite-3.png', alt: 'IQcontrol Suite — terminal window with live communication log and device controls' },
+    { src: '/iqcontrol/suite/suite-1.png', alt: 'IQcontrol Suite — device settings with firmware, IVR, security list and configuration tools' },
+    { src: '/iqcontrol/suite/suite-2.png', alt: 'IQcontrol Suite — commands editor with command and answer parameters' },
+  ],
+}
+
 const SUPPORTED_DEVICES = [
   'IQsocket',
   'IQsocket LAN',
@@ -242,6 +266,62 @@ export default function IQcontrolPage() {
             </div>
           </section>
         ))}
+
+        {/* IQcontrol Suite — Windows desktop software */}
+        <section
+          id={SUITE.id}
+          className="border-b border-border bg-background"
+        >
+          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+              {/* Text column */}
+              <div className="lg:col-span-5">
+                <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+                  {SUITE.eyebrow}
+                </div>
+                <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+                  {SUITE.name}
+                </h2>
+
+                {/* Platform badge */}
+                <span className="mt-4 inline-flex items-center gap-2 rounded-sm border border-border bg-card px-3 py-1.5 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                  <span
+                    className="inline-block size-1.5 shrink-0 bg-accent"
+                    aria-hidden="true"
+                  />
+                  {SUITE.platform}
+                </span>
+
+                <p className="mt-4 text-sm font-medium text-foreground">
+                  {SUITE.subtitle}
+                </p>
+                <p className="mt-4 max-w-md text-pretty leading-relaxed text-muted-foreground">
+                  {SUITE.description}
+                </p>
+
+                <ul className="mt-8 flex flex-col gap-px overflow-hidden rounded-sm border border-border bg-border">
+                  {SUITE.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex items-center gap-3 bg-card px-4 py-3 text-sm text-foreground"
+                    >
+                      <span
+                        className="inline-block size-1.5 shrink-0 bg-accent"
+                        aria-hidden="true"
+                      />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Screenshots column */}
+              <div className="lg:col-span-7">
+                <ScreenshotCarousel shots={SUITE.shots} label={SUITE.name} />
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Supported devices */}
         <section className="border-b border-border bg-background">
