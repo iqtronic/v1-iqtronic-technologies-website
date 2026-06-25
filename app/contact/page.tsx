@@ -71,6 +71,20 @@ export default function ContactPage() {
                   much technical detail as you can — it helps us route your
                   enquiry to the right specialists.
                 </p>
+
+                <div className="mt-10 max-w-md">
+                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                    Support language
+                  </p>
+                  <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
+                    Please note that technical support is available in English
+                    only.
+                  </p>
+                  <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
+                    To ensure fast and accurate communication, all technical
+                    support requests should be submitted in English.
+                  </p>
+                </div>
               </div>
               <div className="lg:col-span-7">
                 <ContactForm />
