@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { RotatingSlogan } from '@/components/rotating-slogan'
+import { HeroVideo } from '@/components/hero-video'
 
 export function Hero() {
   return (
@@ -74,17 +74,7 @@ export function Hero() {
               <path d="M0 0 L9 6 L0 12 Z" fill="#11457e" />
             </svg>
           </div>
-          <div className="relative flex h-full w-full items-center justify-center lg:justify-end">
-            <Image
-              src="/images/hero-main.png"
-              alt="Hands holding a green globe with IQtronic IoT devices — solar panel, weather station, wind turbine and smart sensors around the IQtronic logo"
-              width={1536}
-              height={1024}
-              priority
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="mx-auto h-auto w-full origin-center object-contain lg:scale-[1.652]"
-            />
-          </div>
+          <HeroVideo />
         </div>
       </div>
     </section>

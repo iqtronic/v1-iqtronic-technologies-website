@@ -14,7 +14,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="relative aspect-[4/3] overflow-hidden border-b border-border bg-secondary">
           <Image
             src={product.image || '/placeholder.svg'}
-            alt={`${product.name} — ${product.tagline}`}
+            alt={product.imageAlt ?? `${product.name} — ${product.tagline}`}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"

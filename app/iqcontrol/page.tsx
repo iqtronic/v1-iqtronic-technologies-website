@@ -32,7 +32,7 @@ const APPS = [
       'Android support',
     ],
     shots: [
-      { src: '/iqcontrol/classic/classic-1.png', alt: 'IQcontrol Classic — select connection type' },
+      { src: '/iqcontrol/classic/iqtronic-iqcontrol-classic-android.png', alt: 'IQcontrol Classic Android application' },
       { src: '/iqcontrol/classic/classic-2.png', alt: 'IQcontrol Classic — connection type with GSM SMS' },
       { src: '/iqcontrol/classic/classic-3.jpg', alt: 'IQcontrol Classic — app screens overview' },
       { src: '/iqcontrol/classic/classic-4.png', alt: 'IQcontrol Classic — device screen' },
@@ -59,7 +59,7 @@ const APPS = [
       'Support for current and future devices',
     ],
     shots: [
-      { src: '/iqcontrol/next/next-1.png', alt: 'IQ-Control Next Generation — select connection type' },
+      { src: '/iqcontrol/next/iqtronic-iqcontrol-next-android.png', alt: 'IQcontrol Next Generation Android application' },
       { src: '/iqcontrol/next/next-2.png', alt: 'IQ-Control Next Generation — connection options' },
       { src: '/iqcontrol/next/next-3.png', alt: 'IQ-Control Next Generation — device dashboard' },
       { src: '/iqcontrol/next/next-4.jpg', alt: 'IQ-Control Next Generation — device controls' },
@@ -96,7 +96,7 @@ const SUITE = {
     'Maintenance and service tools',
   ],
   shots: [
-    { src: '/iqcontrol/suite/suite-3.png', alt: 'IQcontrol Suite — terminal window with live communication log and device controls' },
+    { src: '/iqcontrol/suite/iqtronic-iqcontrol-suite-windows.png', alt: 'IQcontrol Suite for Windows' },
     { src: '/iqcontrol/suite/suite-1.png', alt: 'IQcontrol Suite — device settings with firmware, IVR, security list and configuration tools' },
     { src: '/iqcontrol/suite/suite-2.png', alt: 'IQcontrol Suite — commands editor with command and answer parameters' },
   ],

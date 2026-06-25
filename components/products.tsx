@@ -52,7 +52,7 @@ export function Products() {
               <div className="relative aspect-[4/3] overflow-hidden border-b border-border bg-secondary">
                 <Image
                   src={product.image || '/placeholder.svg'}
-                  alt={`${product.name} — IQtronic industrial product`}
+                  alt={product.imageAlt ?? `${product.name} — IQtronic industrial product`}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

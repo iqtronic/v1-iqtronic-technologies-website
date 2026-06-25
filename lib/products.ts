@@ -71,6 +71,8 @@ export interface Product {
   /** Long, SEO-oriented description paragraph(s). */
   seoDescription: string
   image: string
+  /** Optional SEO-oriented alt text for the product image. */
+  imageAlt?: string
   price?: string
   lifecycle: Lifecycle
   lifecycleDetail: {
@@ -264,7 +266,8 @@ export const PRODUCTS: Product[] = [
       'Ethernet-connected smart socket for remote reboot, switching and monitoring of network equipment.',
     seoDescription:
       'The IQsocket LAN is an industrial IP watchdog and remote power control socket. Connected over Ethernet, it provides remote reboot, remote power switching and network monitoring for servers, routers and unattended industrial equipment. As a network watchdog it automatically reboots frozen devices, making it ideal for remote server recovery and industrial monitoring.',
-    image: '/images/iqsocket.png',
+    image: '/images/iqtronic-iqsocket-lan-smart-socket.jpg',
+    imageAlt: 'IQtronic IQsocket LAN industrial smart socket',
     price: '€129',
     lifecycle: 'active',
     lifecycleDetail: {
@@ -351,7 +354,8 @@ export const PRODUCTS: Product[] = [
       'RS232 controlled smart socket for integration with serial consoles, controllers and legacy industrial systems.',
     seoDescription:
       'The IQsocket RS232 is a serial remote power control socket for industrial monitoring and remote reboot. Controlled directly over an RS232 serial link, it integrates with console servers, PLCs and legacy systems where network access is unavailable.',
-    image: '/images/iqsocket.png',
+    image: '/images/iqtronic-iqsocket-rs232-smart-socket.jpg',
+    imageAlt: 'IQtronic IQsocket RS232 industrial smart socket',
     price: '€119',
     lifecycle: 'active',
     lifecycleDetail: { productionStart: '2005', productionUntil: '2032+' },
@@ -486,7 +490,8 @@ export const PRODUCTS: Product[] = [
       'Industrial DIN-rail gateway with multiple relay outputs, digital inputs and cellular telemetry for automation cabinets.',
     seoDescription:
       'The IQgate GS400 is an industrial gateway and network watchdog for automation cabinets. With multiple relays, digital inputs and cellular telemetry, it delivers remote power control, industrial monitoring and remote reboot in a DIN-rail form factor.',
-    image: '/images/monitoring-system.png',
+    image: '/images/iqtronic-iqgate-gsm-controller.jpg',
+    imageAlt: 'IQtronic IQgate GSM industrial controller',
     price: '€289',
     lifecycle: 'active',
     lifecycleDetail: { productionStart: '2010', productionUntil: '2034+' },
@@ -532,7 +537,8 @@ export const PRODUCTS: Product[] = [
       'Expanded DIN-rail gateway with edge data logging, more I/O and dual connectivity for demanding telemetry applications.',
     seoDescription:
       'The IQgate GS500 is a high-density industrial gateway with edge logging and dual connectivity. Designed for industrial monitoring and remote power control, it aggregates field data and supports remote reboot across large installations.',
-    image: '/images/monitoring-system.png',
+    image: '/images/iqtronic-iqgate-gsm-controller.jpg',
+    imageAlt: 'IQtronic IQgate GSM industrial controller',
     price: '€379',
     lifecycle: 'active',
     lifecycleDetail: { productionStart: '2016', productionUntil: '2035+' },
@@ -579,7 +585,8 @@ export const PRODUCTS: Product[] = [
       'Bare OEM controller board with relays, I/O and connectivity options for integration into your own products.',
     seoDescription:
       'The IQboard OEM Controller is a ready-to-integrate controller board for OEMs and system integrators. It provides relay outputs, digital I/O and connectivity for remote power control and industrial monitoring inside custom industrial products.',
-    image: '/images/iqboard.png',
+    image: '/images/iqtronic-iqboard-gsm-smart-controller.jpg',
+    imageAlt: 'IQtronic IQboard GSM smart controller',
     price: 'From €59',
     lifecycle: 'active',
     lifecycleDetail: { productionStart: '2012', productionUntil: '2035+', note: 'Volume pricing available.' },
@@ -621,7 +628,8 @@ export const PRODUCTS: Product[] = [
       'Castellated embedded controller module for reflow-mounting into compact industrial products.',
     seoDescription:
       'The IQboard Embedded Controller is a compact, reflow-mountable controller module for space-constrained industrial designs. It brings remote power control and industrial monitoring capabilities to embedded products with minimal board area.',
-    image: '/images/iqboard.png',
+    image: '/images/iqtronic-iqboard-gsm-smart-controller.jpg',
+    imageAlt: 'IQtronic IQboard GSM smart controller',
     price: 'From €39',
     lifecycle: 'active',
     lifecycleDetail: { productionStart: '2018', productionUntil: '2035+' },
@@ -663,7 +671,8 @@ export const PRODUCTS: Product[] = [
       'Compact, solar-ready weather station measuring temperature, humidity, pressure and wind for distributed sites.',
     seoDescription:
       'The ENVISTATION Mini is a compact industrial weather station for environmental monitoring and weather monitoring. It measures temperature, humidity, pressure and wind, with solar power and cellular telemetry for remote, unattended sites.',
-    image: '/images/weather-station.png',
+    image: '/images/iqtronic-envistation-ethernet-weather-station.jpg',
+    imageAlt: 'IQtronic ENVISTATION Ethernet weather station',
     price: '€349',
     lifecycle: 'active',
     lifecycleDetail: { productionStart: '2019', productionUntil: '2035+' },
@@ -707,7 +716,8 @@ export const PRODUCTS: Product[] = [
       'Professional-grade weather station with expandable, calibrated sensor suite including solar radiation and precipitation.',
     seoDescription:
       'The ENVISTATION Pro is a professional industrial weather station for demanding environmental monitoring and weather monitoring. Its expandable, calibrated sensor suite covers wind, solar radiation, precipitation and air quality for energy, research and infrastructure.',
-    image: '/images/weather-station.png',
+    image: '/images/iqtronic-envistation-ethernet-weather-station.jpg',
+    imageAlt: 'IQtronic ENVISTATION Ethernet weather station',
     price: '€899',
     lifecycle: 'active',
     lifecycleDetail: { productionStart: '2020', productionUntil: '2036+' },
