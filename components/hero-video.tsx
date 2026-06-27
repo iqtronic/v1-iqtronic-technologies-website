@@ -40,10 +40,13 @@ export function HeroVideo() {
           className="mx-auto h-auto w-full origin-center object-contain lg:scale-[1.652]"
         />
 
-        {/* Subtle darkening on hover (desktop only) */}
+        {/* Subtle darkening on hover (desktop only).
+            On desktop the overlay is sized as a square based on its height
+            (top/bottom/right edges pinned, width grows leftward) so the hover
+            area reads as centred behind the globe. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-foreground/0 transition-colors duration-300 lg:group-hover/video:bg-foreground/10"
+          className="pointer-events-none absolute inset-0 bg-foreground/0 transition-colors duration-300 lg:bottom-auto lg:left-auto lg:right-0 lg:top-0 lg:h-full lg:w-auto lg:aspect-square lg:group-hover/video:bg-foreground/10"
         />
 
         {/* Play button overlay — lower center of the globe image */}
