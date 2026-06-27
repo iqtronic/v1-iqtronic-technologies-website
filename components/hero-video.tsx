@@ -37,7 +37,7 @@ export function HeroVideo() {
           height={1024}
           priority
           sizes="(min-width: 1024px) 60vw, 100vw"
-          className="mx-auto h-auto w-full origin-center object-contain lg:scale-[1.652]"
+          className="mx-auto h-auto w-full origin-center object-contain lg:-translate-x-[3.5%] lg:scale-[1.652]"
         />
 
         {/* Subtle darkening on hover (desktop only).
