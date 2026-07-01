@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 // Placeholder video URL — replace with the final IQtronic story video when ready.
 const VIDEO_SRC =
@@ -9,8 +9,32 @@ const VIDEO_SRC =
 
 export function HeroVideo() {
   const [open, setOpen] = useState(false)
+  const hoverVideoRef = useRef<HTMLVideoElement>(null)
 
   const close = useCallback(() => setOpen(false), [])
+
+  // Desktop-only: play the inline video on hover, restore the globe on leave.
+  // Gated on the desktop breakpoint (the inline video is `hidden` below `lg`),
+  // and `onMouseEnter` does not fire from touch taps, so mobile uses the modal.
+  const isDesktop = () =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(min-width: 1024px)').matches
+
+  const handleEnter = useCallback(() => {
+    if (!isDesktop()) return
+    const v = hoverVideoRef.current
+    if (!v) return
+    v.muted = true
+    v.currentTime = 0
+    void v.play().catch(() => {})
+  }, [])
+
+  const handleLeave = useCallback(() => {
+    const v = hoverVideoRef.current
+    if (!v) return
+    v.pause()
+    v.currentTime = 0
+  }, [])
 
   useEffect(() => {
     if (!open) return
@@ -29,16 +53,39 @@ export function HeroVideo() {
 
   return (
     <>
-      <div className="group/video relative flex h-full w-full items-center justify-center lg:justify-end">
-        <Image
-          src="/images/iqtronic-smart-socket-iot-platform.png"
-          alt="IQtronic smart socket and industrial IoT technology platform"
-          width={1536}
-          height={1024}
-          priority
-          sizes="(min-width: 1024px) 60vw, 100vw"
-          className="mx-auto h-auto w-full origin-center object-contain lg:-translate-x-[95px] lg:scale-[1.652]"
-        />
+      <div
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
+        className="group/video relative flex h-full w-full items-center justify-center lg:justify-end"
+      >
+        {/* Wrapper defines the exact globe box (holds the shared transform),
+            so the inline hover video can overlay the globe at identical size
+            and position without shifting the layout. */}
+        <div className="relative mx-auto w-full origin-center lg:-translate-x-[95px] lg:scale-[1.652]">
+          <Image
+            src="/images/iqtronic-smart-socket-iot-platform.png"
+            alt="IQtronic smart socket and industrial IoT technology platform"
+            width={1536}
+            height={1024}
+            priority
+            sizes="(min-width: 1024px) 60vw, 100vw"
+            className="h-auto w-full object-contain transition-opacity duration-300 lg:group-hover/video:opacity-0"
+          />
+
+          {/* Inline hover video (desktop only) — same box as the globe image */}
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+          <video
+            ref={hoverVideoRef}
+            src={VIDEO_SRC}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="pointer-events-none absolute inset-0 hidden h-full w-full object-cover opacity-0 transition-opacity duration-300 lg:block lg:group-hover/video:opacity-100"
+          />
+        </div>
 
         {/* Subtle darkening on hover (desktop only).
             On desktop the overlay is sized as a square based on its height
