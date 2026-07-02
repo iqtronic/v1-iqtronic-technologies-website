@@ -2,6 +2,67 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { CheckIcon, DashIcon } from '@/components/development/icons'
 
+// Availability status per model. Change these values to update the badges.
+type Availability = 'AVAILABLE' | 'FULLY BOOKED'
+
+const AVAILABILITY: Record<'partnership' | 'full' | 'bid', Availability> = {
+  partnership: 'AVAILABLE',
+  full: 'AVAILABLE',
+  bid: 'AVAILABLE',
+}
+
+function AvailabilityBadge({ status }: { status: Availability }) {
+  const available = status === 'AVAILABLE'
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-sm border border-border bg-background px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <span
+        className={cn(
+          'size-1.5 rounded-full',
+          available ? 'bg-accent' : 'bg-muted-foreground/50',
+        )}
+        aria-hidden="true"
+      />
+      {status}
+    </span>
+  )
+}
+
+function PaymentModel() {
+  return (
+    <div className="mt-6 rounded-sm border border-border bg-background p-5">
+      <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
+        Payment model
+      </p>
+      <div className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
+        <p>
+          Development starts after payment of the first prepaid development week.
+        </p>
+        <p>Each development week includes 8 hours of engineering work.</p>
+        <p>At the end of every week the customer receives:</p>
+        <ul className="flex flex-col gap-1.5">
+          {['Completed work summary', 'Hours used', 'Plan for the following week'].map(
+            (item) => (
+              <li key={item} className="flex gap-2.5">
+                <span
+                  className="mt-2 size-1 shrink-0 bg-accent"
+                  aria-hidden="true"
+                />
+                <span>{item}</span>
+              </li>
+            ),
+          )}
+        </ul>
+        <p>
+          The customer then decides whether to continue with another prepaid
+          development week.
+        </p>
+        <p>There is no long-term commitment.</p>
+        <p>The customer pays only for completed prepaid development weeks.</p>
+      </div>
+    </div>
+  )
+}
+
 const PARTNERSHIP_INCLUDED = [
   'Electronic hardware development',
   'Embedded firmware development',
@@ -41,8 +102,8 @@ type Cell = { type: 'check' } | { type: 'dash' } | { type: 'text'; value: string
 const COMPARISON: { label: string; partnership: Cell; full: Cell }[] = [
   {
     label: 'Development rate',
-    partnership: { type: 'text', value: '€35 / hour' },
-    full: { type: 'text', value: '€65 / hour' },
+    partnership: { type: 'text', value: '€280 / week' },
+    full: { type: 'text', value: '€520 / week' },
   },
   {
     label: 'Hardware development',
@@ -154,25 +215,26 @@ export function DevelopmentModels() {
         </div>
 
         {/* Cards */}
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Card 1 — Manufacturing Partnership (highlighted) */}
           <article className="relative flex flex-col rounded-sm border-2 border-accent bg-card p-8 sm:p-10">
             <div className="flex items-center justify-between gap-4">
               <span className="inline-flex items-center rounded-sm bg-accent px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground">
                 Most popular
               </span>
+              <AvailabilityBadge status={AVAILABILITY.partnership} />
             </div>
 
             <h3 className="mt-6 text-2xl font-semibold tracking-tight">
               Manufacturing Partnership
             </h3>
             <div className="mt-4 flex items-baseline gap-2">
-              <span className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                From
-              </span>
-              <span className="text-4xl font-semibold tracking-tight">€35</span>
-              <span className="text-muted-foreground">/ hour</span>
+              <span className="text-4xl font-semibold tracking-tight">€280</span>
+              <span className="text-muted-foreground">/ week</span>
             </div>
+            <p className="mt-1.5 text-sm text-muted-foreground">
+              8 development hours included
+            </p>
 
             <div className="mt-5 space-y-3 text-pretty leading-relaxed text-muted-foreground">
               <p>
@@ -207,6 +269,8 @@ export function DevelopmentModels() {
               </ul>
             </div>
 
+            <PaymentModel />
+
             <div className="mt-6 rounded-sm border border-border bg-background p-5">
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
                 Important information
@@ -240,18 +304,19 @@ export function DevelopmentModels() {
               <span className="inline-flex items-center rounded-sm border border-border px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                 Full ownership
               </span>
+              <AvailabilityBadge status={AVAILABILITY.full} />
             </div>
 
             <h3 className="mt-6 text-2xl font-semibold tracking-tight">
               Full Custom Development
             </h3>
             <div className="mt-4 flex items-baseline gap-2">
-              <span className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                From
-              </span>
-              <span className="text-4xl font-semibold tracking-tight">€65</span>
-              <span className="text-muted-foreground">/ hour</span>
+              <span className="text-4xl font-semibold tracking-tight">€520</span>
+              <span className="text-muted-foreground">/ week</span>
             </div>
+            <p className="mt-1.5 text-sm text-muted-foreground">
+              8 development hours included
+            </p>
 
             <div className="mt-5 space-y-3 text-pretty leading-relaxed text-muted-foreground">
               <p>
@@ -270,12 +335,91 @@ export function DevelopmentModels() {
               </ul>
             </div>
 
+            <PaymentModel />
+
             <div className="mt-8 flex flex-1 items-end">
               <Link
                 href="/contact"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-sm bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
               >
                 Request Full Development
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </article>
+
+          {/* Card 3 — Project Bid */}
+          <article className="relative flex flex-col rounded-sm border border-border bg-card p-8 sm:p-10">
+            <div className="flex items-center justify-between gap-4">
+              <span className="inline-flex items-center rounded-sm border border-border px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                Fixed budget
+              </span>
+              <AvailabilityBadge status={AVAILABILITY.bid} />
+            </div>
+
+            <h3 className="mt-6 text-2xl font-semibold tracking-tight">
+              Project Bid
+            </h3>
+            <div className="mt-4 flex items-baseline gap-2">
+              <span className="text-4xl font-semibold tracking-tight">
+                Your Budget
+              </span>
+            </div>
+            <p className="mt-1.5 text-sm text-muted-foreground">
+              Evaluated individually
+            </p>
+
+            <div className="mt-5 space-y-3 text-pretty leading-relaxed text-muted-foreground">
+              <p>Have a fixed budget?</p>
+            </div>
+
+            <div className="mt-8 border-t border-border pt-6">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                Send us
+              </p>
+              <ul className="mt-4 flex flex-col gap-3">
+                {[
+                  'Complete technical specification',
+                  'Required delivery date',
+                  'Target budget',
+                  'Expected production quantity',
+                ].map((item) => (
+                  <IncludedItem key={item} label={item} />
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-6 rounded-sm border border-border bg-background p-5">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
+                Evaluation
+              </p>
+              <div className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
+                <p>
+                  We evaluate every proposal individually and respond within
+                  five business days.
+                </p>
+                <p>Possible responses:</p>
+                <ul className="flex flex-col gap-1.5">
+                  {['Accepted', 'Declined'].map((item) => (
+                    <li key={item} className="flex gap-2.5">
+                      <span
+                        className="mt-2 size-1 shrink-0 bg-accent"
+                        aria-hidden="true"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p>Only complete technical specifications are evaluated.</p>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-1 items-end">
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-border bg-card px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:bg-background"
+              >
+                Submit Project Bid
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
