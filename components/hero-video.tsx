@@ -62,7 +62,9 @@ export function HeroVideo() {
           ref={videoRef}
           src={VIDEO_SRC}
           playsInline
-          controls={playing}
+          controls={false}
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
           preload="metadata"
           onEnded={stopVideo}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
