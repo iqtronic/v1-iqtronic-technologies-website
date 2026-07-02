@@ -11,7 +11,7 @@ import {
 import { SearchOverlay } from '@/components/search-overlay'
 
 const NAV_LINKS = [
-  { label: 'Development', href: '/#engineering' },
+  { label: 'Development', href: '/development' },
   { label: 'IQcontrol', href: '/iqcontrol' },
   { label: 'Why IQtronic', href: '/why-iqtronic' },
   { label: 'Where to Buy', href: '/distributor' },
