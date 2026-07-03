@@ -8,6 +8,7 @@ interface Step {
 }
 
 const STEPS: Step[] = [
+  { title: 'Project proposal', content: [] },
   { title: 'Accepted', content: [] },
   { title: 'First prepaid development week', content: [] },
   { title: 'Development', content: [] },
@@ -85,7 +86,7 @@ export function DevelopmentProcess() {
                 className="absolute left-5 top-0 z-10 flex size-10 -translate-x-1/2 items-center justify-center rounded-full bg-accent font-mono text-sm font-semibold text-accent-foreground sm:left-6"
                 aria-hidden="true"
               >
-                {`0${i + 1}`}
+                {String(i + 1).padStart(2, '0')}
               </span>
 
               <div className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">

@@ -58,6 +58,16 @@ function PaymentModel() {
         </p>
         <p>There is no long-term commitment.</p>
         <p>The customer pays only for completed prepaid development weeks.</p>
+        <ul className="mt-1 flex flex-col gap-2">
+          {['Weekly progress reports', 'Stop anytime', 'No long-term commitment'].map(
+            (item) => (
+              <li key={item} className="flex gap-2.5">
+                <CheckIcon className="mt-0.5 size-4 shrink-0 text-accent" />
+                <span>{item}</span>
+              </li>
+            ),
+          )}
+        </ul>
       </div>
     </div>
   )
@@ -128,7 +138,7 @@ const COMPARISON: { label: string; partnership: Cell; full: Cell }[] = [
   {
     label: 'Firmware source code',
     partnership: { type: 'dash' },
-    full: { type: 'text', value: 'Included' },
+    full: { type: 'check' },
   },
   {
     label: 'Manufacturing documentation',
@@ -148,6 +158,11 @@ const COMPARISON: { label: string; partnership: Cell; full: Cell }[] = [
   {
     label: 'Long-term production support',
     partnership: { type: 'text', value: 'Included' },
+    full: { type: 'text', value: 'Optional' },
+  },
+  {
+    label: 'Manufacturing by IQtronic',
+    partnership: { type: 'check' },
     full: { type: 'text', value: 'Optional' },
   },
 ]
@@ -200,7 +215,7 @@ export function DevelopmentModels() {
             Development models
           </div>
           <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-            Two ways to build your product.
+            Three ways to build your product.
           </h2>
           <div className="mt-6 space-y-4 text-pretty leading-relaxed text-muted-foreground">
             <p>Every project is different.</p>
@@ -210,7 +225,7 @@ export function DevelopmentModels() {
               project including firmware source code and manufacturing
               documentation.
             </p>
-            <p>Therefore IQtronic offers two development models.</p>
+            <p>Therefore IQtronic offers three development models.</p>
           </div>
         </div>
 
@@ -220,7 +235,7 @@ export function DevelopmentModels() {
           <article className="relative flex flex-col rounded-sm border-2 border-accent bg-card p-8 sm:p-10">
             <div className="flex items-center justify-between gap-4">
               <span className="inline-flex items-center rounded-sm bg-accent px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground">
-                Most popular
+                Recommended
               </span>
               <AvailabilityBadge status={AVAILABILITY.partnership} />
             </div>
@@ -229,11 +244,16 @@ export function DevelopmentModels() {
               Manufacturing Partnership
             </h3>
             <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-4xl font-semibold tracking-tight">€280</span>
+              <span className="text-4xl font-semibold tracking-tight">
+                €1,400
+              </span>
               <span className="text-muted-foreground">/ week</span>
             </div>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              8 development hours included
+              40 development hours included
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              (8 hours/day × 5 working days)
             </p>
 
             <div className="mt-5 space-y-3 text-pretty leading-relaxed text-muted-foreground">
@@ -244,6 +264,10 @@ export function DevelopmentModels() {
               <p>
                 Development costs are reduced while IQtronic handles
                 manufacturing, production optimization and long-term support.
+              </p>
+              <p>
+                Firmware is delivered as a compiled binary for devices
+                manufactured by IQtronic.
               </p>
             </div>
 
@@ -311,16 +335,25 @@ export function DevelopmentModels() {
               Full Custom Development
             </h3>
             <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-4xl font-semibold tracking-tight">€520</span>
+              <span className="text-4xl font-semibold tracking-tight">
+                €2,600
+              </span>
               <span className="text-muted-foreground">/ week</span>
             </div>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              8 development hours included
+              40 development hours included
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              (8 hours/day × 5 working days)
             </p>
 
             <div className="mt-5 space-y-3 text-pretty leading-relaxed text-muted-foreground">
               <p>
                 Ideal for customers requiring complete ownership of the project.
+              </p>
+              <p>
+                Includes firmware source code, manufacturing documentation and
+                full project ownership.
               </p>
             </div>
 
@@ -375,43 +408,41 @@ export function DevelopmentModels() {
 
             <div className="mt-8 border-t border-border pt-6">
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                Send us
+                Process
               </p>
-              <ul className="mt-4 flex flex-col gap-3">
+              <ol className="mt-4 flex flex-col gap-2 text-sm leading-relaxed text-foreground">
                 {[
-                  'Complete technical specification',
-                  'Required delivery date',
-                  'Target budget',
-                  'Expected production quantity',
-                ].map((item) => (
-                  <IncludedItem key={item} label={item} />
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-6 rounded-sm border border-border bg-background p-5">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">
-                Evaluation
-              </p>
-              <div className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
-                <p>
-                  We evaluate every proposal individually and respond within
-                  five business days.
-                </p>
-                <p>Possible responses:</p>
-                <ul className="flex flex-col gap-1.5">
-                  {['Accepted', 'Declined'].map((item) => (
-                    <li key={item} className="flex gap-2.5">
+                  'Complete specification',
+                  'Your budget',
+                  'Delivery date',
+                  'Production quantity',
+                  'Accepted / Declined',
+                ].map((item, idx, arr) => (
+                  <li key={item} className="flex flex-col gap-2">
+                    <span className="flex gap-2.5">
                       <span
                         className="mt-2 size-1 shrink-0 bg-accent"
                         aria-hidden="true"
                       />
                       <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p>Only complete technical specifications are evaluated.</p>
-              </div>
+                    </span>
+                    {idx < arr.length - 1 && (
+                      <span
+                        className="pl-[3px] text-muted-foreground"
+                        aria-hidden="true"
+                      >
+                        ↓
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="mt-6 rounded-sm border border-border bg-background p-5">
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Response within 5 business days.
+              </p>
             </div>
 
             <div className="mt-8 flex flex-1 items-end">
