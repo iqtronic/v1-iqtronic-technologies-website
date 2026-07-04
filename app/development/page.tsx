@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { DevelopmentEngineers } from '@/components/development/development-engineers'
 import { DevelopmentHero } from '@/components/development/development-hero'
 import { DevelopmentProcess } from '@/components/development/development-process'
 import { DevelopmentWhy } from '@/components/development/development-why'
@@ -19,6 +20,7 @@ export default function DevelopmentPage() {
     <>
       <SiteHeader />
       <main>
+        <DevelopmentEngineers />
         <DevelopmentHero />
         <DevelopmentProcess />
         <DevelopmentWhy />
