@@ -14,6 +14,7 @@ import { ProductCard } from '@/components/product-card'
 import { SocketVersions } from '@/components/socket-versions'
 import { SocketTypeSelector } from '@/components/socket-type-selector'
 import { ProductEvolution } from '@/components/product-evolution'
+import { ProductLicensingSummary } from '@/components/product-licensing-summary'
 import {
   AvailabilityBadge,
   LifecycleBadge,
@@ -213,6 +214,11 @@ export function ProductDetail({ product }: { product: Product }) {
           </div>
         </div>
       </section>
+
+      {/* Software licensing summary — IQsocket, IQgate & IQboard families only */}
+      {['iqsocket', 'iqgate', 'iqboard'].includes(product.family) ? (
+        <ProductLicensingSummary />
+      ) : null}
 
       {/* Ecosystem / compatibility (optional) */}
       {product.ecosystem && product.ecosystem.length > 0 ? (
