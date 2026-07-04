@@ -112,8 +112,8 @@ type Cell = { type: 'check' } | { type: 'dash' } | { type: 'text'; value: string
 const COMPARISON: { label: string; partnership: Cell; full: Cell }[] = [
   {
     label: 'Development rate',
-    partnership: { type: 'text', value: '€280 / week' },
-    full: { type: 'text', value: '€520 / week' },
+    partnership: { type: 'text', value: '€35 / hour · €1,400 / week' },
+    full: { type: 'text', value: '€65 / hour · €2,600 / week' },
   },
   {
     label: 'Hardware development',
@@ -250,7 +250,7 @@ export function DevelopmentModels() {
               <span className="text-muted-foreground">/ week</span>
             </div>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              40 development hours included
+              €35 / hour · 40 development hours included
             </p>
             <p className="mt-0.5 text-xs text-muted-foreground">
               (8 hours/day × 5 working days)
@@ -341,7 +341,7 @@ export function DevelopmentModels() {
               <span className="text-muted-foreground">/ week</span>
             </div>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              40 development hours included
+              €65 / hour · 40 development hours included
             </p>
             <p className="mt-0.5 text-xs text-muted-foreground">
               (8 hours/day × 5 working days)
@@ -455,6 +455,19 @@ export function DevelopmentModels() {
               </Link>
             </div>
           </article>
+        </div>
+
+        {/* Pricing explanation */}
+        <div className="mt-6 max-w-3xl space-y-2 text-sm leading-relaxed text-muted-foreground">
+          <p>Weekly pricing is based on a standard 40-hour engineering week.</p>
+          <p>
+            Direct engineering team — no sales layers, no project managers, no
+            outsourcing.
+          </p>
+          <p>
+            This allows us to offer competitive engineering rates without
+            compromising quality.
+          </p>
         </div>
 
         {/* Comparison table */}
