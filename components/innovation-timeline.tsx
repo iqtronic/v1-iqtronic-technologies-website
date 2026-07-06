@@ -1,7 +1,12 @@
 'use client'
 
+import Link from 'next/link'
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
+import {
+  HistoricalMaterials,
+  type HistoricalMaterialInput,
+} from '@/components/historical-materials'
 
 type Block =
   | { type: 'paragraph'; text: string }
@@ -17,6 +22,17 @@ interface Milestone {
   imageCount?: number
   /** Reserved for future video support. Renders a play affordance when true. */
   video?: boolean
+  /**
+   * Destination for the clickable primary photo — a dedicated historical
+   * product page. Placeholder ("#") until real URLs are available.
+   */
+  href?: string
+  /**
+   * Historical materials shown below the description. Each product can expose
+   * any subset (e.g. just a gallery, or a full archive) without affecting
+   * layout. Omit or leave empty to hide the section entirely.
+   */
+  materials?: HistoricalMaterialInput[]
 }
 
 const MILESTONES: Milestone[] = [
@@ -463,17 +479,24 @@ function TimelineMedia({
   caption,
   count = 1,
   video,
+  href = '#',
 }: {
   caption: string
   count?: number
   video?: boolean
+  /** Destination for the clickable primary photo (historical product page). */
+  href?: string
 }) {
   const extra = Math.max(0, Math.min(count - 1, 3))
   return (
     <figure>
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border bg-secondary">
+      <Link
+        href={href}
+        aria-label={`Open historical product page — ${caption}`}
+        className="group/media relative block aspect-[4/3] w-full overflow-hidden rounded-sm border border-border bg-secondary transition-colors hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      >
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
-          <FrameIcon className="size-10 text-muted-foreground/60" />
+          <FrameIcon className="size-10 text-muted-foreground/60 transition-colors group-hover/media:text-accent" />
           <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
             Historical image
           </span>
@@ -485,7 +508,7 @@ function TimelineMedia({
             </span>
           </div>
         ) : null}
-      </div>
+      </Link>
 
       {extra > 0 ? (
         <div className="mt-2 grid grid-cols-3 gap-3">
@@ -507,13 +530,28 @@ function TimelineMedia({
   )
 }
 
+/**
+ * Default historical-material links shown when a milestone does not specify its
+ * own set. Individual milestones can override `materials` to show a smaller
+ * subset (e.g. only a gallery) or a fuller archive.
+ */
+const DEFAULT_MATERIALS: HistoricalMaterialInput[] = [
+  'gallery',
+  'manualCz',
+  'manualEn',
+  'firmware',
+  'windowsUtility',
+]
+
 function MilestoneEntry({ milestone }: { milestone: Milestone }) {
+  const materials = milestone.materials ?? DEFAULT_MATERIALS
   return (
     <article>
       <TimelineMedia
         caption={milestone.image}
         count={milestone.imageCount}
         video={milestone.video}
+        href={milestone.href}
       />
       <div className="mt-3">
         <div className="font-mono text-3xl font-semibold tracking-tight text-accent sm:text-4xl">
@@ -549,6 +587,7 @@ function MilestoneEntry({ milestone }: { milestone: Milestone }) {
             ),
           )}
         </div>
+        <HistoricalMaterials items={materials} />
       </div>
     </article>
   )
