@@ -24,9 +24,9 @@ export function ProductsOverview() {
           </h1>
           <p className="mt-6 max-w-2xl text-pretty leading-relaxed text-muted-foreground">
             IQtronic designs and manufactures IP watchdogs, remote power control
-            sockets, industrial gateways, weather stations and battery
-            monitoring systems — built for long product lifetimes and supported
-            in-house for decades.
+            sockets, industrial gateways, ENVISTATION weather systems, battery
+            monitoring systems and SENSORAGE sensor and data-logging systems —
+            built for long product lifetimes and supported in-house for decades.
           </p>
 
           {/* Category quick-nav */}

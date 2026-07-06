@@ -107,6 +107,7 @@ export type CategoryId =
   | 'iqcontrollers'
   | 'weather-stations'
   | 'bms'
+  | 'sensorage'
   | 'phase-out'
 
 export type FamilyId =
@@ -115,6 +116,7 @@ export type FamilyId =
   | 'iqboard'
   | 'envistation'
   | 'bms'
+  | 'sensorage'
   | 'legacy'
 
 export interface Family {
@@ -134,25 +136,32 @@ export interface Category {
 export const CATEGORIES: Category[] = [
   {
     id: 'iqcontrollers',
-    name: 'IQcontrollers',
+    name: 'IQtronic Controllers',
     tagline: 'Remote power control, switching and reboot devices.',
     families: ['iqsocket', 'iqgate', 'iqboard'],
   },
   {
     id: 'weather-stations',
-    name: 'Weather Stations',
-    tagline: 'Rugged environmental sensing for outdoor sites.',
+    name: 'ENVISTATION',
+    tagline: 'Rugged weather and meteorological systems for outdoor sites.',
     families: ['envistation'],
   },
   {
     id: 'bms',
-    name: 'Battery Monitoring Systems',
+    name: 'BMS',
     tagline: 'Continuous health and capacity monitoring for battery banks.',
     families: ['bms'],
   },
   {
+    id: 'sensorage',
+    name: 'SENSORAGE',
+    tagline:
+      'Sensor systems, data logging and remote measurement for environmental and industrial applications.',
+    families: ['sensorage'],
+  },
+  {
     id: 'phase-out',
-    name: 'Phase Out',
+    name: 'Legacy / Phase-out Products',
     tagline: 'Legacy products no longer recommended for new designs.',
     families: ['legacy'],
   },
@@ -188,6 +197,13 @@ export const FAMILIES: Family[] = [
     name: 'Battery Monitoring',
     category: 'bms',
     tagline: 'Per-cell and per-string battery monitoring systems.',
+  },
+  {
+    id: 'sensorage',
+    name: 'SENSORAGE',
+    category: 'sensorage',
+    tagline:
+      'Sensor systems, data logging and remote measurement for environmental and industrial applications.',
   },
   {
     id: 'legacy',
@@ -796,6 +812,143 @@ export const PRODUCTS: Product[] = [
       { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
     ],
     keywords: ['battery monitoring system', 'BMS', 'industrial monitoring', 'UPS battery monitoring'],
+  },
+
+  // ---------------- SENSORAGE ----------------
+  {
+    slug: 'sensorage-dl100',
+    name: 'SENSORAGE DL100',
+    family: 'sensorage',
+    category: 'sensorage',
+    tagline: 'Multi-channel data logger for measurement and monitoring.',
+    description:
+      'Compact multi-channel data logger for continuous measurement, recording and remote readout of analog and digital sensors.',
+    seoDescription:
+      'The SENSORAGE DL100 is an industrial multi-channel data logger for environmental and industrial measurement. It records analog and digital sensor inputs, stores long-term measurement data locally and streams it for remote monitoring over Ethernet and cellular networks.',
+    image: '/images/iqtronic-sensorage-datalogger.png',
+    imageAlt: 'SENSORAGE DL100 industrial multi-channel data logger',
+    price: '€349',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2021', productionUntil: '2035+' },
+    availability: 'in-stock',
+    ecosystem: ['modbus', 'snmp', 'rest-api', 'web-interface', 'cloud-ready'],
+    gallery: [
+      { src: '/images/iqtronic-sensorage-datalogger.png', alt: 'SENSORAGE DL100 product photo', caption: 'Product' },
+      { src: '/images/monitoring-system.png', alt: 'SENSORAGE DL100 installed on a DIN rail', caption: 'Installation' },
+    ],
+    applications: [
+      { title: 'Environmental Monitoring', description: 'Log temperature, humidity and air quality across remote sites.' },
+      { title: 'Industrial Automation', description: 'Record process values and sensor data for analysis and compliance.' },
+      { title: 'Energy & Utilities', description: 'Continuous metering and measurement data logging for infrastructure.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.tempSensor, SHARED_ACCESSORIES.expansion, SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Inputs', value: 'Up to 16 analog / digital channels' },
+      { label: 'Sampling', value: 'Configurable, 1 s – 24 h intervals' },
+      { label: 'Storage', value: 'Internal + microSD, long-term logging' },
+      { label: 'Connectivity', value: 'Ethernet, Modbus, SNMP, optional cellular' },
+      { label: 'Power supply', value: '12–48 V DC' },
+      { label: 'Operating temperature', value: '-20 °C to +60 °C' },
+      { label: 'Mounting', value: 'DIN rail / wall' },
+    ],
+    documents: [
+      { title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.4 · 1.2 MB' },
+      { title: 'User Manual', type: 'PDF', meta: 'EN · 3.8 MB' },
+      { title: 'Quick Start Guide', type: 'PDF', meta: 'EN · 500 KB' },
+      { title: 'Firmware', type: 'BIN', meta: 'v1.9 · 900 KB' },
+      { title: 'SNMP MIB', type: 'MIB', meta: '32 KB' },
+      { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
+    ],
+    keywords: ['data logger', 'measurement system', 'sensor logging', 'environmental monitoring', 'industrial monitoring'],
+  },
+  {
+    slug: 'sensorage-env',
+    name: 'SENSORAGE ENV',
+    family: 'sensorage',
+    category: 'sensorage',
+    tagline: 'Remote environmental sensor hub with cellular readout.',
+    description:
+      'Weatherproof remote sensor hub for environmental sensing and remote sensor monitoring at off-grid and outdoor locations.',
+    seoDescription:
+      'The SENSORAGE ENV is a weatherproof remote environmental sensor hub for remote sensor monitoring. Designed for off-grid and outdoor sites, it collects data from connected probes and transmits measurement data over cellular networks for centralized environmental monitoring.',
+    image: '/images/iqtronic-sensorage-sensor-hub.png',
+    imageAlt: 'SENSORAGE ENV remote environmental sensor hub',
+    price: '€399',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2022', productionUntil: '2035+' },
+    availability: 'in-stock',
+    ecosystem: ['rest-api', 'cloud-ready', 'web-interface'],
+    gallery: [
+      { src: '/images/iqtronic-sensorage-sensor-hub.png', alt: 'SENSORAGE ENV product photo', caption: 'Product' },
+      { src: '/images/monitoring-system.png', alt: 'SENSORAGE ENV deployed outdoors', caption: 'Installation' },
+    ],
+    applications: [
+      { title: 'Environmental Monitoring', description: 'Remote sensing of soil, air and water parameters at unattended sites.' },
+      { title: 'Agriculture', description: 'Field monitoring of microclimate and soil conditions.' },
+      { title: 'Weather Monitoring', description: 'Supplementary sensing alongside ENVISTATION weather systems.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.antenna, SHARED_ACCESSORIES.tempSensor, SHARED_ACCESSORIES.powerAdapter],
+    specs: [
+      { label: 'Sensor inputs', value: 'Analog, digital & 1-Wire probes' },
+      { label: 'Connectivity', value: 'Cellular (LTE Cat-M1 / NB-IoT), REST' },
+      { label: 'Power', value: 'DC input + solar-ready' },
+      { label: 'Enclosure', value: 'IP66 polycarbonate' },
+      { label: 'Storage', value: 'Local buffer with store-and-forward' },
+      { label: 'Operating temperature', value: '-30 °C to +70 °C' },
+    ],
+    documents: [
+      { title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.2 · 1.1 MB' },
+      { title: 'User Manual', type: 'PDF', meta: 'EN · 3.2 MB' },
+      { title: 'Quick Start Guide', type: 'PDF', meta: 'EN · 480 KB' },
+      { title: 'Firmware', type: 'BIN', meta: 'v1.5 · 820 KB' },
+      { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
+    ],
+    keywords: ['remote sensor monitoring', 'environmental sensing', 'sensor hub', 'measurement system', 'IoT sensing'],
+  },
+  {
+    slug: 'sensorage-ind',
+    name: 'SENSORAGE IND',
+    family: 'sensorage',
+    category: 'sensorage',
+    tagline: 'Industrial measurement gateway for sensor networks.',
+    description:
+      'DIN-rail industrial measurement gateway aggregating sensor networks and forwarding measurement data to SCADA and cloud systems.',
+    seoDescription:
+      'The SENSORAGE IND is an industrial measurement gateway for sensor systems and data logging. It aggregates Modbus and analog sensor networks, performs local measurement processing and forwards data to SCADA, historian and cloud platforms for industrial monitoring.',
+    image: '/images/iqtronic-sensorage-datalogger.png',
+    imageAlt: 'SENSORAGE IND industrial measurement gateway',
+    price: '€529',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2023', productionUntil: '2036+' },
+    availability: 'made-to-order',
+    ecosystem: ['modbus', 'snmp', 'rest-api', 'cloud-ready', 'web-interface'],
+    gallery: [
+      { src: '/images/iqtronic-sensorage-datalogger.png', alt: 'SENSORAGE IND product photo', caption: 'Product' },
+      { src: '/images/enclosures.png', alt: 'SENSORAGE IND mounted in a control cabinet', caption: 'Installation' },
+    ],
+    applications: [
+      { title: 'Industrial Automation', description: 'Aggregate plant sensor networks into SCADA and historian systems.' },
+      { title: 'Energy & Utilities', description: 'Centralize distributed measurement points across facilities.' },
+      { title: 'Building Management', description: 'Consolidate building sensors for analytics and reporting.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.expansion, SHARED_ACCESSORIES.mounting, SHARED_ACCESSORIES.powerAdapter],
+    specs: [
+      { label: 'Fieldbus', value: 'Modbus RTU / TCP, analog inputs' },
+      { label: 'Uplink', value: 'Ethernet, cellular, REST, MQTT' },
+      { label: 'Processing', value: 'Local scaling, alarms & aggregation' },
+      { label: 'Power supply', value: '12–48 V DC' },
+      { label: 'Mounting', value: 'DIN rail' },
+      { label: 'Operating temperature', value: '-20 °C to +60 °C' },
+    ],
+    documents: [
+      { title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.1 · 1.2 MB' },
+      { title: 'User Manual', type: 'PDF', meta: 'EN · 3.6 MB' },
+      { title: 'Quick Start Guide', type: 'PDF', meta: 'EN · 510 KB' },
+      { title: 'Firmware', type: 'BIN', meta: 'v1.3 · 880 KB' },
+      { title: 'SNMP MIB', type: 'MIB', meta: '36 KB' },
+      { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
+    ],
+    keywords: ['measurement gateway', 'sensor network', 'industrial monitoring', 'data logging', 'SCADA sensing'],
   },
 
   // ---------------- Phase out / legacy ----------------
