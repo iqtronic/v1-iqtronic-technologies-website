@@ -60,7 +60,7 @@ export function Hero() {
         </div>
 
         <div className="relative flex w-full flex-col items-center justify-center lg:col-span-6 lg:block">
-          <div className="mb-4 flex w-full items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:pointer-events-none lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:aspect-square lg:h-full lg:w-auto lg:items-start lg:justify-start lg:text-left">
+          <div className="mb-4 flex w-full items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:pointer-events-none lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:aspect-square lg:h-full lg:w-auto lg:translate-x-[250px] lg:items-start lg:justify-start lg:text-left">
             <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
             Proudly designed in Czechia
             <svg
