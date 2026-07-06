@@ -535,13 +535,7 @@ function TimelineMedia({
  * own set. Individual milestones can override `materials` to show a smaller
  * subset (e.g. only a gallery) or a fuller archive.
  */
-const DEFAULT_MATERIALS: HistoricalMaterialInput[] = [
-  'gallery',
-  'manualCz',
-  'manualEn',
-  'firmware',
-  'windowsUtility',
-]
+const DEFAULT_MATERIALS: HistoricalMaterialInput[] = ['manualCz']
 
 function MilestoneEntry({ milestone }: { milestone: Milestone }) {
   const materials = milestone.materials ?? DEFAULT_MATERIALS
