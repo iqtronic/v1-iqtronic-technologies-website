@@ -1,4 +1,4 @@
-import { Logo } from '@/components/logo'
+import Image from 'next/image'
 
 const COLUMNS = [
   {
@@ -25,7 +25,13 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           <div className="col-span-2">
-            <Logo />
+            <Image
+              src="/images/iqtronic-logo.png"
+              alt="IQtronic Technologies"
+              width={281}
+              height={87}
+              className="h-12 w-auto"
+            />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               Independent European engineering. Industrial IoT products, custom
               electronics and accredited test laboratories since 1999.
