@@ -6,6 +6,7 @@ import {
   VideoIcon,
   ContactIcon,
 } from '@/components/support/support-section'
+import { BrandName } from '@/components/support/brand-name'
 
 /** Top-level quick links. Placeholder hrefs until each hub is built out. */
 const QUICK_LINKS = [
@@ -120,7 +121,7 @@ export function Support() {
                 <div className="flex flex-1 flex-col p-6">
                   <div className="flex items-baseline justify-between gap-3">
                     <h3 className="text-lg font-semibold tracking-tight">
-                      {family.name}
+                      <BrandName name={family.name} />
                     </h3>
                     <span
                       className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent"

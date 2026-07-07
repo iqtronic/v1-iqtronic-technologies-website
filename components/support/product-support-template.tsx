@@ -6,6 +6,7 @@ import { SupportVideoTutorials } from './support-video-tutorials'
 import { SupportKnowledgeBase } from './support-knowledge-base'
 import { SupportDownloads } from './support-downloads'
 import { SupportContact } from './support-contact'
+import { BrandName } from './brand-name'
 
 /**
  * Reusable product support page. Every product family renders through this
@@ -30,7 +31,9 @@ export function ProductSupportTemplate({
             <span className="px-2" aria-hidden="true">
               /
             </span>
-            <span className="text-foreground">{product.name}</span>
+            <span className="text-foreground">
+              <BrandName name={product.name} />
+            </span>
           </nav>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
@@ -48,7 +51,7 @@ export function ProductSupportTemplate({
                 Product Support
               </div>
               <h1 className="mt-5 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-                {product.name}
+                <BrandName name={product.name} />
               </h1>
               <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">
                 {product.description}
