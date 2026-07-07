@@ -1,131 +1,73 @@
+import Image from 'next/image'
 import Link from 'next/link'
+import { SUPPORT_FAMILIES } from '@/lib/support'
+import {
+  DocumentationIcon,
+  VideoIcon,
+  ContactIcon,
+} from '@/components/support/support-section'
 
-const DOWNLOAD_GROUPS = [
+/** Top-level quick links. Placeholder hrefs until each hub is built out. */
+const QUICK_LINKS = [
   {
-    title: 'Datasheets',
-    body: 'Technical specifications, mechanical drawings and electrical ratings for every product.',
+    title: 'Product Support',
+    body: 'Documentation, firmware, tutorials and troubleshooting for every product family.',
+    href: '#product-support',
+    icon: <DocumentationIcon className="size-5" />,
   },
   {
-    title: 'Manuals',
-    body: 'Installation, configuration and operation guides for field deployment.',
+    title: 'Video Tutorials',
+    body: 'Step-by-step videos for installation, activation and configuration.',
+    href: '#',
+    icon: <VideoIcon className="size-5" />,
   },
   {
-    title: 'Software',
-    body: 'Configuration tools, SCADA connectors and desktop utilities.',
+    title: 'Licensing',
+    body: 'Activate, upgrade and manage the licenses tied to your organisation.',
+    href: '#',
+    icon: <KeyIcon className="size-5" />,
   },
   {
-    title: 'Firmware',
-    body: 'Latest stable and legacy firmware images with release notes.',
-  },
-]
-
-const LICENSING = [
-  {
-    title: 'License activation',
-    body: 'Activate a new license key for software, firmware features or laboratory tools.',
-  },
-  {
-    title: 'License upgrades',
-    body: 'Move to a higher tier or extend feature sets on existing deployments.',
-  },
-  {
-    title: 'License management',
-    body: 'View, transfer and renew the licenses tied to your organisation.',
-  },
-]
-
-const FAQ = [
-  {
-    q: 'How do I open a support ticket?',
-    a: 'Use the “Open Support Ticket” button above. Provide your product serial number and a description of the issue, and an engineer will respond directly.',
-  },
-  {
-    q: 'Where can I find firmware for my device?',
-    a: 'All firmware images are in the Downloads section under Firmware, organised by product family with release notes.',
-  },
-  {
-    q: 'How do I activate or transfer a license?',
-    a: 'See the Licensing section. License activation, upgrades and management are all handled from a single portal tied to your organisation.',
-  },
-  {
-    q: 'What is covered under warranty?',
-    a: 'Standard warranty covers manufacturing defects. See Warranty & Service for full terms, RMA procedures and service options.',
+    title: 'Contact Support',
+    body: 'Reach an engineer directly and open a support ticket.',
+    href: '/contact',
+    icon: <ContactIcon className="size-5" />,
   },
 ]
 
 export function Support() {
   return (
     <>
-      {/* Hero + primary CTA */}
+      {/* Hero / intro */}
       <section className="border-b border-border bg-background pt-16">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
           <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
             Support
           </div>
           <h1 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
-            Everything you need to keep your hardware running.
+            Support for every IQtronic product.
           </h1>
           <p className="mt-6 max-w-xl text-pretty leading-relaxed text-muted-foreground">
-            A single place to open a support ticket, find firmware and manuals,
-            manage licenses and access downloads — backed by the same engineers
-            who designed your products.
+            Choose your product to find documentation, firmware, video tutorials,
+            a knowledge base and downloads — all in one place, backed by the same
+            engineers who designed your hardware.
           </p>
 
-          <div className="mt-10 rounded-sm border border-border bg-card p-8 sm:p-10">
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-xl">
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                  Open a support ticket
-                </h2>
-                <p className="mt-3 text-pretty leading-relaxed text-muted-foreground">
-                  Have an issue or a question? Open a ticket and an engineer —
-                  not a call centre — will get back to you with an answer.
-                </p>
-              </div>
-              <a
-                href="/#contact"
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-sm bg-accent px-8 py-5 text-base font-medium text-accent-foreground transition-opacity hover:opacity-90"
-              >
-                Open Support Ticket
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Downloads */}
-      <section id="downloads" className="border-b border-border bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div className="max-w-2xl">
-              <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-                Downloads
-              </div>
-              <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                Datasheets, manuals, software & firmware.
-              </h2>
-            </div>
-            <Link
-              href="/downloads"
-              className="inline-flex items-center gap-2 rounded-sm border border-border bg-background px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-            >
-              Browse all downloads
-              <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-
+          {/* Four primary tiles */}
           <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {DOWNLOAD_GROUPS.map((group) => (
+            {QUICK_LINKS.map((link) => (
               <Link
-                key={group.title}
-                href="/downloads"
+                key={link.title}
+                href={link.href}
                 className="group flex flex-col bg-card p-8 transition-colors hover:bg-background"
               >
-                <div className="flex items-baseline justify-between">
-                  <h3 className="text-lg font-medium tracking-tight">
-                    {group.title}
-                  </h3>
+                <span className="flex size-10 items-center justify-center rounded-sm border border-border bg-background text-accent">
+                  {link.icon}
+                </span>
+                <div className="mt-6 flex items-baseline justify-between">
+                  <h2 className="text-lg font-medium tracking-tight">
+                    {link.title}
+                  </h2>
                   <span
                     className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent"
                     aria-hidden="true"
@@ -134,7 +76,7 @@ export function Support() {
                   </span>
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {group.body}
+                  {link.body}
                 </p>
               </Link>
             ))}
@@ -142,128 +84,83 @@ export function Support() {
         </div>
       </section>
 
-      {/* Licensing */}
-      <section id="licensing" className="border-b border-border bg-background">
+      {/* Product Support — main section */}
+      <section id="product-support" className="bg-card">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-                Licensing
-              </div>
-              <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                Activate, upgrade and manage your licenses.
-              </h2>
-              <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">
-                Software and feature licenses for your IQtronic products are
-                handled from one portal, tied to your organisation. Activate new
-                keys, upgrade tiers and keep track of every active deployment.
-              </p>
+          <div className="max-w-2xl">
+            <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+              Product Support
             </div>
-
-            <div className="lg:col-span-7">
-              <div className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-3">
-                {LICENSING.map((item) => (
-                  <div key={item.title} className="flex flex-col bg-card p-8">
-                    <span
-                      className="inline-block size-2 bg-accent"
-                      aria-hidden="true"
-                    />
-                    <h3 className="mt-6 text-lg font-medium tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      {item.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+              Select your product family.
+            </h2>
+            <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">
+              Each product family has a dedicated support page with everything you
+              need — documentation, video tutorials, knowledge base, downloads and
+              direct contact.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* FAQ */}
-      <section id="faq" className="border-b border-border bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-                FAQ
-              </div>
-              <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                Frequently asked questions.
-              </h2>
-            </div>
-
-            <div className="lg:col-span-8">
-              <dl className="divide-y divide-border border-y border-border">
-                {FAQ.map((item) => (
-                  <div key={item.q} className="py-6">
-                    <dt className="text-lg font-medium tracking-tight">
-                      {item.q}
-                    </dt>
-                    <dd className="mt-2 text-pretty leading-relaxed text-muted-foreground">
-                      {item.a}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Warranty & Service */}
-      <section id="warranty" className="bg-background">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-                Warranty &amp; Service
-              </div>
-              <h2 className="mt-5 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-                Service and warranty information.
-              </h2>
-              <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">
-                Every IQtronic product is built to run for years in harsh,
-                regulated environments — and backed by clear warranty terms and
-                an engineer-led service process.
-              </p>
-              <a
-                href="/#contact"
-                className="mt-8 inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {SUPPORT_FAMILIES.map((family) => (
+              <Link
+                key={family.id}
+                href={`/support/${family.id}`}
+                className="group flex flex-col overflow-hidden rounded-sm border border-border bg-background transition-colors hover:border-accent"
               >
-                Request service or RMA
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
-
-            <div className="lg:col-span-7">
-              <div className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2">
-                {[
-                  {
-                    title: 'Warranty information',
-                    body: 'Standard coverage periods, what is and isn’t included, and how to register your product for warranty.',
-                  },
-                  {
-                    title: 'Service information',
-                    body: 'Repair, recalibration and RMA procedures, including turnaround times and shipping guidance.',
-                  },
-                ].map((item) => (
-                  <div key={item.title} className="flex flex-col bg-card p-8">
-                    <h3 className="text-lg font-medium tracking-tight">
-                      {item.title}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-card">
+                  <Image
+                    src={family.image || '/placeholder.svg'}
+                    alt={family.imageAlt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="text-lg font-semibold tracking-tight">
+                      {family.name}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      {item.body}
-                    </p>
+                    <span
+                      className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent"
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {family.tagline}
+                  </p>
+                  <span className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
+                    View support
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
     </>
+  )
+}
+
+function KeyIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="7.5" cy="15.5" r="4.5" />
+      <path d="m10.7 12.3 8.3-8.3" />
+      <path d="m16 5 3 3" />
+      <path d="m13 8 3 3" />
+    </svg>
   )
 }

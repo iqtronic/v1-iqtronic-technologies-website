@@ -17,35 +17,36 @@ interface SearchEntry {
 
 /**
  * Static, non-product entries. These point only at routes that exist today
- * (/downloads, /support) and are intentionally lightweight so the overlay can
- * later be swapped for a real site-wide search index without UI changes.
+ * (/support and its product-support pages) and are intentionally lightweight so
+ * the overlay can later be swapped for a real site-wide search index without UI
+ * changes. Downloads now live within each product's support page.
  */
 const STATIC_ENTRIES: SearchEntry[] = [
   {
     title: 'Datasheets',
     description: 'Technical specifications and electrical ratings for every product.',
-    href: '/downloads',
+    href: '/support#product-support',
     type: 'Document',
     keywords: ['datasheet', 'specification', 'spec', 'pdf', 'drawing'],
   },
   {
     title: 'Product manuals',
     description: 'Installation, configuration and operation guides for field deployment.',
-    href: '/downloads',
+    href: '/support#product-support',
     type: 'Document',
     keywords: ['manual', 'guide', 'installation', 'configuration', 'handbook'],
   },
   {
     title: 'Firmware images',
     description: 'Latest stable and legacy firmware with release notes.',
-    href: '/downloads',
+    href: '/support#product-support',
     type: 'Firmware',
     keywords: ['firmware', 'update', 'release', 'image', 'flash'],
   },
   {
     title: 'Configuration software',
     description: 'Desktop utilities, SCADA connectors and configuration tools.',
-    href: '/downloads',
+    href: '/support#product-support',
     type: 'Firmware',
     keywords: ['software', 'tool', 'utility', 'scada', 'driver'],
   },
@@ -59,14 +60,14 @@ const STATIC_ENTRIES: SearchEntry[] = [
   {
     title: 'Licensing & activation',
     description: 'Activate, upgrade and manage licenses tied to your organisation.',
-    href: '/support#licensing',
+    href: '/support',
     type: 'Support',
     keywords: ['license', 'licensing', 'activation', 'upgrade', 'key'],
   },
   {
     title: 'Warranty & service',
     description: 'Warranty terms, repairs and long-term service information.',
-    href: '/support#warranty',
+    href: '/support',
     type: 'Support',
     keywords: ['warranty', 'service', 'repair', 'guarantee'],
   },

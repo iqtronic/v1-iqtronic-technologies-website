@@ -6,7 +6,7 @@ import { SiteFooter } from '@/components/site-footer'
 export const metadata: Metadata = {
   title: 'Support — IQtronic Technologies',
   description:
-    'The IQtronic support hub: open a support ticket, download datasheets, manuals, software and firmware, manage licenses, and find warranty and service information.',
+    'The IQtronic support hub. Choose your product family for documentation, firmware, video tutorials, a knowledge base, downloads and direct support.',
 }
 
 export default function SupportPage() {
