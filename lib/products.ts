@@ -108,6 +108,7 @@ export type CategoryId =
   | 'weather-stations'
   | 'bms'
   | 'sensorage'
+  | 'enclosures'
   | 'phase-out'
 
 export type FamilyId =
@@ -117,6 +118,7 @@ export type FamilyId =
   | 'envistation'
   | 'bms'
   | 'sensorage'
+  | 'enclosures'
   | 'legacy'
 
 export interface Family {
@@ -158,6 +160,13 @@ export const CATEGORIES: Category[] = [
     tagline:
       'Sensor systems, data logging and remote measurement for environmental and industrial applications.',
     families: ['sensorage'],
+  },
+  {
+    id: 'enclosures',
+    name: 'Enclosure',
+    tagline:
+      'Industrial plastic enclosures and custom housings from our in-house tool shop and injection moulding.',
+    families: ['enclosures'],
   },
   {
     id: 'phase-out',
@@ -204,6 +213,13 @@ export const FAMILIES: Family[] = [
     category: 'sensorage',
     tagline:
       'Sensor systems, data logging and remote measurement for environmental and industrial applications.',
+  },
+  {
+    id: 'enclosures',
+    name: 'Enclosure',
+    category: 'enclosures',
+    tagline:
+      'Standard and custom industrial enclosures produced in-house.',
   },
   {
     id: 'legacy',
@@ -949,6 +965,124 @@ export const PRODUCTS: Product[] = [
       { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
     ],
     keywords: ['measurement gateway', 'sensor network', 'industrial monitoring', 'data logging', 'SCADA sensing'],
+  },
+
+  // ---------------- Enclosure ----------------
+  {
+    slug: 'enclosure-din-rail',
+    name: 'DIN-Rail Enclosure',
+    family: 'enclosures',
+    category: 'enclosures',
+    tagline: 'Modular DIN-rail plastic enclosure for electronics.',
+    description:
+      'Modular DIN-rail plastic enclosure for mounting custom and OEM electronics on standard 35 mm rail.',
+    seoDescription:
+      'The IQtronic DIN-rail enclosure is a modular industrial plastic housing for electronics, designed for standard 35 mm DIN-rail mounting. Injection-moulded in-house, it offers ventilation, terminal openings and a snap-fit lid for control cabinets and industrial installations.',
+    image: '/images/iqtronic-enclosure-din-rail.png',
+    imageAlt: 'IQtronic modular DIN-rail plastic enclosure',
+    price: 'On request',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2010', productionUntil: '2035+' },
+    availability: 'made-to-order',
+    gallery: [
+      { src: '/images/iqtronic-enclosure-din-rail.png', alt: 'DIN-rail enclosure product photo', caption: 'Product' },
+      { src: '/images/enclosures.png', alt: 'Range of IQtronic industrial enclosures', caption: 'Range' },
+    ],
+    applications: [
+      { title: 'Control Cabinets', description: 'House custom electronics on standard DIN rail in industrial cabinets.' },
+      { title: 'OEM Integration', description: 'Ready-made housing for integrators building on IQtronic boards.' },
+      { title: 'Automation', description: 'Protect controllers and I/O modules in automation installations.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.mounting, SHARED_ACCESSORIES.expansion],
+    specs: [
+      { label: 'Material', value: 'Flame-retardant ABS / PC' },
+      { label: 'Mounting', value: '35 mm DIN rail' },
+      { label: 'Protection', value: 'IP20 (cabinet use)' },
+      { label: 'Ventilation', value: 'Optional ventilation slots' },
+      { label: 'Customization', value: 'Custom cut-outs and printing' },
+    ],
+    documents: [
+      { title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.0 · 800 KB' },
+      { title: 'Mechanical Drawing', type: 'PDF', meta: 'DXF / PDF · 400 KB' },
+    ],
+    keywords: ['DIN rail enclosure', 'plastic enclosure', 'electronics housing', 'industrial enclosure'],
+  },
+  {
+    slug: 'enclosure-ip66',
+    name: 'IP66 Field Enclosure',
+    family: 'enclosures',
+    category: 'enclosures',
+    tagline: 'Weatherproof wall-mount enclosure for outdoor use.',
+    description:
+      'Sealed IP66 polycarbonate enclosure for outdoor and harsh-environment electronics installations.',
+    seoDescription:
+      'The IQtronic IP66 field enclosure is a weatherproof polycarbonate housing for outdoor electronics. With a sealed gasket, hinged lid and cable glands, it protects sensors, gateways and controllers in harsh and outdoor industrial environments.',
+    image: '/images/iqtronic-enclosure-ip66.png',
+    imageAlt: 'IQtronic IP66 weatherproof field enclosure',
+    price: 'On request',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2012', productionUntil: '2035+' },
+    availability: 'made-to-order',
+    gallery: [
+      { src: '/images/iqtronic-enclosure-ip66.png', alt: 'IP66 field enclosure product photo', caption: 'Product' },
+      { src: '/images/enclosures.png', alt: 'Range of IQtronic industrial enclosures', caption: 'Range' },
+    ],
+    applications: [
+      { title: 'Outdoor Installations', description: 'Protect electronics from rain, dust and UV at outdoor sites.' },
+      { title: 'Remote Sensing', description: 'House SENSORAGE and telemetry units in the field.' },
+      { title: 'Infrastructure', description: 'Rugged housing for utilities and infrastructure equipment.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.antenna, SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Material', value: 'UV-stable polycarbonate' },
+      { label: 'Protection', value: 'IP66' },
+      { label: 'Sealing', value: 'Gasket seal, hinged lid' },
+      { label: 'Cable entry', value: 'Cable glands / knock-outs' },
+      { label: 'Temperature', value: '-40 °C to +80 °C' },
+    ],
+    documents: [
+      { title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.0 · 900 KB' },
+      { title: 'Mechanical Drawing', type: 'PDF', meta: 'DXF / PDF · 450 KB' },
+    ],
+    keywords: ['IP66 enclosure', 'weatherproof enclosure', 'outdoor enclosure', 'field enclosure'],
+  },
+  {
+    slug: 'enclosure-oem-housing',
+    name: 'Custom OEM Housing',
+    family: 'enclosures',
+    category: 'enclosures',
+    tagline: 'Bespoke injection-moulded housings for OEM products.',
+    description:
+      'Custom injection-moulded plastic housings developed and produced in-house for OEM and series products.',
+    seoDescription:
+      'IQtronic designs and produces custom OEM plastic housings using in-house tool making and injection moulding. From concept and tooling to series production, we deliver bespoke enclosures tailored to your device, branding and mechanical requirements.',
+    image: '/images/iqtronic-enclosure-oem.png',
+    imageAlt: 'IQtronic custom OEM plastic device housing',
+    price: 'On request',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '1999', productionUntil: '2035+' },
+    availability: 'build-on-request',
+    gallery: [
+      { src: '/images/iqtronic-enclosure-oem.png', alt: 'Custom OEM housing product photo', caption: 'Product' },
+      { src: '/images/enclosures.png', alt: 'Range of IQtronic industrial enclosures', caption: 'Range' },
+    ],
+    applications: [
+      { title: 'OEM Products', description: 'Bespoke housings for customer-branded series products.' },
+      { title: 'Product Development', description: 'From concept and tooling to injection-moulded series.' },
+      { title: 'Handheld Devices', description: 'Ergonomic casings for portable and handheld electronics.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Process', value: 'In-house tool making & injection moulding' },
+      { label: 'Materials', value: 'ABS, PC, PP and blends' },
+      { label: 'Services', value: 'Design, tooling, series production' },
+      { label: 'Finishing', value: 'Printing, laser marking, assembly' },
+      { label: 'Volumes', value: 'Prototype to series' },
+    ],
+    documents: [
+      { title: 'Capabilities Overview', type: 'PDF', meta: '1.1 MB' },
+    ],
+    keywords: ['OEM housing', 'custom enclosure', 'injection moulding', 'plastic housing', 'custom plastic parts'],
   },
 
   // ---------------- Phase out / legacy ----------------

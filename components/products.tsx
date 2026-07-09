@@ -7,6 +7,8 @@ const PRODUCTS = [
     image: '/images/iqsocket.png',
     body: 'GSM and IP controlled power sockets for remote switching, reboot and monitoring of critical equipment in unattended sites.',
     specs: ['GSM / Wi-Fi / Ethernet', 'Temperature sensing', 'Scheduling & alerts'],
+    href: '/products',
+    cta: 'Explore products',
   },
   {
     name: 'Industrial Weather Stations',
@@ -14,6 +16,8 @@ const PRODUCTS = [
     image: '/images/weather-station.png',
     body: 'Rugged, calibrated stations measuring wind, temperature, humidity, pressure and solar radiation for energy and infrastructure.',
     specs: ['IP66 enclosure', 'Calibrated sensors', 'Solar / battery powered'],
+    href: '/products',
+    cta: 'Explore products',
   },
   {
     name: 'Monitoring Systems',
@@ -21,6 +25,17 @@ const PRODUCTS = [
     image: '/images/monitoring-system.png',
     body: 'DIN-rail gateways and telemetry units that acquire, log and transmit field data over cellular and industrial protocols.',
     specs: ['Modbus / MQTT', 'Edge logging', 'Remote firmware update'],
+    href: '/products',
+    cta: 'Explore products',
+  },
+  {
+    name: 'SENSORAGE',
+    category: 'Sensing & Data Logging',
+    image: '/images/iqtronic-sensorage-datalogger.png',
+    body: 'Sensor systems, data loggers and remote measurement units for continuous environmental and industrial monitoring.',
+    specs: ['Multi-channel logging', 'Cellular & Modbus', 'Long-term data storage'],
+    href: '/sensorage',
+    cta: 'Discover SENSORAGE',
   },
 ]
 
@@ -43,7 +58,7 @@ export function Products() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {PRODUCTS.map((product) => (
             <article
               key={product.name}
@@ -84,10 +99,10 @@ export function Products() {
                   ))}
                 </ul>
                 <a
-                  href="/products"
+                  href={product.href}
                   className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
                 >
-                  Explore products
+                  {product.cta}
                   <span aria-hidden="true">→</span>
                 </a>
               </div>
