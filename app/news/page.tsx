@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   title: 'News & Development — IQtronic Technologies',
   description:
     'Latest product development updates, engineering notes and company milestones from IQtronic Technologies.',
+  alternates: {
+    canonical: '/news',
+    types: {
+      'application/rss+xml': '/news/rss.xml',
+    },
+  },
 }
 
 export default function NewsPage() {

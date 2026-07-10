@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { SITE } from '@/lib/site'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -10,6 +11,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: 'IQtronic Technologies — Industrial IoT, Engineering & Laboratories',
   description:
     'Engineering since 1999. Industrial IoT since 2003. IQtronic Technologies delivers IoT products, custom electronics engineering, and accredited EMC, microwave and wind-tunnel laboratories.',
