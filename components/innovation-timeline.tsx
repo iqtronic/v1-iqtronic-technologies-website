@@ -65,6 +65,7 @@ const MILESTONES: Milestone[] = [
     ],
     image: 'Antenna collage',
     imageCount: 3,
+    href: '/why-iqtronic/rf-engineering-1999',
   },
   {
     year: '2003',
