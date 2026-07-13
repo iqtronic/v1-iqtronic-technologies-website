@@ -58,6 +58,21 @@ const BLOCKS = [
     },
   },
   {
+    id: 'safety-margin',
+    eyebrow: 'Switching element',
+    title: 'Engineered with a Safety Margin',
+    subtitle: 'Designed for 16 A. Engineered with a 30 A switching element.',
+    paragraphs: [
+      'IQsocket is designed for 16 A operation, yet we deliberately use a 30 A switching element. Rather than designing to the minimum required specification, we build in a substantial electrical safety margin that significantly reduces contact stress and improves long-term reliability.',
+      'This oversized switching element provides higher durability, especially when switching demanding inductive loads such as motors, transformers and switched-mode power supplies, where electrical stress is considerably higher than with purely resistive loads.',
+      'The switching element is rated for 15 A at 250 VAC with a power factor of cos φ = 0.4, providing excellent performance even under demanding real-world operating conditions.',
+    ],
+    image: {
+      src: '/images/engineering-quality-relay.png',
+      alt: 'Macro of an oversized power relay soldered onto the IQsocket PCB',
+    },
+  },
+  {
     id: 'protection-fuse',
     eyebrow: 'Serviceability',
     title: 'Replaceable Protection Fuse',
@@ -196,6 +211,11 @@ export default function EngineeringQualityPage() {
                   <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                     {block.title}
                   </h2>
+                  {block.subtitle ? (
+                    <p className="mt-3 text-pretty text-lg font-medium leading-relaxed text-foreground">
+                      {block.subtitle}
+                    </p>
+                  ) : null}
                   {block.paragraphs.map((paragraph, p) => (
                     <p
                       key={p}
