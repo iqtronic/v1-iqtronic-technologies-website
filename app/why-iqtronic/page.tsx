@@ -52,18 +52,35 @@ export default function WhoWeArePage() {
               </div>
               <div className="lg:col-span-7">
                 <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
-                  We are an independent European engineering company. We do not
-                  chase trends — we build instrumentation, control and
-                  connectivity hardware that is expected to run for years in
-                  harsh, regulated environments.
+                  We are an independent European engineering company led by Ing.
+                  Libor Konečný and built by a team of highly experienced
+                  engineers and industrial designers, including Ing. Kumbar,
+                  Ing. Novák, Ing. ..., whose expertise and dedication have
+                  shaped IQtronic products for decades.
                 </p>
                 <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
-                  Every product we ship is designed, tested and certified by the
-                  same team.
+                  <strong className="font-semibold text-foreground">
+                    For more than 25 years, our shared philosophy has remained
+                    unchanged: uncompromising quality, meaningful innovation,
+                    exceptional value for customers, and responsible engineering
+                    with minimal environmental impact.
+                  </strong>{' '}
+                  We believe great engineering should solve real problems—not
+                  create unnecessary complexity or cost. Every feature must have
+                  a purpose, every component must justify its place, and every
+                  product must deliver lasting value throughout its lifetime.
                 </p>
                 <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
-                  That continuity, from first principles to final compliance
-                  report, is what our clients rely on.
+                  We do not chase trends—we design, develop and manufacture
+                  instrumentation, control and connectivity solutions engineered
+                  to operate reliably for years, even in demanding industrial
+                  and regulated environments.
+                </p>
+                <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
+                  Every product we deliver is designed, tested and certified by
+                  the same engineering team. That continuity—from the initial
+                  concept and hardware design to firmware development, testing
+                  and final compliance—is what our customers rely on.
                 </p>
               </div>
             </div>
