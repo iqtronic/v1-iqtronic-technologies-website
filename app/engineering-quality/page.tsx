@@ -45,6 +45,19 @@ const BLOCKS = [
     },
   },
   {
+    id: 'creepage-slots',
+    eyebrow: 'Electrical safety',
+    title: 'Extended Creepage Distances',
+    paragraphs: [
+      'The PCB incorporates precision-milled isolation slots to significantly increase creepage distance and dielectric strength between mains and low-voltage circuits.',
+      'This improves long-term electrical safety and reliability in demanding environments, including elevated humidity and pollution levels.',
+    ],
+    image: {
+      src: '/images/engineering-quality-creepage.png',
+      alt: 'Macro of precision-milled isolation slots on a PCB separating mains and low-voltage sections',
+    },
+  },
+  {
     id: 'protection-fuse',
     eyebrow: 'Serviceability',
     title: 'Replaceable Protection Fuse',
