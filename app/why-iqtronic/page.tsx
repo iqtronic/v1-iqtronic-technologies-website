@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { InnovationTimeline } from '@/components/innovation-timeline'
 import { SiteFooter } from '@/components/site-footer'
@@ -82,6 +84,49 @@ export default function WhoWeArePage() {
                   concept and hardware design to firmware development, testing
                   and final compliance—is what our customers rely on.
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Engineering quality teaser */}
+        <section className="border-b border-border bg-card">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <figure>
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border bg-secondary">
+                  <Image
+                    src="/images/engineering-quality-teaser.png"
+                    alt="Disassembled IQtronic device revealing its printed circuit board"
+                    fill
+                    sizes="(min-width: 1024px) 560px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </figure>
+
+              <div>
+                <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+                  Product quality
+                </div>
+                <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Engineered for Reliability
+                </h2>
+                <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground">
+                  True product quality starts where most customers never look —
+                  inside the device. Every IQtronic product is engineered with
+                  long-term reliability, efficient manufacturing and real-world
+                  durability in mind. Rather than making marketing claims, we
+                  prefer to demonstrate the engineering decisions behind every
+                  product.
+                </p>
+                <Link
+                  href="/engineering-quality"
+                  className="mt-8 inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+                >
+                  Discover Our Engineering
+                  <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </div>
           </div>
