@@ -1,5 +1,5 @@
+import Image from 'next/image'
 import { RotatingSlogan } from '@/components/rotating-slogan'
-import { HeroVideo } from '@/components/hero-video'
 
 export function Hero() {
   return (
@@ -59,8 +59,8 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="relative flex w-full flex-col items-center justify-center lg:col-span-6 lg:block">
-          <div className="mb-4 flex w-full items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:pointer-events-none lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:aspect-square lg:h-full lg:w-auto lg:translate-x-[210px] lg:items-start lg:justify-start lg:text-left">
+        <div className="relative flex w-full flex-col items-center justify-center lg:col-span-6">
+          <div className="mb-6 flex w-full items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:w-auto lg:justify-end lg:text-right">
             <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
             Proudly designed in Czechia
             <svg
@@ -74,7 +74,15 @@ export function Hero() {
               <path d="M0 0 L9 6 L0 12 Z" fill="#11457e" />
             </svg>
           </div>
-          <HeroVideo />
+          <Image
+            src="/images/hero-main-963.webp"
+            alt="IQtronic industrial IoT ecosystem — hands holding a green world with the iQtronic logo, smart sockets, sensors, weather stations and connected devices"
+            width={963}
+            height={642}
+            priority
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="h-auto w-full object-contain duration-700 animate-in fade-in"
+          />
         </div>
       </div>
     </section>
