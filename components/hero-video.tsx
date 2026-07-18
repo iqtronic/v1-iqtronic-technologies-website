@@ -51,7 +51,7 @@ export function HeroVideo() {
           height={642}
           priority
           sizes="(min-width: 1024px) 60vw, 100vw"
-          className={`h-auto w-full object-contain transition-opacity duration-500 ${
+          className={`h-auto w-full object-contain transition-opacity duration-500 lg:translate-x-[20px] ${
             playing ? 'opacity-0' : 'opacity-100'
           }`}
         />
@@ -112,7 +112,7 @@ export function HeroVideo() {
           type="button"
           onClick={startVideo}
           aria-label="Watch our story"
-          className="absolute bottom-[14%] left-1/2 inline-flex -translate-x-1/2 translate-y-[60px] items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-foreground shadow-sm backdrop-blur-sm transition-all hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+          className="absolute bottom-[14%] left-1/2 inline-flex -translate-x-1/2 translate-y-[80px] items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-foreground shadow-sm backdrop-blur-sm transition-all hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         >
           <span className="inline-flex size-6 items-center justify-center rounded-full bg-accent text-accent-foreground">
             <svg
