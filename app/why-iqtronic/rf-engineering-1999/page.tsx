@@ -22,6 +22,11 @@ const GALLERY = [
     src: '/images/history-1999-parabolic.png',
     alt: 'Small parabolic dish antenna with a prime-focus feed',
     caption: 'Parabolic system',
+    video: {
+      webm: '/videos/parabolic-demo.webm',
+      mp4: '/videos/parabolic-demo.mp4',
+      poster: '/images/history-1999-parabolic.png',
+    },
   },
   {
     src: '/images/history-1999-rf-accessories.png',
@@ -167,13 +172,31 @@ export default function RfEngineering1999Page() {
                 <li key={photo.src}>
                   <figure>
                     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border bg-secondary">
-                      <Image
-                        src={photo.src || "/placeholder.svg"}
-                        alt={photo.alt}
-                        fill
-                        sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover"
-                      />
+                      {photo.video ? (
+                        // eslint-disable-next-line jsx-a11y/media-has-caption
+                        <video
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          poster={photo.video.poster}
+                          aria-label={photo.alt}
+                          className="absolute inset-0 h-full w-full object-cover"
+                        >
+                          <source src={photo.video.webm} type="video/webm" />
+                          <source src={photo.video.mp4} type="video/mp4" />
+                          {photo.alt}
+                        </video>
+                      ) : (
+                        <Image
+                          src={photo.src || '/placeholder.svg'}
+                          alt={photo.alt}
+                          fill
+                          sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover"
+                        />
+                      )}
                     </div>
                     <figcaption className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                       {photo.caption}
