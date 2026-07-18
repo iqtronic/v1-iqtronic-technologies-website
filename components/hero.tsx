@@ -1,11 +1,11 @@
-import Image from 'next/image'
 import { RotatingSlogan } from '@/components/rotating-slogan'
+import { HeroVideo } from '@/components/hero-video'
 
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 pb-16 pt-16 lg:grid-cols-12 lg:gap-8 lg:px-10 lg:pb-24 lg:pt-24">
-        <div className="flex flex-col justify-center lg:col-span-5">
+        <div className="flex flex-col justify-center lg:col-span-6">
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
             <span className="inline-block size-2 bg-accent" aria-hidden="true" />
             Engineering since 1999 · Industrial IoT since 2003
@@ -59,8 +59,8 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="relative flex w-full flex-col items-center justify-center lg:col-span-7">
-          <div className="mb-6 flex w-full items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:w-auto lg:justify-end lg:text-right">
+        <div className="relative flex w-full flex-col items-center justify-center lg:col-span-6 lg:block">
+          <div className="mb-4 flex w-full items-center justify-center gap-2 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-foreground lg:pointer-events-none lg:absolute lg:right-0 lg:top-0 lg:z-10 lg:mb-0 lg:aspect-square lg:h-full lg:w-auto lg:translate-x-[210px] lg:items-start lg:justify-start lg:text-left">
             <span className="inline-block size-1.5 bg-accent" aria-hidden="true" />
             Proudly designed in Czechia
             <svg
@@ -74,15 +74,7 @@ export function Hero() {
               <path d="M0 0 L9 6 L0 12 Z" fill="#11457e" />
             </svg>
           </div>
-          <Image
-            src="/images/hero-main-963.webp"
-            alt="IQtronic industrial IoT ecosystem — hands holding a green world with the iQtronic logo, smart sockets, sensors, weather stations and connected devices"
-            width={963}
-            height={642}
-            priority
-            sizes="(min-width: 1024px) 62vw, 100vw"
-            className="h-auto w-full max-w-none object-contain duration-700 animate-in fade-in lg:w-[125%] lg:-translate-x-[4%]"
-          />
+          <HeroVideo />
         </div>
       </div>
     </section>

@@ -45,10 +45,10 @@ export function HeroVideo() {
           without shifting the hero layout. */}
       <div className="relative mx-auto w-full origin-center overflow-hidden lg:-translate-x-[95px] lg:scale-[1.652]">
         <Image
-          src="/images/iqtronic-smart-socket-iot-platform.png"
-          alt="IQtronic smart socket and industrial IoT technology platform"
-          width={1536}
-          height={1024}
+          src="/images/hero-main-963.webp"
+          alt="IQtronic industrial IoT ecosystem — hands holding a green world with the iQtronic logo, smart sockets, sensors, weather stations and connected devices"
+          width={963}
+          height={642}
           priority
           sizes="(min-width: 1024px) 60vw, 100vw"
           className={`h-auto w-full object-contain transition-opacity duration-500 ${
