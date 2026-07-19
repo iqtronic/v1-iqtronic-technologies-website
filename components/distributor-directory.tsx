@@ -203,9 +203,9 @@ function DistributorRow({
   return (
     <div className="grid grid-cols-1 items-center gap-x-6 gap-y-3 py-5 md:grid-cols-12">
       {/* Logo + company name */}
-      <div className="flex items-center gap-3 md:col-span-4">
+      <div className="flex items-center gap-5 md:col-span-4">
         <span
-          className="flex size-9 shrink-0 items-center justify-center rounded-sm border border-border bg-muted font-mono text-xs font-medium tracking-tight text-foreground"
+          className="flex h-9 w-[108px] shrink-0 items-center justify-center rounded-sm border border-border bg-muted font-mono text-xs font-medium tracking-tight text-foreground"
           aria-hidden="true"
         >
           {monogram}
