@@ -137,8 +137,8 @@ export function ProductsMegaPanel({ onNavigate }: { onNavigate?: () => void }) {
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   )

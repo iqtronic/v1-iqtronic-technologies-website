@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   CATEGORIES,
+  type CategoryId,
   getFamiliesByCategory,
   getProduct,
   getProductsByCategory,
@@ -180,7 +181,7 @@ function SubcategoryCard({ subcategory }: { subcategory: Subcategory }) {
   )
 }
 
-function PhaseOutGrid({ categoryId }: { categoryId: 'phase-out' }) {
+function PhaseOutGrid({ categoryId }: { categoryId: CategoryId }) {
   const products = getProductsByCategory(categoryId)
   return (
     <div className="mt-12 overflow-hidden rounded-sm border border-border">
