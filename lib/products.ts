@@ -115,6 +115,7 @@ export type FamilyId =
   | 'iqsocket'
   | 'iqgate'
   | 'iqboard'
+  | 'accessories'
   | 'envistation'
   | 'bms'
   | 'sensorage'
@@ -140,7 +141,7 @@ export const CATEGORIES: Category[] = [
     id: 'iqcontrollers',
     name: 'IQtronic Controllers',
     tagline: 'Remote power control, switching and reboot devices.',
-    families: ['iqsocket', 'iqgate', 'iqboard'],
+    families: ['iqsocket', 'iqgate', 'iqboard', 'accessories'],
   },
   {
     id: 'weather-stations',
@@ -194,6 +195,12 @@ export const FAMILIES: Family[] = [
     name: 'IQboard',
     category: 'iqcontrollers',
     tagline: 'OEM and embedded controller boards for integrators.',
+  },
+  {
+    id: 'accessories',
+    name: 'Accessories',
+    category: 'iqcontrollers',
+    tagline: 'Antennas, sensors and add-ons for IQtronic controllers.',
   },
   {
     id: 'envistation',
@@ -690,6 +697,97 @@ export const PRODUCTS: Product[] = [
       { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
     ],
     keywords: ['embedded controller', 'controller module', 'industrial monitoring', 'OEM module'],
+  },
+
+  // ---------------- Accessories family ----------------
+  {
+    slug: 'gsm-antenna',
+    name: 'GSM Antenna',
+    family: 'accessories',
+    category: 'iqcontrollers',
+    tagline: 'External cellular antenna for IQtronic GSM controllers.',
+    description:
+      'External GSM/cellular antenna that improves signal reception for IQtronic GSM-controlled sockets, gateways and controllers in weak-coverage locations.',
+    seoDescription:
+      'The IQtronic GSM Antenna is an external cellular antenna accessory for IQtronic GSM controllers, sockets and gateways. With an SMA connector and flexible cable, it improves signal reception and reliability for remote power control and industrial monitoring in locations with weak cellular coverage.',
+    image: '/images/iqtronic-gsm-antenna.png',
+    imageAlt: 'IQtronic external GSM cellular antenna accessory',
+    price: '€19',
+    lifecycle: 'active',
+    lifecycleDetail: {
+      productionStart: '2006',
+      productionUntil: '2035+',
+      note: 'Long-term production guaranteed.',
+    },
+    availability: 'in-stock',
+    gallery: [
+      { src: '/images/iqtronic-gsm-antenna.png', alt: 'GSM antenna product photo', caption: 'Product' },
+      { src: '/images/iqsocket.png', alt: 'GSM antenna connected to an IQtronic controller', caption: 'Installation' },
+    ],
+    applications: [
+      { title: 'Weak Coverage Sites', description: 'Improve cellular reception for controllers in basements and remote areas.' },
+      { title: 'Telecommunications', description: 'Keep remote base-station equipment reliably connected.' },
+      { title: 'Environmental Monitoring', description: 'Boost signal for off-grid GSM monitoring stations.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.gsmModem],
+    specs: [
+      { label: 'Connector', value: 'SMA male' },
+      { label: 'Bands', value: 'Quad-band GSM / GPRS' },
+      { label: 'Gain', value: '2–3 dBi' },
+      { label: 'Cable length', value: '2.5 m' },
+      { label: 'Mounting', value: 'Screw / magnetic base' },
+      { label: 'Operating temperature', value: '-30 °C to +70 °C' },
+    ],
+    documents: [
+      { title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.2 · 420 KB' },
+      { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
+    ],
+    keywords: ['GSM antenna', 'cellular antenna', 'external antenna', 'SMA antenna', 'controller accessory'],
+  },
+  {
+    slug: 'temperature-sensors',
+    name: 'Temperature Sensors',
+    family: 'accessories',
+    category: 'iqcontrollers',
+    tagline: 'Calibrated temperature probes for IQtronic controllers.',
+    description:
+      'Calibrated 1-Wire temperature probes for ambient and equipment monitoring with IQtronic sockets, gateways and controllers.',
+    seoDescription:
+      'IQtronic Temperature Sensors are calibrated 1-Wire probes for ambient and equipment temperature monitoring with IQtronic controllers, sockets and gateways. Rugged stainless-steel probes enable temperature-based automation, alarms and industrial monitoring across a wide operating range.',
+    image: '/images/iqtronic-temperature-sensor.png',
+    imageAlt: 'IQtronic calibrated temperature sensor probe accessory',
+    price: '€15',
+    lifecycle: 'active',
+    lifecycleDetail: {
+      productionStart: '2004',
+      productionUntil: '2035+',
+      note: 'Long-term production guaranteed.',
+    },
+    availability: 'in-stock',
+    gallery: [
+      { src: '/images/iqtronic-temperature-sensor.png', alt: 'Temperature sensor probe product photo', caption: 'Product' },
+      { src: '/images/monitoring-system.png', alt: 'Temperature sensor connected to an IQtronic controller', caption: 'Installation' },
+    ],
+    applications: [
+      { title: 'Equipment Monitoring', description: 'Monitor rack, cabinet and machine temperatures for alarms.' },
+      { title: 'Building Management', description: 'Temperature-based switching of heating and cooling loads.' },
+      { title: 'Environmental Monitoring', description: 'Track ambient conditions at remote and outdoor sites.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.tempSensor],
+    specs: [
+      { label: 'Sensor type', value: '1-Wire digital (DS18B20)' },
+      { label: 'Probe', value: 'Stainless-steel, waterproof' },
+      { label: 'Range', value: '-40 °C to +125 °C' },
+      { label: 'Accuracy', value: '±0.5 °C' },
+      { label: 'Cable length', value: '2 m (extendable)' },
+      { label: 'Connector', value: 'Screw terminal / plug' },
+    ],
+    documents: [
+      { title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.3 · 460 KB' },
+      { title: 'Calibration Note', type: 'PDF', meta: 'EN · 210 KB' },
+      { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
+    ],
+    keywords: ['temperature sensor', '1-Wire probe', 'DS18B20', 'temperature probe', 'controller accessory'],
   },
 
   // ---------------- ENVISTATION / Weather ----------------
