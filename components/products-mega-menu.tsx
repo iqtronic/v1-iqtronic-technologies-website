@@ -7,6 +7,7 @@ import {
   getFamiliesByCategory,
   getProductsByCategory,
   getProductsByFamily,
+  getSubcategoriesByCategory,
 } from '@/lib/products'
 import { cn } from '@/lib/utils'
 
@@ -72,6 +73,31 @@ export function ProductsMegaPanel({ onNavigate }: { onNavigate?: () => void }) {
                 </ul>
               </div>
             ))}
+
+            {/* Accessories — rendered as subcategory links, not products */}
+            {getSubcategoriesByCategory(controllers.id).length > 0 ? (
+              <div>
+                <div className="text-sm font-medium tracking-tight text-foreground">
+                  Accessories
+                </div>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  Antennas, sensors and add-ons.
+                </p>
+                <ul className="mt-3 flex flex-col gap-1.5">
+                  {getSubcategoriesByCategory(controllers.id).map((sub) => (
+                    <li key={sub.id}>
+                      <Link
+                        href={`/products/accessories/${sub.id}`}
+                        onClick={onNavigate}
+                        className="text-sm text-muted-foreground transition-colors hover:text-accent"
+                      >
+                        {sub.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}
@@ -97,10 +123,22 @@ export function ProductsMegaPanel({ onNavigate }: { onNavigate?: () => void }) {
                     </Link>
                   </li>
                 ))}
+                {/* Accessories — single link only (products shown on its page) */}
+                {getSubcategoriesByCategory(category.id).map((sub) => (
+                  <li key={sub.id}>
+                    <Link
+                      href={`/products/accessories/${sub.id}`}
+                      onClick={onNavigate}
+                      className="text-sm font-medium text-foreground transition-colors hover:text-accent"
+                    >
+                      Accessories
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -166,6 +204,17 @@ export function ProductsMegaMobile({ onNavigate }: { onNavigate?: () => void }) 
                     </li>
                   )),
                 )}
+                {getSubcategoriesByCategory(category.id).map((sub) => (
+                  <li key={sub.id}>
+                    <Link
+                      href={`/products/accessories/${sub.id}`}
+                      onClick={onNavigate}
+                      className="text-sm text-muted-foreground"
+                    >
+                      {sub.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           ))}

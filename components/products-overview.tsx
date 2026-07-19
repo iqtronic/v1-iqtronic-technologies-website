@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   CATEGORIES,
@@ -5,6 +6,9 @@ import {
   getProduct,
   getProductsByCategory,
   getProductsByFamily,
+  getProductsBySubcategory,
+  getSubcategoriesByCategory,
+  type Subcategory,
 } from '@/lib/products'
 import { ProductCard } from '@/components/product-card'
 import { LifecycleBadge } from '@/components/status-badges'
@@ -50,6 +54,7 @@ export function ProductsOverview() {
       {/* Categories */}
       {CATEGORIES.map((category, index) => {
         const families = getFamiliesByCategory(category.id)
+        const subcategories = getSubcategoriesByCategory(category.id)
         const isPhaseOut = category.id === 'phase-out'
         return (
           <section
@@ -100,6 +105,26 @@ export function ProductsOverview() {
                       </div>
                     )
                   })}
+
+                  {/* Accessories — shown as subcategory cards linking to their pages */}
+                  {subcategories.length > 0 ? (
+                    <div>
+                      <div className="mb-6 flex flex-col gap-2 border-l-2 border-accent pl-4">
+                        <h3 className="text-xl font-medium tracking-tight">
+                          Accessories
+                        </h3>
+                        <p className="text-sm leading-relaxed text-muted-foreground">
+                          Antennas, sensors, mounting and add-ons for{' '}
+                          {category.name}.
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {subcategories.map((sub) => (
+                          <SubcategoryCard key={sub.id} subcategory={sub} />
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               )}
             </div>
@@ -107,6 +132,51 @@ export function ProductsOverview() {
         )
       })}
     </>
+  )
+}
+
+function SubcategoryCard({ subcategory }: { subcategory: Subcategory }) {
+  const count = getProductsBySubcategory(subcategory.id).length
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-sm border border-border bg-card transition-shadow hover:shadow-md">
+      <Link
+        href={`/products/accessories/${subcategory.id}`}
+        className="flex flex-1 flex-col"
+        aria-label={`${subcategory.name} accessories`}
+      >
+        <div className="relative aspect-[4/3] overflow-hidden border-b border-border bg-secondary">
+          <Image
+            src={subcategory.image || '/placeholder.svg'}
+            alt={subcategory.name}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-lg font-medium tracking-tight">
+            {subcategory.name}
+          </h3>
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+            {subcategory.tagline}
+          </p>
+          <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-5">
+            <span className="font-mono text-xs text-muted-foreground">
+              {count} {count === 1 ? 'product' : 'products'}
+            </span>
+            <span className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors group-hover:text-accent">
+              View
+              <span
+                aria-hidden="true"
+                className="transition-transform group-hover:translate-x-0.5"
+              >
+                →
+              </span>
+            </span>
+          </div>
+        </div>
+      </Link>
+    </article>
   )
 }
 

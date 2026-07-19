@@ -1,6 +1,7 @@
 export type Lifecycle = 'active' | 'phase-out' | 'obsolete' | 'planned'
 export type Availability =
   | 'in-stock'
+  | 'on-request'
   | 'made-to-order'
   | 'build-on-request'
   | 'phase-out'
@@ -66,6 +67,12 @@ export interface Product {
   name: string
   family: FamilyId
   category: CategoryId
+  /**
+   * Optional accessory subcategory id. Products with a subcategory are
+   * accessories: they are excluded from the normal family/category listings
+   * and are shown only on their subcategory page.
+   */
+  subcategory?: SubcategoryId
   tagline: string
   description: string
   /** Long, SEO-oriented description paragraph(s). */
@@ -129,6 +136,27 @@ export interface Family {
   tagline: string
 }
 
+export type SubcategoryId =
+  | 'gsm-antenna'
+  | 'temperature-sensors'
+  | 'envistation-accessories'
+  | 'bms-accessories'
+  | 'sensorage-accessories'
+
+/**
+ * An accessory subcategory. Subcategories group accessory products under a
+ * category (Accessories). Each subcategory has its own page listing the
+ * product variants it contains.
+ */
+export interface Subcategory {
+  id: SubcategoryId
+  name: string
+  category: CategoryId
+  tagline: string
+  /** Optional representative image used on subcategory cards. */
+  image?: string
+}
+
 export interface Category {
   id: CategoryId
   name: string
@@ -141,7 +169,7 @@ export const CATEGORIES: Category[] = [
     id: 'iqcontrollers',
     name: 'IQtronic Controllers',
     tagline: 'Remote power control, switching and reboot devices.',
-    families: ['iqsocket', 'iqgate', 'iqboard', 'accessories'],
+    families: ['iqsocket', 'iqgate', 'iqboard'],
   },
   {
     id: 'weather-stations',
@@ -236,6 +264,44 @@ export const FAMILIES: Family[] = [
   },
 ]
 
+export const SUBCATEGORIES: Subcategory[] = [
+  {
+    id: 'gsm-antenna',
+    name: 'GSM Antenna',
+    category: 'iqcontrollers',
+    tagline: 'External cellular antennas for IQtronic GSM controllers.',
+    image: '/images/iqtronic-gsm-antenna.png',
+  },
+  {
+    id: 'temperature-sensors',
+    name: 'Temperature Sensors',
+    category: 'iqcontrollers',
+    tagline: 'Calibrated temperature probes for IQtronic controllers.',
+    image: '/images/iqtronic-temperature-sensor.png',
+  },
+  {
+    id: 'envistation-accessories',
+    name: 'Accessories',
+    category: 'weather-stations',
+    tagline: 'Shields, masts and mounting accessories for ENVISTATION systems.',
+    image: '/images/acc-envistation-radiation-shield.png',
+  },
+  {
+    id: 'bms-accessories',
+    name: 'Accessories',
+    category: 'bms',
+    tagline: 'Shunts, probes and sensing accessories for battery monitoring.',
+    image: '/images/acc-bms-current-shunt.png',
+  },
+  {
+    id: 'sensorage-accessories',
+    name: 'Accessories',
+    category: 'sensorage',
+    tagline: 'Cables, adapters and mounting accessories for SENSORAGE systems.',
+    image: '/images/acc-sensorage-sensor-cable.png',
+  },
+]
+
 export const LIFECYCLE_LABELS: Record<Lifecycle, string> = {
   active: 'Active Product',
   'phase-out': 'Phase Out',
@@ -245,6 +311,7 @@ export const LIFECYCLE_LABELS: Record<Lifecycle, string> = {
 
 export const AVAILABILITY_LABELS: Record<Availability, string> = {
   'in-stock': 'In Stock',
+  'on-request': 'On Request',
   'made-to-order': 'Made to Order',
   'build-on-request': 'Build on Request',
   'phase-out': 'Phase Out',
@@ -705,6 +772,7 @@ export const PRODUCTS: Product[] = [
     name: 'GSM Antenna',
     family: 'accessories',
     category: 'iqcontrollers',
+    subcategory: 'gsm-antenna',
     tagline: 'External cellular antenna for IQtronic GSM controllers.',
     description:
       'External GSM/cellular antenna that improves signal reception for IQtronic GSM-controlled sockets, gateways and controllers in weak-coverage locations.',
@@ -719,7 +787,7 @@ export const PRODUCTS: Product[] = [
       productionUntil: '2035+',
       note: 'Long-term production guaranteed.',
     },
-    availability: 'in-stock',
+    availability: 'on-request',
     gallery: [
       { src: '/images/iqtronic-gsm-antenna.png', alt: 'GSM antenna product photo', caption: 'Product' },
       { src: '/images/iqsocket.png', alt: 'GSM antenna connected to an IQtronic controller', caption: 'Installation' },
@@ -749,6 +817,7 @@ export const PRODUCTS: Product[] = [
     name: 'Temperature Sensors',
     family: 'accessories',
     category: 'iqcontrollers',
+    subcategory: 'temperature-sensors',
     tagline: 'Calibrated temperature probes for IQtronic controllers.',
     description:
       'Calibrated 1-Wire temperature probes for ambient and equipment monitoring with IQtronic sockets, gateways and controllers.',
@@ -763,7 +832,7 @@ export const PRODUCTS: Product[] = [
       productionUntil: '2035+',
       note: 'Long-term production guaranteed.',
     },
-    availability: 'in-stock',
+    availability: 'on-request',
     gallery: [
       { src: '/images/iqtronic-temperature-sensor.png', alt: 'Temperature sensor probe product photo', caption: 'Product' },
       { src: '/images/monitoring-system.png', alt: 'Temperature sensor connected to an IQtronic controller', caption: 'Installation' },
@@ -788,6 +857,222 @@ export const PRODUCTS: Product[] = [
       { title: 'Declaration of Conformity', type: 'PDF', meta: 'EU DoC · 180 KB' },
     ],
     keywords: ['temperature sensor', '1-Wire probe', 'DS18B20', 'temperature probe', 'controller accessory'],
+  },
+
+  // ---------------- ENVISTATION Accessories ----------------
+  {
+    slug: 'envistation-solar-radiation-shield',
+    name: 'Solar Radiation Shield',
+    family: 'accessories',
+    category: 'weather-stations',
+    subcategory: 'envistation-accessories',
+    tagline: 'Multi-plate radiation shield for accurate air-temperature readings.',
+    description:
+      'Naturally ventilated multi-plate radiation shield that protects ENVISTATION temperature and humidity sensors from direct sunlight and precipitation.',
+    seoDescription:
+      'The ENVISTATION Solar Radiation Shield is a naturally ventilated multi-plate louvred shield that protects weather-station temperature and humidity sensors from solar radiation and rain, ensuring accurate ambient air measurements at outdoor meteorological sites.',
+    image: '/images/acc-envistation-radiation-shield.png',
+    imageAlt: 'White multi-plate solar radiation shield accessory',
+    price: '€39',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2010', productionUntil: '2035+', note: 'Long-term production guaranteed.' },
+    availability: 'on-request',
+    gallery: [
+      { src: '/images/acc-envistation-radiation-shield.png', alt: 'Solar radiation shield product photo', caption: 'Product' },
+    ],
+    applications: [
+      { title: 'Meteorology', description: 'Accurate air temperature and humidity at exposed sites.' },
+      { title: 'Agriculture', description: 'Reliable microclimate readings in open fields.' },
+      { title: 'Environmental Monitoring', description: 'Shielded sensing for long-term outdoor stations.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Type', value: 'Naturally ventilated multi-plate' },
+      { label: 'Plates', value: '10' },
+      { label: 'Material', value: 'UV-stable ASA plastic' },
+      { label: 'Mounting', value: 'Mast / cross-arm' },
+    ],
+    documents: [{ title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.0 · 320 KB' }],
+    keywords: ['radiation shield', 'solar shield', 'weather station accessory', 'ENVISTATION'],
+  },
+  {
+    slug: 'envistation-mounting-mast-kit',
+    name: 'Mounting Mast Kit',
+    family: 'accessories',
+    category: 'weather-stations',
+    subcategory: 'envistation-accessories',
+    tagline: 'Galvanized mast and cross-arm kit for ENVISTATION stations.',
+    description:
+      'Galvanized steel mast, cross-arms and U-bolt hardware for mounting ENVISTATION weather sensors at exposed outdoor sites.',
+    seoDescription:
+      'The ENVISTATION Mounting Mast Kit provides a galvanized steel mast, cross-arms and stainless U-bolt hardware for securely installing weather-station sensors and radiation shields at outdoor meteorological sites.',
+    image: '/images/acc-envistation-mast-kit.png',
+    imageAlt: 'Galvanized steel mounting mast kit accessory',
+    price: '€79',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2010', productionUntil: '2035+', note: 'Long-term production guaranteed.' },
+    availability: 'on-request',
+    gallery: [
+      { src: '/images/acc-envistation-mast-kit.png', alt: 'Mounting mast kit product photo', caption: 'Product' },
+    ],
+    applications: [
+      { title: 'Field Installation', description: 'Rigid mounting for sensors and shields.' },
+      { title: 'Rooftop Stations', description: 'Elevated mast placement above obstructions.' },
+      { title: 'Remote Sites', description: 'Durable galvanized hardware for harsh climates.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Material', value: 'Hot-dip galvanized steel' },
+      { label: 'Mast diameter', value: '35 mm' },
+      { label: 'Hardware', value: 'Stainless U-bolts' },
+      { label: 'Cross-arms', value: '2 included' },
+    ],
+    documents: [{ title: 'Installation Guide', type: 'PDF', meta: 'EN · 280 KB' }],
+    keywords: ['mounting mast', 'mast kit', 'weather station mounting', 'ENVISTATION'],
+  },
+
+  // ---------------- BMS Accessories ----------------
+  {
+    slug: 'bms-current-shunt',
+    name: 'Current Shunt 500 A',
+    family: 'accessories',
+    category: 'bms',
+    subcategory: 'bms-accessories',
+    tagline: 'Precision DC shunt for battery-bank current measurement.',
+    description:
+      'Precision manganin DC current shunt for measuring charge and discharge currents in battery banks monitored by IQtronic BMS.',
+    seoDescription:
+      'The BMS Current Shunt 500 A is a precision manganin DC measuring shunt for accurate charge and discharge current measurement in battery banks monitored by the IQtronic Battery Monitoring System.',
+    image: '/images/acc-bms-current-shunt.png',
+    imageAlt: 'Industrial DC current measuring shunt accessory',
+    price: '€45',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2012', productionUntil: '2035+', note: 'Long-term production guaranteed.' },
+    availability: 'on-request',
+    gallery: [
+      { src: '/images/acc-bms-current-shunt.png', alt: 'Current shunt product photo', caption: 'Product' },
+    ],
+    applications: [
+      { title: 'Battery Banks', description: 'Measure charge and discharge currents accurately.' },
+      { title: 'Solar Storage', description: 'Monitor energy flow in off-grid systems.' },
+      { title: 'Telecom Backup', description: 'Track backup battery load currents.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Rated current', value: '500 A' },
+      { label: 'Output', value: '50 mV' },
+      { label: 'Class', value: '0.5' },
+      { label: 'Element', value: 'Manganin' },
+    ],
+    documents: [{ title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.1 · 350 KB' }],
+    keywords: ['current shunt', 'DC shunt', 'battery monitoring accessory', 'BMS'],
+  },
+  {
+    slug: 'bms-battery-temperature-probe',
+    name: 'Battery Temperature Probe',
+    family: 'accessories',
+    category: 'bms',
+    subcategory: 'bms-accessories',
+    tagline: 'Ring-terminal temperature probe for battery banks.',
+    description:
+      'Ring-terminal temperature probe for per-battery temperature monitoring and temperature-compensated charging with IQtronic BMS.',
+    seoDescription:
+      'The BMS Battery Temperature Probe is a ring-terminal temperature sensor for per-battery temperature monitoring and temperature-compensated charging, integrating directly with the IQtronic Battery Monitoring System.',
+    image: '/images/acc-bms-temperature-probe.png',
+    imageAlt: 'Ring-terminal battery temperature probe accessory',
+    price: '€18',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2012', productionUntil: '2035+', note: 'Long-term production guaranteed.' },
+    availability: 'on-request',
+    gallery: [
+      { src: '/images/acc-bms-temperature-probe.png', alt: 'Battery temperature probe product photo', caption: 'Product' },
+    ],
+    applications: [
+      { title: 'Temperature Compensation', description: 'Adjust charge voltage to battery temperature.' },
+      { title: 'Thermal Runaway Alarms', description: 'Detect abnormal cell heating early.' },
+      { title: 'Battery Rooms', description: 'Monitor ambient and per-battery temperatures.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.tempSensor],
+    specs: [
+      { label: 'Sensor type', value: 'Digital 1-Wire' },
+      { label: 'Mounting', value: 'M8 ring terminal' },
+      { label: 'Range', value: '-40 °C to +125 °C' },
+      { label: 'Accuracy', value: '±0.5 °C' },
+    ],
+    documents: [{ title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.0 · 300 KB' }],
+    keywords: ['battery temperature probe', 'ring terminal sensor', 'BMS accessory'],
+  },
+
+  // ---------------- SENSORAGE Accessories ----------------
+  {
+    slug: 'sensorage-sensor-extension-cable',
+    name: 'Sensor Extension Cable',
+    family: 'accessories',
+    category: 'sensorage',
+    subcategory: 'sensorage-accessories',
+    tagline: 'M12 shielded extension cable for SENSORAGE sensors.',
+    description:
+      'Shielded M12 sensor extension cable for connecting remote sensors to SENSORAGE data-logging and measurement systems.',
+    seoDescription:
+      'The SENSORAGE Sensor Extension Cable is a shielded M12 A-coded extension cable for connecting remote industrial sensors to SENSORAGE data-logging and remote measurement systems over longer distances.',
+    image: '/images/acc-sensorage-sensor-cable.png',
+    imageAlt: 'M12 shielded sensor extension cable accessory',
+    price: '€22',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2014', productionUntil: '2035+', note: 'Long-term production guaranteed.' },
+    availability: 'on-request',
+    gallery: [
+      { src: '/images/acc-sensorage-sensor-cable.png', alt: 'Sensor extension cable product photo', caption: 'Product' },
+    ],
+    applications: [
+      { title: 'Remote Sensing', description: 'Extend sensor reach to distant measurement points.' },
+      { title: 'Industrial Plants', description: 'Route signals through shielded cabling.' },
+      { title: 'Environmental Logging', description: 'Connect field sensors to loggers.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Connector', value: 'M12 A-coded, 5-pin' },
+      { label: 'Shielding', value: 'Foil + braid' },
+      { label: 'Length', value: '5 m' },
+      { label: 'Rating', value: 'IP67' },
+    ],
+    documents: [{ title: 'Datasheet', type: 'PDF', meta: 'Rev. 1.0 · 240 KB' }],
+    keywords: ['sensor cable', 'M12 extension cable', 'SENSORAGE accessory'],
+  },
+  {
+    slug: 'sensorage-din-rail-adapter',
+    name: 'DIN-rail Mounting Adapter',
+    family: 'accessories',
+    category: 'sensorage',
+    subcategory: 'sensorage-accessories',
+    tagline: 'Clip adapter for DIN-rail mounting of SENSORAGE modules.',
+    description:
+      'DIN-rail mounting adapter clip for installing SENSORAGE modules in standard control cabinets and enclosures.',
+    seoDescription:
+      'The SENSORAGE DIN-rail Mounting Adapter is a clip bracket for mounting SENSORAGE data-logging and measurement modules onto standard 35 mm DIN rail in control cabinets and industrial enclosures.',
+    image: '/images/acc-sensorage-din-adapter.png',
+    imageAlt: 'DIN-rail mounting adapter clip accessory',
+    price: '€9',
+    lifecycle: 'active',
+    lifecycleDetail: { productionStart: '2014', productionUntil: '2035+', note: 'Long-term production guaranteed.' },
+    availability: 'on-request',
+    gallery: [
+      { src: '/images/acc-sensorage-din-adapter.png', alt: 'DIN-rail adapter product photo', caption: 'Product' },
+    ],
+    applications: [
+      { title: 'Cabinet Mounting', description: 'Snap modules onto standard DIN rail.' },
+      { title: 'Panel Builds', description: 'Tidy, serviceable module installation.' },
+      { title: 'Retrofit', description: 'Add SENSORAGE modules to existing panels.' },
+    ],
+    accessories: [SHARED_ACCESSORIES.mounting],
+    specs: [
+      { label: 'Rail', value: '35 mm DIN (EN 60715)' },
+      { label: 'Material', value: 'Glass-filled polyamide' },
+      { label: 'Mounting', value: 'Snap-on clip' },
+      { label: 'Color', value: 'Light gray' },
+    ],
+    documents: [{ title: 'Installation Note', type: 'PDF', meta: 'EN · 180 KB' }],
+    keywords: ['DIN-rail adapter', 'mounting clip', 'SENSORAGE accessory'],
   },
 
   // ---------------- ENVISTATION / Weather ----------------
@@ -1270,20 +1555,43 @@ export function getCategory(id: CategoryId): Category | undefined {
 }
 
 export function getProductsByFamily(id: FamilyId): Product[] {
-  return PRODUCTS.filter((p) => p.family === id)
+  // Accessory products (those with a subcategory) are excluded from the normal
+  // family listing — they are shown only on their subcategory pages.
+  return PRODUCTS.filter((p) => p.family === id && !p.subcategory)
 }
 
 export function getProductsByCategory(id: CategoryId): Product[] {
-  return PRODUCTS.filter((p) => p.category === id)
+  // Accessory products (those with a subcategory) are excluded from the normal
+  // category listing — they are shown only on their subcategory pages.
+  return PRODUCTS.filter((p) => p.category === id && !p.subcategory)
 }
 
 export function getFamiliesByCategory(id: CategoryId): Family[] {
   return FAMILIES.filter((f) => f.category === id)
 }
 
+export function getSubcategory(id: SubcategoryId): Subcategory | undefined {
+  return SUBCATEGORIES.find((s) => s.id === id)
+}
+
+export function getSubcategoriesByCategory(id: CategoryId): Subcategory[] {
+  return SUBCATEGORIES.filter((s) => s.category === id)
+}
+
+export function getProductsBySubcategory(id: SubcategoryId): Product[] {
+  return PRODUCTS.filter((p) => p.subcategory === id)
+}
+
 export function getRelatedProducts(product: Product): Product[] {
+  // For accessories, related products are the other variants in the same
+  // subcategory; otherwise, other products in the same family.
+  if (product.subcategory) {
+    return PRODUCTS.filter(
+      (p) => p.subcategory === product.subcategory && p.slug !== product.slug,
+    )
+  }
   return PRODUCTS.filter(
-    (p) => p.family === product.family && p.slug !== product.slug,
+    (p) => p.family === product.family && p.slug !== product.slug && !p.subcategory,
   )
 }
 
