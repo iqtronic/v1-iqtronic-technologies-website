@@ -17,6 +17,7 @@ import { ProductEvolution } from '@/components/product-evolution'
 import { ProductLicensingSummary } from '@/components/product-licensing-summary'
 import {
   AvailabilityBadge,
+  EstimatedTimeBadge,
   LifecycleBadge,
 } from '@/components/status-badges'
 import { cn } from '@/lib/utils'
@@ -107,6 +108,7 @@ export function ProductDetail({ product }: { product: Product }) {
               <div className="mt-6 flex flex-wrap items-center gap-2">
                 <LifecycleBadge lifecycle={product.lifecycle} />
                 <AvailabilityBadge availability={product.availability} />
+                <EstimatedTimeBadge label="14 days" />
               </div>
 
               {/* Lifecycle detail */}

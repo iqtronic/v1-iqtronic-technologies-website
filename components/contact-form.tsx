@@ -8,13 +8,43 @@ import { useState } from 'react'
  * shows a local confirmation message. Wire up a real handler when a backend
  * becomes available.
  */
+const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024 // 10 MB
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [fileError, setFileError] = useState<string | null>(null)
+  const [fileName, setFileName] = useState<string | null>(null)
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) {
+      setFileError(null)
+      setFileName(null)
+      return
+    }
+    const isPdf =
+      file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
+    if (!isPdf) {
+      setFileError('Only PDF files are allowed.')
+      setFileName(null)
+      e.target.value = ''
+      return
+    }
+    if (file.size > MAX_ATTACHMENT_BYTES) {
+      setFileError('File is too large. Maximum size is 10MB.')
+      setFileName(null)
+      e.target.value = ''
+      return
+    }
+    setFileError(null)
+    setFileName(file.name)
+  }
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault()
+        if (fileError) return
         setSubmitted(true)
       }}
       className="grid grid-cols-1 gap-4 rounded-sm border border-border bg-card p-6 sm:grid-cols-2 lg:p-8"
@@ -44,6 +74,7 @@ export function ContactForm() {
         >
           <option>Products</option>
           <option>Engineering Services</option>
+          <option>Development</option>
           <option>Laboratory Testing</option>
           <option>Other</option>
         </select>
@@ -63,6 +94,40 @@ export function ContactForm() {
           placeholder="What are you building?"
           className="mt-2 w-full resize-none rounded-sm border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-accent"
         />
+      </div>
+
+      <div className="sm:col-span-2">
+        <label
+          htmlFor="attachment"
+          className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground"
+        >
+          Attachment
+        </label>
+        <input
+          id="attachment"
+          name="attachment"
+          type="file"
+          accept="application/pdf,.pdf"
+          onChange={handleFileChange}
+          aria-describedby="attachment-hint"
+          className="mt-2 w-full rounded-sm border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none file:mr-3 file:rounded-sm file:border-0 file:bg-secondary file:px-3 file:py-1 file:text-xs file:font-medium file:text-foreground focus:border-accent"
+        />
+        <p
+          id="attachment-hint"
+          className="mt-2 text-xs leading-relaxed text-muted-foreground"
+        >
+          PDF only · max 10MB
+        </p>
+        {fileName && !fileError ? (
+          <p className="mt-1 text-xs leading-relaxed text-accent">
+            Attached: {fileName}
+          </p>
+        ) : null}
+        {fileError ? (
+          <p role="alert" className="mt-1 text-xs leading-relaxed text-destructive">
+            {fileError}
+          </p>
+        ) : null}
       </div>
 
       <button

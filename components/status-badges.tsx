@@ -58,3 +58,22 @@ export function AvailabilityBadge({
     </span>
   )
 }
+
+export function EstimatedTimeBadge({
+  label = '14 days',
+  className,
+}: {
+  label?: string
+  className?: string
+}) {
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded-sm border border-border bg-card px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground',
+        className,
+      )}
+    >
+      Est. Time · {label}
+    </span>
+  )
+}

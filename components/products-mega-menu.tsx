@@ -50,29 +50,35 @@ export function ProductsMegaPanel({ onNavigate }: { onNavigate?: () => void }) {
         <div>
           <CategoryHeading category={controllers} onNavigate={onNavigate} />
           <div className="mt-4 grid grid-cols-3 gap-6">
-            {getFamiliesByCategory(controllers.id).map((family) => (
-              <div key={family.id}>
-                <div className="text-sm font-medium tracking-tight text-foreground">
-                  {family.name}
+            {getFamiliesByCategory(controllers.id).map((family) => {
+              const familyProducts = getProductsByFamily(family.id)
+              // Skip families with no listable products (e.g. the accessories
+              // family, whose items are shown via subcategories below).
+              if (familyProducts.length === 0) return null
+              return (
+                <div key={family.id}>
+                  <div className="text-sm font-medium tracking-tight text-foreground">
+                    {family.name}
+                  </div>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {family.tagline}
+                  </p>
+                  <ul className="mt-3 flex flex-col gap-1.5">
+                    {familyProducts.map((product) => (
+                      <li key={product.slug}>
+                        <Link
+                          href={`/products/${product.slug}`}
+                          onClick={onNavigate}
+                          className="text-sm text-muted-foreground transition-colors hover:text-accent"
+                        >
+                          {product.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                  {family.tagline}
-                </p>
-                <ul className="mt-3 flex flex-col gap-1.5">
-                  {getProductsByFamily(family.id).map((product) => (
-                    <li key={product.slug}>
-                      <Link
-                        href={`/products/${product.slug}`}
-                        onClick={onNavigate}
-                        className="text-sm text-muted-foreground transition-colors hover:text-accent"
-                      >
-                        {product.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              )
+            })}
 
             {/* Accessories — rendered as subcategory links, not products */}
             {getSubcategoriesByCategory(controllers.id).length > 0 ? (
@@ -112,17 +118,21 @@ export function ProductsMegaPanel({ onNavigate }: { onNavigate?: () => void }) {
                 {category.tagline}
               </p>
               <ul className="mt-3 flex flex-col gap-1.5">
-                {getProductsByCategory(category.id).map((product) => (
-                  <li key={product.slug}>
-                    <Link
-                      href={`/products/${product.slug}`}
-                      onClick={onNavigate}
-                      className="text-sm text-muted-foreground transition-colors hover:text-accent"
-                    >
-                      {product.name}
-                    </Link>
-                  </li>
-                ))}
+                {/* Legacy / phase-out products are not listed here; they are
+                    shown only on the category page after clicking through. */}
+                {category.id !== 'phase-out'
+                  ? getProductsByCategory(category.id).map((product) => (
+                      <li key={product.slug}>
+                        <Link
+                          href={`/products/${product.slug}`}
+                          onClick={onNavigate}
+                          className="text-sm text-muted-foreground transition-colors hover:text-accent"
+                        >
+                          {product.name}
+                        </Link>
+                      </li>
+                    ))
+                  : null}
                 {/* Accessories — single link only (products shown on its page) */}
                 {getSubcategoriesByCategory(category.id).map((sub) => (
                   <li key={sub.id}>
@@ -191,19 +201,21 @@ export function ProductsMegaMobile({ onNavigate }: { onNavigate?: () => void }) 
                 {category.name}
               </Link>
               <ul className="mt-2 flex flex-col gap-1.5">
-                {getFamiliesByCategory(category.id).map((family) =>
-                  getProductsByFamily(family.id).map((product) => (
-                    <li key={product.slug}>
-                      <Link
-                        href={`/products/${product.slug}`}
-                        onClick={onNavigate}
-                        className="text-sm text-muted-foreground"
-                      >
-                        {product.name}
-                      </Link>
-                    </li>
-                  )),
-                )}
+                {category.id !== 'phase-out'
+                  ? getFamiliesByCategory(category.id).map((family) =>
+                      getProductsByFamily(family.id).map((product) => (
+                        <li key={product.slug}>
+                          <Link
+                            href={`/products/${product.slug}`}
+                            onClick={onNavigate}
+                            className="text-sm text-muted-foreground"
+                          >
+                            {product.name}
+                          </Link>
+                        </li>
+                      )),
+                    )
+                  : null}
                 {getSubcategoriesByCategory(category.id).map((sub) => (
                   <li key={sub.id}>
                     <Link

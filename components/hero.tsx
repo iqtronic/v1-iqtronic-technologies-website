@@ -11,7 +11,7 @@ export function Hero() {
             Engineering since 1999 · Industrial IoT since 2003
           </div>
 
-          <h1 className="mt-6 max-w-[8em] text-left text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 max-w-[8em] text-left text-[2.375rem] font-semibold leading-[1.05] tracking-tight sm:text-[3.15rem] lg:text-[3.9375rem]">
             Engineering since <span className="text-[#e0420b]">1999</span>.
             <br />
             Industrial IoT since <span className="text-[#e0420b]">2003</span>.
