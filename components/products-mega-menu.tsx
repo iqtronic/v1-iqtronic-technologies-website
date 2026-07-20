@@ -19,9 +19,14 @@ function CategoryHeading({
   category: (typeof CATEGORIES)[number]
   onNavigate?: () => void
 }) {
+  // Phase-out has its own dedicated page listing only legacy products.
+  const href =
+    category.id === 'phase-out'
+      ? '/products/phase-out'
+      : `/products#${category.id}`
   return (
     <Link
-      href={`/products#${category.id}`}
+      href={href}
       onClick={onNavigate}
       className="group/cat flex items-baseline justify-between border-b border-border pb-2"
     >
@@ -194,7 +199,11 @@ export function ProductsMegaMobile({ onNavigate }: { onNavigate?: () => void }) 
           {CATEGORIES.map((category) => (
             <div key={category.id} className="py-2">
               <Link
-                href={`/products#${category.id}`}
+                href={
+                  category.id === 'phase-out'
+                    ? '/products/phase-out'
+                    : `/products#${category.id}`
+                }
                 onClick={onNavigate}
                 className="font-mono text-[11px] uppercase tracking-[0.14em] text-accent"
               >
