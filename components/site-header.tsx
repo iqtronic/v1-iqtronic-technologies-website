@@ -203,8 +203,6 @@ export function SiteHeader() {
           'absolute inset-x-0 top-16 hidden md:block',
           megaOpen ? 'pointer-events-auto' : 'pointer-events-none',
         )}
-        onMouseEnter={openMega}
-        onMouseLeave={scheduleCloseMega}
       >
         <div
           className={cn(
@@ -213,6 +211,8 @@ export function SiteHeader() {
               ? 'translate-y-0 opacity-100'
               : '-translate-y-2 opacity-0',
           )}
+          onMouseEnter={openMega}
+          onMouseLeave={scheduleCloseMega}
         >
           <div className="overflow-hidden rounded-sm border border-border bg-background shadow-lg">
             <ProductsMegaPanel onNavigate={() => setMegaOpen(false)} />

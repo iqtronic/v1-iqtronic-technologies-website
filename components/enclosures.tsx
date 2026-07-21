@@ -60,7 +60,7 @@ export function Enclosures() {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-sm border border-border bg-background lg:h-full">
+            <div className="relative aspect-[4/3] w-full max-w-full overflow-hidden rounded-sm border border-border bg-background lg:h-full">
               <Image
                 src="/images/enclosures.png"
                 alt="IQtronic injection-moulded industrial electronic enclosures"
