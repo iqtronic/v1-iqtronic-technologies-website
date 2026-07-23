@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { NotFoundSearch } from '@/components/not-found-search'
 
 export const metadata: Metadata = {
   title: 'Page not found (404) — IQtronic Technologies',
@@ -39,6 +40,10 @@ export default function NotFound() {
                 powers on.
               </p>
 
+              <p className="mt-3 text-sm italic leading-relaxed text-muted-foreground/80">
+                No magic smoke warranty.
+              </p>
+
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
                   href="/"
@@ -61,7 +66,20 @@ export default function NotFound() {
                 </Link>
               </div>
 
-              <dl className="mt-12 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-sm border border-border bg-border">
+              <div className="mt-6">
+                <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+                  Need help?
+                </div>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  Our engineers are still alive.
+                </p>
+              </div>
+
+              <div className="mt-8 max-w-lg">
+                <NotFoundSearch />
+              </div>
+
+              <dl className="mt-10 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-sm border border-border bg-border">
                 {[
                   { value: '404', label: 'Status code' },
                   { value: '0 V', label: 'Signal on this route' },
@@ -90,12 +108,17 @@ export default function NotFound() {
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
                 />
-                <figcaption className="absolute bottom-0 left-0 right-0 flex items-center gap-2 bg-background/80 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground backdrop-blur-sm">
-                  <span
-                    className="inline-block size-1.5 bg-accent"
-                    aria-hidden="true"
-                  />
-                  Diagnosis: page not found
+                <figcaption className="absolute bottom-0 left-0 right-0 flex flex-col gap-1 bg-background/80 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground backdrop-blur-sm">
+                  <span className="flex items-center gap-2">
+                    <span
+                      className="inline-block size-1.5 bg-accent"
+                      aria-hidden="true"
+                    />
+                    Diagnosis: page not found
+                  </span>
+                  <span className="pl-[14px] text-muted-foreground/70">
+                    Error code: BOARD_FAULT_404
+                  </span>
                 </figcaption>
               </figure>
             </div>

@@ -96,9 +96,11 @@ function buildIndex(): SearchEntry[] {
 export function SearchOverlay({
   open,
   onClose,
+  initialQuery = '',
 }: {
   open: boolean
   onClose: () => void
+  initialQuery?: string
 }) {
   const [query, setQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
@@ -107,6 +109,8 @@ export function SearchOverlay({
   // Focus the input and lock body scroll while open.
   useEffect(() => {
     if (!open) return
+    // Seed the query from an optional initial value (e.g. the 404 search box).
+    setQuery(initialQuery)
     const t = setTimeout(() => inputRef.current?.focus(), 20)
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -119,7 +123,7 @@ export function SearchOverlay({
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
     }
-  }, [open, onClose])
+  }, [open, onClose, initialQuery])
 
   // Reset the query each time the overlay closes.
   useEffect(() => {

@@ -55,35 +55,22 @@ export default function WhoWeArePage() {
               <div className="lg:col-span-7">
                 <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
                   We are an independent European engineering company led by Ing.
-                  Libor Konečný and built by a team of highly experienced
-                  engineers and industrial designers, including Ing. Kumbar,
-                  Ing. Novák, Ing. ..., whose expertise and dedication have
-                  shaped IQtronic products for decades.
+                  Libor Konečný and built by a long-term team of experienced
+                  engineers and industrial designers.
                 </p>
                 <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
-                  <strong className="font-semibold text-foreground">
-                    For more than 25 years, our shared philosophy has remained
-                    unchanged: uncompromising quality, meaningful innovation,
-                    exceptional value for customers, and responsible engineering
-                    with minimal environmental impact.
-                  </strong>{' '}
-                  We believe great engineering should solve real problems—not
-                  create unnecessary complexity or cost. Every feature must have
-                  a purpose, every component must justify its place, and every
-                  product must deliver lasting value throughout its lifetime.
+                  For more than 25 years, our philosophy has remained unchanged:
+                  uncompromising quality, meaningful innovation, exceptional
+                  value for customers, and responsible engineering with minimal
+                  environmental impact.
                 </p>
-                <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
-                  We do not chase trends—we design, develop and manufacture
-                  instrumentation, control and connectivity solutions engineered
-                  to operate reliably for years, even in demanding industrial
-                  and regulated environments.
-                </p>
-                <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
-                  Every product we deliver is designed, tested and certified by
-                  the same engineering team. That continuity—from the initial
-                  concept and hardware design to firmware development, testing
-                  and final compliance—is what our customers rely on.
-                </p>
+                <Link
+                  href="/why-iqtronic/engineering-philosophy"
+                  className="mt-8 inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.16em] text-accent transition-colors hover:text-foreground"
+                >
+                  Learn more about our company
+                  <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </div>
           </div>
