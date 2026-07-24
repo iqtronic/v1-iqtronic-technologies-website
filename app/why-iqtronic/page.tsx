@@ -61,8 +61,8 @@ export default function WhoWeArePage() {
                 <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
                   For more than 25 years, our philosophy has remained unchanged:
                   uncompromising quality, meaningful innovation, exceptional
-                  value for customers, and responsible engineering with minimal
-                  environmental impact.
+                  value for customers, fair and consistent pricing, and
+                  responsible engineering with minimal environmental impact.
                 </p>
                 <Link
                   href="/why-iqtronic/engineering-philosophy"

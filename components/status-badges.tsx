@@ -60,7 +60,7 @@ export function AvailabilityBadge({
 }
 
 export function EstimatedTimeBadge({
-  label = '14 days',
+  label = '2wks',
   className,
 }: {
   label?: string
@@ -73,7 +73,7 @@ export function EstimatedTimeBadge({
         className,
       )}
     >
-      Est. Time · {label}
+      Delivery: {label}
     </span>
   )
 }

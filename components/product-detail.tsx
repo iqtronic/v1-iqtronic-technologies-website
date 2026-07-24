@@ -108,7 +108,7 @@ export function ProductDetail({ product }: { product: Product }) {
               <div className="mt-6 flex flex-wrap items-center gap-2">
                 <LifecycleBadge lifecycle={product.lifecycle} />
                 <AvailabilityBadge availability={product.availability} />
-                <EstimatedTimeBadge label="14 days" />
+                <EstimatedTimeBadge label="2wks" />
               </div>
 
               {/* Lifecycle detail */}

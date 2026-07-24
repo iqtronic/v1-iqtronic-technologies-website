@@ -101,7 +101,7 @@ export default function NotFound() {
             <div className="lg:col-span-6">
               <figure className="relative aspect-[4/3] w-full max-w-full overflow-hidden rounded-sm border border-border bg-background">
                 <Image
-                  src="/images/burnt-pcb-404.png"
+                  src="/images/404-burnt-pcb.png"
                   alt="A burnt-out circuit board with a blown capacitor and a wisp of smoke"
                   fill
                   priority
