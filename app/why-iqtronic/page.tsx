@@ -42,8 +42,8 @@ export default function WhoWeArePage() {
 
         {/* Company introduction */}
         <section className="border-b border-border bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="mx-auto max-w-7xl px-6 py-11 lg:px-10 lg:py-16">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
               <div className="lg:col-span-5">
                 <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
                   The company
@@ -62,7 +62,7 @@ export default function WhoWeArePage() {
                   For more than 25 years, our philosophy has remained unchanged:
                 </p>
                 <p className="mt-4 text-pretty text-base leading-loose sm:text-lg">
-                  <span className="box-decoration-clone bg-accent/15 px-1.5 py-0.5 font-bold uppercase tracking-[0.06em] text-foreground [-webkit-box-decoration-break:clone]">
+                  <span className="box-decoration-clone bg-accent/[0.07] px-1.5 py-0.5 font-bold uppercase tracking-[0.06em] text-foreground [-webkit-box-decoration-break:clone]">
                     Uncompromising quality · Meaningful innovation · Exceptional
                     value for customers · Long-term fair pricing · Responsible
                     engineering with minimal environmental impact
@@ -82,15 +82,15 @@ export default function WhoWeArePage() {
 
         {/* Engineering quality teaser */}
         <section className="border-b border-border bg-card">
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-24">
-            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="mx-auto max-w-7xl px-6 py-11 lg:px-10 lg:py-16">
+            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-14">
               <figure>
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border bg-secondary">
+                <div className="relative aspect-[4/3] w-full max-w-[440px] overflow-hidden rounded-sm border border-border bg-secondary">
                   <Image
                     src="/images/engineering-quality-teaser.png"
                     alt="Disassembled IQtronic device revealing its printed circuit board"
                     fill
-                    sizes="(min-width: 1024px) 560px, 100vw"
+                    sizes="(min-width: 1024px) 440px, 100vw"
                     className="object-cover"
                   />
                 </div>
@@ -103,7 +103,7 @@ export default function WhoWeArePage() {
                 <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                   Engineered for Reliability
                 </h2>
-                <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground">
+                <p className="mt-5 text-pretty text-lg leading-relaxed text-muted-foreground">
                   True product quality starts where most customers never look —
                   inside the device. Every IQtronic product is engineered with
                   long-term reliability, efficient manufacturing and real-world
@@ -113,7 +113,7 @@ export default function WhoWeArePage() {
                 </p>
                 <Link
                   href="/engineering-quality"
-                  className="mt-8 inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+                  className="mt-6 inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
                 >
                   Discover Our Engineering
                   <span aria-hidden="true">→</span>
@@ -128,7 +128,7 @@ export default function WhoWeArePage() {
 
         {/* Closing section */}
         <section className="bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
+          <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
             <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-3">
               {STATS.map((stat) => (
                 <div key={stat.label} className="bg-card px-6 py-10 text-center">
