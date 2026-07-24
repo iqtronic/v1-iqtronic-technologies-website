@@ -25,17 +25,17 @@ export default function WhoWeArePage() {
       <main className="pt-16">
         {/* Hero */}
         <section className="border-b border-border bg-background">
-          <div className="mx-auto max-w-7xl px-6 pb-14 pt-14 text-center lg:px-10 lg:pb-20 lg:pt-20">
+          <div className="mx-auto max-w-7xl px-6 pb-9 pt-10 text-center lg:px-10 lg:pb-12 lg:pt-14">
             <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
               Who we are
             </div>
-            <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               25+ Years of Innovation
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-              Engineering Since 1999.
-              <br />
-              Industrial IoT Since 2003.
+            <p className="mx-auto mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
+              <span>Engineering Since 1999.</span>
+              <br className="sm:hidden" />
+              <span className="sm:ml-4">Industrial IoT Since 2003.</span>
             </p>
           </div>
         </section>
