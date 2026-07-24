@@ -70,7 +70,7 @@ export default function NotFound() {
                 <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
                   Need help?
                 </div>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-1.5 text-sm font-bold leading-relaxed text-muted-foreground">
                   Our engineers are still alive.
                 </p>
               </div>

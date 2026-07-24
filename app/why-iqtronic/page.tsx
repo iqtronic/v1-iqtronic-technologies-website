@@ -25,7 +25,7 @@ export default function WhoWeArePage() {
       <main className="pt-16">
         {/* Hero */}
         <section className="border-b border-border bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-20 text-center lg:px-10 lg:py-28">
+          <div className="mx-auto max-w-7xl px-6 pb-14 pt-14 text-center lg:px-10 lg:pb-20 lg:pt-20">
             <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
               Who we are
             </div>
