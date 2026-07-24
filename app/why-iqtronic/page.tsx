@@ -60,9 +60,13 @@ export default function WhoWeArePage() {
                 </p>
                 <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground">
                   For more than 25 years, our philosophy has remained unchanged:
-                  uncompromising quality, meaningful innovation, exceptional
-                  value for customers, fair and consistent pricing, and
-                  responsible engineering with minimal environmental impact.
+                </p>
+                <p className="mt-4 text-pretty text-base leading-loose sm:text-lg">
+                  <span className="box-decoration-clone bg-accent/15 px-1.5 py-0.5 font-bold uppercase tracking-[0.06em] text-foreground [-webkit-box-decoration-break:clone]">
+                    Uncompromising quality · Meaningful innovation · Exceptional
+                    value for customers · Long-term fair pricing · Responsible
+                    engineering with minimal environmental impact
+                  </span>
                 </p>
                 <Link
                   href="/why-iqtronic/engineering-philosophy"

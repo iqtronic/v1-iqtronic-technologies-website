@@ -99,16 +99,16 @@ export default function NotFound() {
 
             {/* Burnt PCB image */}
             <div className="lg:col-span-6">
-              <figure className="relative aspect-[4/3] w-full max-w-full overflow-hidden rounded-sm border border-border bg-background">
+              <figure className="relative aspect-[4/3] w-full max-w-full overflow-hidden">
                 <Image
-                  src="/images/404-burnt-pcb.png"
+                  src="/images/404-burnt-pcb-v2.png"
                   alt="A burnt-out circuit board with a blown capacitor and a wisp of smoke"
                   fill
                   priority
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  className="object-contain"
                 />
-                <figcaption className="absolute bottom-0 left-0 right-0 flex flex-col gap-1 bg-background/80 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground backdrop-blur-sm">
+                <figcaption className="absolute bottom-0 left-0 right-0 flex flex-col gap-1 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <span
                       className="inline-block size-1.5 bg-accent"
