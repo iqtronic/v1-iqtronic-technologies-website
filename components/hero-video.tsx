@@ -54,8 +54,8 @@ export function HeroVideo({
           inline video can replace the globe at identical size and position
           without shifting the hero layout. */}
       <div
-        className={`relative mx-auto w-full origin-center overflow-hidden ${
-          isCompact ? 'lg:scale-[1.12]' : 'lg:-translate-x-[95px] lg:scale-[1.652]'
+        className={`relative mx-auto w-full origin-center overflow-hidden lg:-translate-x-[95px] ${
+          isCompact ? 'lg:scale-[1.24]' : 'lg:scale-[1.652]'
         }`}
       >
         <Image
@@ -65,9 +65,9 @@ export function HeroVideo({
           height={642}
           priority
           sizes="(min-width: 1024px) 60vw, 100vw"
-          className={`h-auto w-full object-contain transition-opacity duration-500 ${
-            isCompact ? '' : 'lg:translate-x-[20px]'
-          } ${playing ? 'opacity-0' : 'opacity-100'}`}
+          className={`h-auto w-full object-contain transition-opacity duration-500 lg:translate-x-[20px] ${
+            playing ? 'opacity-0' : 'opacity-100'
+          }`}
         />
 
         {/* Inline video — same box as the globe image */}
@@ -126,9 +126,7 @@ export function HeroVideo({
           type="button"
           onClick={startVideo}
           aria-label="Watch our story"
-          className={`absolute bottom-[14%] left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-foreground shadow-sm backdrop-blur-sm transition-all hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
-            isCompact ? '' : '-ml-[30px] translate-y-[85px]'
-          }`}
+          className="absolute bottom-[14%] left-1/2 -ml-[30px] inline-flex -translate-x-1/2 translate-y-[85px] items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-foreground shadow-sm backdrop-blur-sm transition-all hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
         >
           <span className="inline-flex size-6 items-center justify-center rounded-full bg-accent text-accent-foreground">
             <svg

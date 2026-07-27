@@ -1,32 +1,30 @@
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { Hero } from '@/components/hero'
 import { CurrentDevelopment } from '@/components/current-development'
-import { Products } from '@/components/products'
-import { getArticles } from '@/lib/news'
-import { CompactHero } from '@/components/news-landing/compact-hero'
-import { NewsFeed } from '@/components/news-landing/news-feed'
+import { News } from '@/components/news'
 
 /**
- * Shared, News-focused landing page used by both the /facebook and /linkedin
- * routes. It reuses the existing homepage building blocks (header, hero
- * sub-components, Current Development strip, product cards, footer) and the
- * single News data source (`getArticles`), so any article change in the data
- * layer appears on the homepage and both routes automatically.
+ * Shared page used by both the /facebook and /linkedin routes. It is the
+ * existing homepage, reusing the exact same components, with only two
+ * differences:
  *
- * The hero is deliberately compact; the News section is the dominant content.
- * The page contains no social-network branding or posting/export controls.
+ *  1. The hero is rendered in its compact variant (smaller height, globe,
+ *     headline and statistics) so it reads as a short introduction.
+ *  2. The existing News section is shown immediately after the Current
+ *     Development strip and is the dominant content of the page.
+ *
+ * Nothing is recreated: Hero, CurrentDevelopment and News are the real homepage
+ * components using the single existing News data source.
  */
 export function NewsLanding() {
-  const articles = getArticles()
-
   return (
     <>
       <SiteHeader />
       <main>
-        <CompactHero />
+        <Hero compact />
         <CurrentDevelopment />
-        <NewsFeed articles={articles} />
-        <Products />
+        <News />
       </main>
       <SiteFooter />
     </>

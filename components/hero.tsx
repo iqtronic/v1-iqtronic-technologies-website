@@ -1,54 +1,89 @@
 import { RotatingSlogan } from '@/components/rotating-slogan'
 import { HeroVideo } from '@/components/hero-video'
 
-export function Hero() {
+export function Hero({ compact = false }: { compact?: boolean }) {
   return (
     <section id="top" className="relative overflow-hidden pt-16">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 pb-16 pt-16 lg:grid-cols-12 lg:gap-8 lg:px-10 lg:pb-24 lg:pt-24">
+      <div
+        className={`mx-auto grid max-w-7xl grid-cols-1 px-6 lg:grid-cols-12 lg:gap-8 lg:px-10 ${
+          compact
+            ? 'gap-6 pb-6 pt-6 lg:pb-8 lg:pt-8'
+            : 'gap-12 pb-16 pt-16 lg:pb-24 lg:pt-24'
+        }`}
+      >
         <div className="flex flex-col justify-center lg:col-span-6">
           <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
             <span className="inline-block size-2 bg-accent" aria-hidden="true" />
             Engineering since 1999 · Industrial IoT since 2003
           </div>
 
-          <h1 className="mt-6 max-w-[8em] text-left text-[2.375rem] font-semibold leading-[1.05] tracking-tight sm:text-[3.15rem] lg:text-[3.9375rem]">
+          <h1
+            className={`max-w-[8em] text-left font-semibold leading-[1.05] tracking-tight ${
+              compact
+                ? 'mt-5 text-[1.9rem] sm:text-[2.5rem] lg:text-[3.15rem]'
+                : 'mt-6 text-[2.375rem] sm:text-[3.15rem] lg:text-[3.9375rem]'
+            }`}
+          >
             Engineering since <span className="text-[#e0420b]">1999</span>.
             <br />
             Industrial IoT since <span className="text-[#e0420b]">2003</span>.
           </h1>
 
-          <div className="mt-6">
+          <div className={compact ? 'mt-4' : 'mt-6'}>
             <RotatingSlogan />
           </div>
 
-          <p className="mt-4 max-w-xl text-pretty text-base font-medium leading-relaxed text-foreground">
+          <p
+            className={`max-w-xl text-pretty font-medium leading-relaxed text-foreground ${
+              compact ? 'mt-3 text-sm' : 'mt-4 text-base'
+            }`}
+          >
             Hardware. Firmware. Testing. Manufacturing.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div
+            className={`flex flex-wrap items-center gap-3 ${
+              compact ? 'mt-6' : 'mt-8'
+            }`}
+          >
             <a
               href="#products"
-              className="inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              className={`inline-flex items-center gap-2 rounded-sm bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 ${
+                compact ? 'py-2.5' : 'py-3'
+              }`}
             >
               Explore products
               <span aria-hidden="true">→</span>
             </a>
             <a
               href="#engineering"
-              className="inline-flex items-center gap-2 rounded-sm border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              className={`inline-flex items-center gap-2 rounded-sm border border-border px-5 text-sm font-medium text-foreground transition-colors hover:bg-secondary ${
+                compact ? 'py-2.5' : 'py-3'
+              }`}
             >
               Engineering services
             </a>
           </div>
 
-          <dl className="mt-12 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-sm border border-border bg-border">
+          <dl
+            className={`grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-sm border border-border bg-border ${
+              compact ? 'mt-8' : 'mt-12'
+            }`}
+          >
             {[
               { value: '25+', label: 'Years of engineering' },
               { value: '100,000+', label: 'Devices delivered' },
               { value: '40+', label: 'Countries served' },
             ].map((stat) => (
-              <div key={stat.label} className="bg-card px-4 py-5">
-                <dt className="text-2xl font-semibold tracking-tight">
+              <div
+                key={stat.label}
+                className={`bg-card px-4 ${compact ? 'py-4' : 'py-5'}`}
+              >
+                <dt
+                  className={`font-semibold tracking-tight ${
+                    compact ? 'text-xl' : 'text-2xl'
+                  }`}
+                >
                   {stat.value}
                 </dt>
                 <dd className="mt-1 text-xs leading-snug text-muted-foreground">
@@ -74,7 +109,7 @@ export function Hero() {
               <path d="M0 0 L9 6 L0 12 Z" fill="#11457e" />
             </svg>
           </div>
-          <HeroVideo />
+          <HeroVideo variant={compact ? 'compact' : 'default'} />
         </div>
       </div>
     </section>
