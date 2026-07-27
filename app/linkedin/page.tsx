@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { SocialPreview } from '@/components/social/social-preview'
+import { getSocialNewsItem } from '@/lib/social-news'
 
 export const metadata: Metadata = {
   title: 'LinkedIn News Preview · IQtronic',
@@ -8,6 +9,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default function LinkedInPreviewPage() {
-  return <SocialPreview platform="linkedin" />
+export default async function LinkedInPreviewPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ article?: string }>
+}) {
+  const { article } = await searchParams
+  const item = getSocialNewsItem(article)
+  return <SocialPreview platform="linkedin" item={item} />
 }

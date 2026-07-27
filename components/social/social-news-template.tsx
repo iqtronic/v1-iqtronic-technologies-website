@@ -10,16 +10,30 @@ export type SocialNewsTemplateProps = SocialNewsItem & {
   platform: SocialPlatform
   /** Show the "Read full article" call-to-action button. */
   showCTA?: boolean
-  /** Show the subtle globe watermark motif from the homepage hero. */
+  /** Show the subtle globe motif from the homepage hero. */
   showGlobeMotif?: boolean
   className?: string
 }
 
 /**
+ * Choose a headline size from its length so long titles (up to ~90 characters)
+ * are never truncated with an ellipsis — they simply wrap onto more lines at a
+ * slightly smaller, still-large size. Mirrors the homepage hero typography
+ * (font-semibold, tight leading and tracking).
+ */
+function headlineClass(title: string): string {
+  const len = title.trim().length
+  if (len <= 42) return 'text-[3.5rem] leading-[1.03]'
+  if (len <= 64) return 'text-[2.9rem] leading-[1.06]'
+  if (len <= 84) return 'text-[2.4rem] leading-[1.1]'
+  return 'text-[2.05rem] leading-[1.12]'
+}
+
+/**
  * A single reusable social-news composition rendered at the exact platform
- * canvas size. The layout is data-driven and degrades gracefully for longer
- * headlines, four-line descriptions, any image aspect ratio, a missing
- * category or a hidden CTA. Uses the existing IQtronic design system only.
+ * canvas size. It reads as a condensed IQtronic homepage hero: a dominant
+ * headline on the left and a large, uncropped news image on the right, on the
+ * site's warm background with a subtle globe motif.
  *
  * The forwarded ref points at the export root, so a PNG can be captured at the
  * exact target dimensions without any surrounding preview chrome.
@@ -61,68 +75,63 @@ export const SocialNewsTemplate = forwardRef<
         className,
       )}
     >
-      {/* Subtle globe motif — cropped, low-opacity supporting detail only.
-          Positioned bottom-right behind content so it never competes with the
-          news image or headline. */}
-      {showGlobeMotif ? (
-        <img
-          src="/images/hero-main-963.webp"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-40 -right-40 h-[560px] w-[560px] select-none object-contain opacity-[0.06]"
-        />
-      ) : null}
-
-      {/* Brand header */}
-      <header className="relative flex items-center justify-between px-14 pt-12">
-        <div className="flex items-center gap-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/iqtronic-logo.png"
-            alt="IQtronic Technologies"
-            width={281}
-            height={87}
-            className="h-11 w-auto"
-          />
-          <span
-            className="h-8 w-px bg-border"
-            aria-hidden="true"
-          />
-          <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            Engineering Since 1999
-          </span>
-        </div>
-
-        {category ? (
-          <span className="inline-flex items-center gap-2 rounded-sm border border-border bg-card px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-accent">
-            <span
-              className="inline-block size-1.5 bg-accent"
-              aria-hidden="true"
-            />
-            {category}
-          </span>
-        ) : null}
-      </header>
-
-      {/* Main news area */}
-      <div className="relative grid min-h-0 flex-1 grid-cols-12 items-center gap-10 px-14 py-10">
+      {/* Main hero row */}
+      <div className="relative flex min-h-0 flex-1">
         {/* Text column */}
-        <div className="col-span-6 flex min-w-0 flex-col">
-          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-accent">
-            <span className="inline-block size-2 bg-accent" aria-hidden="true" />
-            {publicationDate}
+        <div className="flex w-[54%] flex-col px-16 pt-14 pb-4">
+          {/* Brand: logo + engineering label */}
+          <div className="flex items-center gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/iqtronic-logo.png"
+              alt="IQtronic Technologies"
+              width={281}
+              height={87}
+              className="h-10 w-auto"
+            />
+            <span className="h-7 w-px bg-border" aria-hidden="true" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              Engineering since 1999
+            </span>
           </div>
 
-          <h1 className="mt-5 text-pretty text-[2.6rem] font-semibold leading-[1.08] tracking-tight line-clamp-3">
+          {/* Technical label: publication date + category */}
+          <div className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-[0.18em] text-accent">
+            <span className="inline-flex items-center gap-2">
+              <span
+                className="inline-block size-2 bg-accent"
+                aria-hidden="true"
+              />
+              {publicationDate}
+            </span>
+            {category ? (
+              <>
+                <span className="text-border" aria-hidden="true">
+                  ·
+                </span>
+                <span className="text-muted-foreground">{category}</span>
+              </>
+            ) : null}
+          </div>
+
+          {/* Headline — dominant, never ellipsis-truncated */}
+          <h1
+            className={cn(
+              'mt-5 text-balance font-semibold tracking-tight text-foreground',
+              headlineClass(title),
+            )}
+          >
             {title}
           </h1>
 
-          <p className="mt-5 text-pretty text-lg leading-relaxed text-muted-foreground line-clamp-4">
+          {/* Short description */}
+          <p className="mt-5 max-w-[34ch] text-pretty text-[1.05rem] leading-relaxed text-muted-foreground line-clamp-3">
             {description}
           </p>
 
+          {/* Optional call to action */}
           {showCTA ? (
-            <div className="mt-8">
+            <div className="mt-7">
               <span className="inline-flex items-center gap-2 rounded-sm bg-primary px-5 py-3 text-sm font-medium text-primary-foreground">
                 Read full article
                 <span aria-hidden="true">→</span>
@@ -132,25 +141,38 @@ export const SocialNewsTemplate = forwardRef<
         </div>
 
         {/* Image column */}
-        <div className="col-span-6 flex h-full items-center">
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border bg-secondary">
+        <div className="relative flex w-[46%] items-center justify-center py-12 pr-16">
+          {/* Subtle globe motif — supporting detail only, behind the image and
+              never competing with it or the headline. */}
+          {showGlobeMotif ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src="/images/hero-main-963.webp"
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-24 -right-16 h-[460px] w-[460px] select-none object-contain opacity-[0.07]"
+            />
+          ) : null}
+
+          {/* Main news image — large, aspect-ratio preserved, never cropped. */}
+          <div className="relative flex h-full w-full items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageUrl || '/placeholder.svg'}
               alt={imageAlt}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="relative max-h-full max-w-full object-contain drop-shadow-[0_18px_40px_rgba(15,23,42,0.16)]"
             />
           </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative flex items-center justify-between border-t border-border px-14 py-6">
+      {/* Subtle technical footer line */}
+      <footer className="relative flex items-center justify-between border-t border-border px-16 py-4">
         <span className="text-sm font-medium text-foreground">
           {displayHost}
         </span>
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          IQtronic Technologies
+        <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+          Products Designed To Last.
         </span>
       </footer>
     </div>

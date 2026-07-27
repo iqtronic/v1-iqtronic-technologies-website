@@ -1,3 +1,9 @@
+import {
+  getArticleBySlug,
+  getPublishedArticles,
+  type ResolvedArticle,
+} from '@/lib/news'
+
 export type SocialPlatform = 'facebook' | 'linkedin'
 
 export type SocialNewsItem = {
@@ -47,8 +53,8 @@ export const PLATFORM_CONFIG: Record<SocialPlatform, PlatformConfig> = {
 }
 
 /**
- * A single temporary sample news item used only for preview purposes.
- * Uses an existing IQtronic asset — no invented products or stock imagery.
+ * A single temporary sample news item used only as a last-resort fallback when
+ * no published news articles exist. Uses an existing IQtronic asset.
  */
 export const SAMPLE_NEWS_ITEM: SocialNewsItem = {
   category: 'Product News',
@@ -56,8 +62,56 @@ export const SAMPLE_NEWS_ITEM: SocialNewsItem = {
   title: 'IQtronic expands its industrial IoT platform with a new ENVIstation weather station',
   description:
     'The new ENVIstation brings laboratory-grade environmental measurement to demanding outdoor installations — engineered, tested and manufactured in Czechia for years of reliable operation.',
-  imageUrl: '/images/iqtronic-envistation-ethernet-weather-station.jpg',
+  imageUrl: '/images/hero-main-963.webp',
   imageAlt:
     'IQtronic ENVIstation Ethernet weather station mounted on a mast against a clear sky',
   articleUrl: 'https://iqtronic.com/news/envistation-launch',
+}
+
+/** Format an ISO date (e.g. "2026-02-01") into "February 1, 2026". */
+function formatDisplayDate(iso: string): string {
+  const parsed = new Date(iso)
+  if (Number.isNaN(parsed.getTime())) return iso
+  return parsed.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+/**
+ * Map a fully-resolved IQtronic News article into the platform-agnostic
+ * SocialNewsItem shape consumed by the social template. This is the single
+ * bridge between the existing News system and the social preview routes.
+ */
+export function articleToSocialItem(article: ResolvedArticle): SocialNewsItem {
+  return {
+    category: article.category,
+    publicationDate: formatDisplayDate(article.publishDate),
+    title: article.title,
+    description: article.summary,
+    // Prefer the article's social image, then its hero image.
+    imageUrl: article.ogImage || article.heroImage,
+    imageAlt: article.title,
+    articleUrl: article.canonicalUrl,
+  }
+}
+
+/**
+ * Resolve the news item to render for a social route.
+ *
+ * - When `slug` matches an existing article, that article is used.
+ * - Otherwise the newest published article is used.
+ * - If there are no published articles at all, the sample item is returned.
+ *
+ * This keeps the routes ready to load any existing article via
+ * `/facebook?article=<slug>` or `/linkedin?article=<slug>`.
+ */
+export function getSocialNewsItem(slug?: string | null): SocialNewsItem {
+  if (slug) {
+    const found = getArticleBySlug(slug)
+    if (found) return articleToSocialItem(found)
+  }
+  const [newest] = getPublishedArticles()
+  return newest ? articleToSocialItem(newest) : SAMPLE_NEWS_ITEM
 }

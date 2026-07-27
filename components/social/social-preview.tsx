@@ -13,7 +13,7 @@ import { SocialPreviewControls } from '@/components/social/social-preview-contro
 
 type SocialPreviewProps = {
   platform: SocialPlatform
-  /** Defaults to the temporary sample item used for preview. */
+  /** The resolved news item to render. Defaults to the sample fallback. */
   item?: SocialNewsItem
 }
 
@@ -31,7 +31,7 @@ export function SocialPreview({
   const [exporting, setExporting] = useState(false)
   const [scale, setScale] = useState(1)
 
-  // Scale the preview down proportionally to fit the available width, without
+  // Scale the on-screen post proportionally to fit the available width, without
   // ever changing the canvas's internal layout or scaling above 1:1.
   useEffect(() => {
     const stage = stageRef.current
@@ -86,66 +86,46 @@ export function SocialPreview({
   }, [config.width, config.height, config.exportFileName])
 
   return (
-    <main className="min-h-screen bg-secondary/40">
-      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10 lg:py-14">
-        <div className="mb-8">
-          <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
-            Social preview · {config.label}
-          </div>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            IQtronic news post preview
-          </h1>
-          <p className="mt-3 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground">
-            An internal template for presenting company news in the IQtronic
-            visual style. The canvas below exports at exactly {config.width} ×{' '}
-            {config.height} pixels.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-8 lg:flex-row">
-          <SocialPreviewControls
-            config={config}
-            showCTA={showCTA}
-            onShowCTAChange={setShowCTA}
-            showGlobeMotif={showGlobeMotif}
-            onShowGlobeMotifChange={setShowGlobeMotif}
-            onCopyUrl={handleCopyUrl}
-            onOpenArticle={handleOpenArticle}
-            onExport={handleExport}
-            copied={copied}
-            exporting={exporting}
-          />
-
-          {/* Neutral preview workspace */}
+    <main className="flex min-h-screen flex-col items-center justify-center bg-secondary/30 px-4 py-8 sm:px-6">
+      {/* The social post itself is the dominant element, centred on screen. */}
+      <div ref={stageRef} className="w-full max-w-[1400px]">
+        <div
+          className="mx-auto overflow-hidden rounded-sm shadow-[0_24px_70px_rgba(15,23,42,0.16)] ring-1 ring-border/60"
+          style={{
+            width: config.width * scale,
+            height: config.height * scale,
+          }}
+        >
           <div
-            ref={stageRef}
-            className="min-w-0 flex-1"
+            style={{
+              transform: `scale(${scale})`,
+              transformOrigin: 'top left',
+            }}
           >
-            <div
-              className="mx-auto overflow-hidden rounded-sm border border-border shadow-sm"
-              style={{
-                width: config.width * scale,
-                height: config.height * scale,
-              }}
-            >
-              <div
-                style={{
-                  transform: `scale(${scale})`,
-                  transformOrigin: 'top left',
-                }}
-              >
-                <SocialNewsTemplate
-                  ref={canvasRef}
-                  platform={platform}
-                  showCTA={showCTA}
-                  showGlobeMotif={showGlobeMotif}
-                  {...item}
-                />
-              </div>
-            </div>
+            <SocialNewsTemplate
+              ref={canvasRef}
+              platform={platform}
+              showCTA={showCTA}
+              showGlobeMotif={showGlobeMotif}
+              {...item}
+            />
           </div>
         </div>
       </div>
+
+      {/* Secondary, visually unobtrusive controls below the post. */}
+      <SocialPreviewControls
+        config={config}
+        showCTA={showCTA}
+        onShowCTAChange={setShowCTA}
+        showGlobeMotif={showGlobeMotif}
+        onShowGlobeMotifChange={setShowGlobeMotif}
+        onCopyUrl={handleCopyUrl}
+        onOpenArticle={handleOpenArticle}
+        onExport={handleExport}
+        copied={copied}
+        exporting={exporting}
+      />
     </main>
   )
 }

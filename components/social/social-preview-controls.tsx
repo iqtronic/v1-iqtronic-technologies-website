@@ -14,9 +14,8 @@ function Toggle({ id, label, checked, onChange }: ToggleProps) {
   return (
     <label
       htmlFor={id}
-      className="flex cursor-pointer items-center justify-between gap-4 py-1"
+      className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground"
     >
-      <span className="text-sm text-foreground">{label}</span>
       <button
         id={id}
         type="button"
@@ -35,6 +34,7 @@ function Toggle({ id, label, checked, onChange }: ToggleProps) {
           )}
         />
       </button>
+      {label}
     </label>
   )
 }
@@ -67,70 +67,52 @@ export function SocialPreviewControls({
   return (
     <aside
       aria-label="Preview controls"
-      className="w-full rounded-sm border border-border bg-card p-5 lg:w-72 lg:shrink-0"
+      className="mt-6 flex w-full max-w-[1200px] flex-wrap items-center justify-center gap-x-6 gap-y-3 rounded-sm border border-border/70 bg-card/70 px-5 py-3"
     >
-      <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">
-        Preview controls
-      </div>
+      <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+        {config.label} · {config.width} × {config.height}
+      </span>
 
-      <dl className="mt-4 space-y-2 border-b border-border pb-4 text-sm">
-        <div className="flex items-center justify-between gap-4">
-          <dt className="text-muted-foreground">Platform</dt>
-          <dd className="font-medium text-foreground">{config.label}</dd>
-        </div>
-        <div className="flex items-center justify-between gap-4">
-          <dt className="text-muted-foreground">Canvas</dt>
-          <dd className="font-mono text-xs text-foreground">
-            {config.width} × {config.height}
-          </dd>
-        </div>
-      </dl>
+      <span className="hidden h-4 w-px bg-border sm:block" aria-hidden="true" />
 
-      <div className="mt-4 space-y-1 border-b border-border pb-4">
-        <Toggle
-          id="toggle-cta"
-          label="Show CTA button"
-          checked={showCTA}
-          onChange={onShowCTAChange}
-        />
-        <Toggle
-          id="toggle-globe"
-          label="Show globe motif"
-          checked={showGlobeMotif}
-          onChange={onShowGlobeMotifChange}
-        />
-      </div>
+      <Toggle
+        id="toggle-cta"
+        label="CTA"
+        checked={showCTA}
+        onChange={onShowCTAChange}
+      />
+      <Toggle
+        id="toggle-globe"
+        label="Globe"
+        checked={showGlobeMotif}
+        onChange={onShowGlobeMotifChange}
+      />
 
-      <div className="mt-4 flex flex-col gap-2">
-        <button
-          type="button"
-          onClick={onExport}
-          disabled={exporting}
-          className="inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
-        >
-          {exporting ? 'Exporting…' : 'Export PNG'}
-        </button>
-        <button
-          type="button"
-          onClick={onCopyUrl}
-          className="inline-flex items-center justify-center gap-2 rounded-sm border border-border px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-        >
-          {copied ? 'Copied' : 'Copy article URL'}
-        </button>
-        <button
-          type="button"
-          onClick={onOpenArticle}
-          className="inline-flex items-center justify-center gap-2 rounded-sm border border-border px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
-        >
-          Open article
-          <span aria-hidden="true">→</span>
-        </button>
-      </div>
+      <span className="hidden h-4 w-px bg-border sm:block" aria-hidden="true" />
 
-      <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-        This panel is for internal preview only and is never included in the
-        exported image.
-      </p>
+      <button
+        type="button"
+        onClick={onCopyUrl}
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        {copied ? 'Copied' : 'Copy URL'}
+      </button>
+      <button
+        type="button"
+        onClick={onOpenArticle}
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+      >
+        Open article
+      </button>
+
+      <button
+        type="button"
+        onClick={onExport}
+        disabled={exporting}
+        className="inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+      >
+        {exporting ? 'Exporting…' : 'Export PNG'}
+      </button>
     </aside>
   )
 }
