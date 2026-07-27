@@ -10,7 +10,10 @@ export type SocialNewsTemplateProps = SocialNewsItem & {
   platform: SocialPlatform
   /** Show the "Read full article" call-to-action button. */
   showCTA?: boolean
-  /** Show the subtle globe motif from the homepage hero. */
+  /**
+   * Show the IQtronic homepage hero globe (hero-main-963.webp). It is the
+   * permanent company branding and is shown in full colour at full prominence.
+   */
   showGlobeMotif?: boolean
   className?: string
 }
@@ -23,17 +26,19 @@ export type SocialNewsTemplateProps = SocialNewsItem & {
  */
 function headlineClass(title: string): string {
   const len = title.trim().length
-  if (len <= 42) return 'text-[3.5rem] leading-[1.03]'
-  if (len <= 64) return 'text-[2.9rem] leading-[1.06]'
-  if (len <= 84) return 'text-[2.4rem] leading-[1.1]'
-  return 'text-[2.05rem] leading-[1.12]'
+  if (len <= 42) return 'text-[3.4rem] leading-[1.04]'
+  if (len <= 64) return 'text-[2.8rem] leading-[1.07]'
+  if (len <= 84) return 'text-[2.35rem] leading-[1.1]'
+  return 'text-[2rem] leading-[1.13]'
 }
 
 /**
  * A single reusable social-news composition rendered at the exact platform
- * canvas size. It reads as a condensed IQtronic homepage hero: a dominant
- * headline on the left and a large, uncropped news image on the right, on the
- * site's warm background with a subtle globe motif.
+ * canvas size. It reads as a compact IQtronic homepage hero: the mono accent
+ * label + dominant headline on the left, and the signature homepage globe
+ * (hero-main-963.webp, full colour) on the right as the permanent brand
+ * visual. When the selected article has an image, it is shown as a
+ * complementary framed inset that sits with — and never hides — the globe.
  *
  * The forwarded ref points at the export root, so a PNG can be captured at the
  * exact target dimensions without any surrounding preview chrome.
@@ -58,6 +63,7 @@ export const SocialNewsTemplate = forwardRef<
   ref,
 ) {
   const { width, height } = PLATFORM_CONFIG[platform]
+  const hasArticleImage = Boolean(imageUrl)
   // Derive a clean display host from the article URL for the footer link.
   let displayHost = 'iqtronic.com'
   try {
@@ -78,7 +84,7 @@ export const SocialNewsTemplate = forwardRef<
       {/* Main hero row */}
       <div className="relative flex min-h-0 flex-1">
         {/* Text column */}
-        <div className="flex w-[54%] flex-col px-16 pt-14 pb-4">
+        <div className="flex w-[52%] flex-col px-16 pt-14 pb-6">
           {/* Brand: logo + engineering label */}
           <div className="flex items-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -140,29 +146,51 @@ export const SocialNewsTemplate = forwardRef<
           ) : null}
         </div>
 
-        {/* Image column */}
-        <div className="relative flex w-[46%] items-center justify-center py-12 pr-16">
-          {/* Subtle globe motif — supporting detail only, behind the image and
-              never competing with it or the headline. */}
+        {/* Visual column — the permanent IQtronic homepage globe, in full
+            colour, with the article image as a complementary inset. */}
+        <div className="relative w-[48%]">
           {showGlobeMotif ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src="/images/hero-main-963.webp"
-              alt=""
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-24 -right-16 h-[460px] w-[460px] select-none object-contain opacity-[0.07]"
-            />
+            <div
+              className={cn(
+                'absolute inset-0 flex items-center justify-center',
+                // When an article image is present, nudge the globe up so the
+                // inset card sits below it — the two read as one composition
+                // and the globe stays fully visible.
+                hasArticleImage ? 'items-start pt-8' : 'py-8',
+              )}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/hero-main-963.webp"
+                alt="IQtronic industrial IoT ecosystem — a green world with the iQtronic logo, smart sockets, sensors, weather stations and connected devices"
+                width={963}
+                height={642}
+                className={cn(
+                  'select-none object-contain',
+                  hasArticleImage
+                    ? 'max-h-[62%] w-[92%]'
+                    : 'max-h-full w-[96%]',
+                )}
+              />
+            </div>
           ) : null}
 
-          {/* Main news image — large, aspect-ratio preserved, never cropped. */}
-          <div className="relative flex h-full w-full items-center justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={imageUrl || '/placeholder.svg'}
-              alt={imageAlt}
-              className="relative max-h-full max-w-full object-contain drop-shadow-[0_18px_40px_rgba(15,23,42,0.16)]"
-            />
-          </div>
+          {/* Article image — a complementary framed inset. Never cropped
+              (object-contain) and sized so the globe remains clearly visible
+              above it. Omitted entirely for a clean text-only layout when the
+              article has no image. */}
+          {hasArticleImage ? (
+            <div className="absolute bottom-10 left-2 right-12 flex justify-center">
+              <div className="max-w-[300px] overflow-hidden rounded-sm border border-border bg-card p-2 shadow-[0_16px_40px_rgba(15,23,42,0.18)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imageUrl || '/placeholder.svg'}
+                  alt={imageAlt}
+                  className="max-h-[168px] w-full rounded-[2px] object-contain"
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
 
