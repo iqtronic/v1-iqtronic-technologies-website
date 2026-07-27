@@ -7,9 +7,19 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 const VIDEO_SRC =
   'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
 
-export function HeroVideo() {
+export function HeroVideo({
+  variant = 'default',
+}: {
+  /**
+   * 'default' preserves the exact homepage globe size and positioning.
+   * 'compact' renders the same globe (same asset, same video behaviour) at a
+   * reduced scale for the compact News landing hero.
+   */
+  variant?: 'default' | 'compact'
+}) {
   const [playing, setPlaying] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const isCompact = variant === 'compact'
 
   const startVideo = useCallback(() => {
     setPlaying(true)
@@ -43,7 +53,11 @@ export function HeroVideo() {
       {/* Wrapper defines the exact globe box (holds the shared transform), so the
           inline video can replace the globe at identical size and position
           without shifting the hero layout. */}
-      <div className="relative mx-auto w-full origin-center overflow-hidden lg:-translate-x-[95px] lg:scale-[1.652]">
+      <div
+        className={`relative mx-auto w-full origin-center overflow-hidden ${
+          isCompact ? 'lg:scale-[1.12]' : 'lg:-translate-x-[95px] lg:scale-[1.652]'
+        }`}
+      >
         <Image
           src="/images/hero-main-963.webp"
           alt="IQtronic industrial IoT ecosystem — hands holding a green world with the iQtronic logo, smart sockets, sensors, weather stations and connected devices"
@@ -51,9 +65,9 @@ export function HeroVideo() {
           height={642}
           priority
           sizes="(min-width: 1024px) 60vw, 100vw"
-          className={`h-auto w-full object-contain transition-opacity duration-500 lg:translate-x-[20px] ${
-            playing ? 'opacity-0' : 'opacity-100'
-          }`}
+          className={`h-auto w-full object-contain transition-opacity duration-500 ${
+            isCompact ? '' : 'lg:translate-x-[20px]'
+          } ${playing ? 'opacity-0' : 'opacity-100'}`}
         />
 
         {/* Inline video — same box as the globe image */}
@@ -112,7 +126,9 @@ export function HeroVideo() {
           type="button"
           onClick={startVideo}
           aria-label="Watch our story"
-          className="absolute bottom-[14%] left-1/2 -ml-[30px] inline-flex -translate-x-1/2 translate-y-[85px] items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-foreground shadow-sm backdrop-blur-sm transition-all hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+          className={`absolute bottom-[14%] left-1/2 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-foreground shadow-sm backdrop-blur-sm transition-all hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
+            isCompact ? '' : '-ml-[30px] translate-y-[85px]'
+          }`}
         >
           <span className="inline-flex size-6 items-center justify-center rounded-full bg-accent text-accent-foreground">
             <svg
