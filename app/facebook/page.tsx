@@ -22,12 +22,18 @@ export default function Page() {
 
       <main className="pt-16">
         {/* Intro — homepage typography, centred */}
-        <section className="px-6 pb-8 pt-14 text-center lg:pb-10 lg:pt-20">
-          <h1 className="mx-auto max-w-4xl text-balance text-[2.375rem] font-semibold leading-[1.05] tracking-tight sm:text-[3.15rem] lg:text-[3.9375rem]">
+        <section className="px-6 pb-5 pt-14 text-center lg:pb-6 lg:pt-20">
+          <h1 className="mx-auto max-w-4xl text-balance text-[2.375rem] font-semibold leading-[0.9] tracking-tight sm:text-[3.15rem] lg:text-[3.9375rem]">
             Engineering Since <span className="text-[#e0420b]">1999</span>.
             <br />
             Industrial IoT Since <span className="text-[#e0420b]">2003</span>.
           </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-pretty text-xl font-medium tracking-tight text-foreground sm:text-2xl">
+            From Idea to Real Products.
+          </p>
+          <p className="mx-auto mt-3 max-w-xl text-pretty text-sm leading-relaxed text-muted-foreground">
+            Responsible engineering. Products designed to last with less waste.
+          </p>
         </section>
 
         {/* IQ intro animation → full-width 16:9 video */}
