@@ -1,135 +1,103 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { useCallback, useEffect, useRef, useState } from 'react'
 
 /**
- * Placeholder video source. Replace this single constant with the final
- * IQtronic story video (e.g. "/videos/iqtronic-story.mp4") when ready — the
- * layout and 16:9 ratio stay identical, no redesign needed.
+ * Swap this to the final IQtronic story film when available — no other change
+ * is required. While empty, the supplied poster image is shown in its place.
  */
-const VIDEO_SRC =
-  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+const VIDEO_SRC = ''
+const POSTER_SRC = '/images/facebook-video-poster.png'
+const IQ_SYMBOL_SRC = '/images/iq-symbol.png'
 
 /**
- * Full-width 16:9 video hero. Shows a static poster placeholder until the
- * viewer presses play, then swaps to an inline HTML5 video in the same box.
+ * Intro + video hero for the /facebook news page.
+ *
+ * Sequence: the IQ symbol fades in, holds briefly, gently shrinks and fades
+ * out; the 16:9 video then crossfades in and plays continuously (autoplay,
+ * muted, looped, inline). A single "Watch our story" label sits over it.
  */
 export function VideoHero() {
-  const [playing, setPlaying] = useState(false)
+  const [showVideo, setShowVideo] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  const startVideo = useCallback(() => {
-    setPlaying(true)
-    const v = videoRef.current
-    if (!v) return
-    v.currentTime = 0
-    void v.play().catch(() => {})
-  }, [])
-
-  const stopVideo = useCallback(() => {
-    const v = videoRef.current
-    if (v) {
-      v.pause()
-      v.currentTime = 0
-    }
-    setPlaying(false)
+  // Respect reduced-motion: skip the intro and reveal the video immediately.
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mq.matches) setShowVideo(true)
   }, [])
 
   useEffect(() => {
-    if (!playing) return
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') stopVideo()
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [playing, stopVideo])
+    if (showVideo) videoRef.current?.play().catch(() => {})
+  }, [showVideo])
 
   return (
-    <section className="bg-background">
-      <div className="mx-auto max-w-7xl px-6 pt-10 lg:px-10 lg:pt-14">
-        <div className="group/video relative aspect-video w-full overflow-hidden rounded-sm border border-border bg-foreground">
-          {/* Poster placeholder — replaced by the video on play. */}
-          <Image
-            src="/images/facebook-video-poster.png"
-            alt="IQtronic company story — preview"
-            fill
-            priority
-            sizes="(min-width: 1280px) 1200px, 100vw"
-            className={`object-cover transition-opacity duration-500 ${
-              playing ? 'opacity-0' : 'opacity-100'
-            }`}
-          />
-
-          {/* Inline video — same 16:9 box as the poster. */}
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            ref={videoRef}
-            src={VIDEO_SRC}
-            playsInline
-            preload="none"
-            onEnded={stopVideo}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-              playing ? 'opacity-100' : 'pointer-events-none opacity-0'
-            }`}
-          />
-
-          {/* Subtle darkening only at the bottom, where the text sits — keeps the
-              rest of the image bright. */}
-          {!playing ? (
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-foreground/60 via-foreground/20 to-transparent"
+    <div className="mx-auto w-full max-w-7xl px-6 pt-10 lg:px-10 lg:pt-14">
+      <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-border bg-card">
+        {/* IQ symbol intro */}
+        {!showVideo ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Image
+              src={IQ_SYMBOL_SRC || '/placeholder.svg'}
+              alt="IQtronic"
+              width={512}
+              height={512}
+              priority
+              onAnimationEnd={() => setShowVideo(true)}
+              className="iq-intro-animate h-auto w-[30%] max-w-[220px] object-contain"
             />
-          ) : null}
+          </div>
+        ) : null}
 
-          {/* WATCH OUR STORY overlay + play button (homepage pill style). */}
-          {!playing ? (
-            <button
-              type="button"
-              onClick={startVideo}
-              aria-label="Watch our story"
-              className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-foreground shadow-md backdrop-blur-sm transition-all hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 lg:bottom-8 lg:left-8"
+        {/* Video (crossfades in after the intro) */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+            showVideo ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-hidden={!showVideo}
+        >
+          {VIDEO_SRC ? (
+            // eslint-disable-next-line jsx-a11y/media-has-caption
+            <video
+              ref={videoRef}
+              className="h-full w-full object-cover"
+              poster={POSTER_SRC}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
             >
-              <span className="inline-flex size-6 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="size-3 translate-x-px"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </span>
-              <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em]">
-                Watch our story
-              </span>
-            </button>
-          ) : null}
+              <source src={VIDEO_SRC} type="video/mp4" />
+            </video>
+          ) : (
+            // Placeholder until the real film is provided.
+            <Image
+              src={POSTER_SRC || '/placeholder.svg'}
+              alt="IQtronic story"
+              fill
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="object-cover"
+              priority
+            />
+          )}
 
-          {/* Close button — only while the video plays. */}
-          {playing ? (
-            <button
-              type="button"
-              onClick={stopVideo}
-              aria-label="Close video"
-              className="absolute right-3 top-3 z-10 inline-flex size-9 items-center justify-center rounded-full border border-border bg-background/90 text-foreground shadow-sm backdrop-blur-sm transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className="size-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            </button>
-          ) : null}
+          {/* Readability gradient at the bottom only. */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/55 via-black/15 to-transparent"
+            aria-hidden="true"
+          />
+
+          {/* Single overlay label. */}
+          <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:bottom-8 lg:left-8">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/40 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+              <span aria-hidden="true">▶</span>
+              Watch our story
+            </span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
