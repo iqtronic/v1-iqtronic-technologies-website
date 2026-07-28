@@ -17,18 +17,10 @@ export default function Page() {
   const [featured, ...rest] = items
 
   return (
-    <div className="relative min-h-screen bg-background">
-      {/* Subtle circuit-board backdrop — fixed, behind all content */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-0 bg-[length:cover] bg-fixed bg-center bg-no-repeat opacity-70"
-        style={{ backgroundImage: 'url(/images/facebook-circuit-bg.png)' }}
-      />
+    <div className="min-h-screen bg-background">
+      <NewsHeader />
 
-      <div className="relative z-10">
-        <NewsHeader />
-
-        <main className="pt-16">
+      <main className="pt-16">
         {/* Intro — homepage typography, centred */}
         <section className="px-6 pb-5 pt-14 text-center lg:pb-6 lg:pt-20">
           <h1 className="mx-auto max-w-4xl text-balance text-[2.375rem] font-semibold leading-[0.9] tracking-tight sm:text-[3.15rem] lg:text-[3.9375rem]">
@@ -48,7 +40,7 @@ export default function Page() {
         <VideoHero />
 
         {/* Latest News */}
-        <section>
+        <section className="bg-background">
           <div className="mx-auto max-w-7xl px-6 pb-16 pt-16 lg:px-10 lg:pb-24 lg:pt-24">
             <header className="mb-12 text-center">
               <div className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
@@ -70,7 +62,7 @@ export default function Page() {
         </section>
 
         {/* Closing CTA — natural continuation to the main IQtronic site */}
-        <section className="border-t border-border bg-card/60">
+        <section className="border-t border-border bg-card">
           <div className="mx-auto flex max-w-7xl flex-col items-center px-6 py-20 text-center lg:px-10 lg:py-28">
             <h2 className="text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
               Discover the products behind the story.
@@ -84,8 +76,7 @@ export default function Page() {
             </a>
           </div>
         </section>
-        </main>
-      </div>
+      </main>
     </div>
   )
 }
