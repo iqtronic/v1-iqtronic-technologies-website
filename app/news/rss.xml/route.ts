@@ -1,17 +1,8 @@
 import { getPublishedArticles } from '@/lib/news'
 import { SITE, absoluteUrl } from '@/lib/site'
+import { escapeXml } from '@/lib/feed'
 
 export const dynamic = 'force-static'
-
-/** Escape a string for safe inclusion in XML text/attributes. */
-function escapeXml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;')
-}
 
 /**
  * RSS 2.0 feed for News & Development, served at /news/rss.xml.

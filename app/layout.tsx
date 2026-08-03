@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { SITE } from '@/lib/site'
+import { FEED_META } from '@/lib/feed'
 import './globals.css'
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
@@ -16,6 +17,16 @@ export const metadata: Metadata = {
   description:
     'Engineering since 1999. Industrial IoT since 2003. IQtronic Technologies delivers IoT products, custom electronics engineering, and accredited EMC, microwave and wind-tunnel laboratories.',
   generator: 'v0.app',
+  alternates: {
+    types: {
+      'application/rss+xml': [
+        { url: FEED_META.rssUrl, title: FEED_META.title },
+      ],
+      'application/atom+xml': [
+        { url: FEED_META.atomUrl, title: FEED_META.title },
+      ],
+    },
+  },
   icons: {
     icon: [
       {
