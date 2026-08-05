@@ -18,7 +18,16 @@ const IQ_SYMBOL_SRC = '/images/iq-symbol.png'
  * out; the 16:9 video then crossfades in and plays continuously (autoplay,
  * muted, looped, inline). A single "Watch our story" label sits over it.
  */
-export function VideoHero() {
+export function VideoHero({
+  aspectClassName = 'aspect-video',
+}: {
+  /**
+   * Tailwind aspect-ratio utility for the hero frame. Defaults to 16:9
+   * (`aspect-video`) for /facebook. /linkedin passes `aspect-[1.91/1]` for the
+   * LinkedIn landscape share ratio (1200×627).
+   */
+  aspectClassName?: string
+}) {
   const [showVideo, setShowVideo] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -34,7 +43,9 @@ export function VideoHero() {
 
   return (
     <div className="mx-auto w-full max-w-7xl px-6 pt-10 lg:px-10 lg:pt-14">
-      <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-border bg-card">
+      <div
+        className={`relative ${aspectClassName} w-full overflow-hidden rounded-sm border border-border bg-card`}
+      >
         {/* IQ symbol intro */}
         {!showVideo ? (
           <div className="absolute inset-0 flex items-center justify-center">
