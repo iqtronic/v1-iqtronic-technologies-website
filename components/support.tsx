@@ -5,6 +5,7 @@ import {
   DocumentationIcon,
   VideoIcon,
   ContactIcon,
+  DownloadIcon,
 } from '@/components/support/support-section'
 import { BrandName } from '@/components/support/brand-name'
 
@@ -27,6 +28,12 @@ const QUICK_LINKS = [
     body: 'Activate, upgrade and manage the licenses tied to your organisation.',
     href: '#',
     icon: <KeyIcon className="size-5" />,
+  },
+  {
+    title: 'Download Center',
+    body: 'Find firmware, software, manuals and certificates in one place.',
+    href: '#product-support',
+    icon: <DownloadIcon className="size-5" />,
   },
   {
     title: 'Contact Support',
@@ -54,13 +61,15 @@ export function Support() {
             engineers who designed your hardware.
           </p>
 
-          {/* Four primary tiles */}
-          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {QUICK_LINKS.map((link) => (
+          {/* Primary support links: three tiles above, two centred below on desktop. */}
+          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-6">
+            {QUICK_LINKS.map((link, index) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className="group flex flex-col bg-card p-8 transition-colors hover:bg-background"
+                className={`group flex flex-col bg-card p-8 transition-colors hover:bg-background lg:col-span-2 ${
+                  index === 3 ? 'lg:col-start-2' : index === 4 ? 'lg:col-start-4' : ''
+                }`}
               >
                 <span className="flex size-10 items-center justify-center rounded-sm border border-border bg-background text-accent">
                   {link.icon}
