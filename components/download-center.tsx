@@ -1,6 +1,3 @@
-'use client'
-
-import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { DownloadIcon } from '@/components/support/support-section'
 
@@ -32,19 +29,7 @@ const FILTERS: Array<'All' | FileType> = ['All', 'Software', 'Firmware', 'Manual
 const ALPHABET = ['All', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')]
 
 export function DownloadCenter() {
-  const [query, setQuery] = useState('')
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]>('All')
-  const [letter, setLetter] = useState('All')
-
-  const filtered = useMemo(() => {
-    const term = query.trim().toLowerCase()
-    return DOWNLOADS.filter((item) => {
-      const matchesFilter = filter === 'All' || item.type === filter
-      const matchesLetter = letter === 'All' || item.name.toUpperCase().startsWith(letter)
-      const searchable = `${item.name} ${item.description} ${item.products.join(' ')} ${item.version}`.toLowerCase()
-      return matchesFilter && matchesLetter && (!term || searchable.includes(term))
-    }).sort((a, b) => a.name.localeCompare(b.name))
-  }, [filter, letter, query])
+  const filtered = [...DOWNLOADS].sort((a, b) => a.name.localeCompare(b.name))
 
   return (
     <div>
@@ -67,15 +52,15 @@ export function DownloadCenter() {
         <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10 lg:py-10">
           <label className="block">
             <span className="sr-only">Search downloads</span>
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search downloads" className="h-12 w-full rounded-sm border border-border bg-card px-4 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-accent focus:ring-1 focus:ring-accent" />
+            <input aria-label="Search downloads preview" placeholder="Search downloads" readOnly className="h-12 w-full rounded-sm border border-border bg-card px-4 text-sm outline-none placeholder:text-muted-foreground" />
           </label>
           <div className="mt-6 flex flex-wrap gap-2" aria-label="Filter downloads by file type">
-            {FILTERS.map((item) => <button key={item} type="button" onClick={() => setFilter(item)} className={`rounded-sm border px-4 py-2 text-xs font-medium transition-colors ${filter === item ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-foreground hover:bg-secondary'}`}>{item}</button>)}
+            {FILTERS.map((item) => <button key={item} type="button" aria-disabled={item !== 'All'} className={`rounded-sm border px-4 py-2 text-xs font-medium ${item === 'All' ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-foreground'}`}>{item}</button>)}
           </div>
           <nav className="mt-8" aria-label="Browse downloads alphabetically">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Browse A–Z</p>
             <div className="flex flex-wrap gap-1">
-              {ALPHABET.map((item) => <button key={item} type="button" onClick={() => setLetter(item)} className={`min-size-8 min-w-8 rounded-sm border px-2 py-1.5 text-xs transition-colors ${letter === item ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:text-foreground'}`}>{item}</button>)}
+              {ALPHABET.map((item) => <button key={item} type="button" aria-disabled={item !== 'All'} className={`min-size-8 min-w-8 rounded-sm border px-2 py-1.5 text-xs ${item === 'All' ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground'}`}>{item}</button>)}
             </div>
           </nav>
         </div>
