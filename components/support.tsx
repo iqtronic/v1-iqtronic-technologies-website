@@ -32,7 +32,7 @@ const QUICK_LINKS = [
   {
     title: 'Download Center',
     body: 'Find firmware, software, manuals and certificates in one place.',
-    href: '#product-support',
+    href: '/download-center',
     icon: <DownloadIcon className="size-5" />,
   },
   {
