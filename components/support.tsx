@@ -62,32 +62,21 @@ export function Support() {
           </p>
 
           {/* Primary support links: three tiles above, two centred below on desktop. */}
-          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-6">
-            {QUICK_LINKS.map((link, index) => (
+          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
+            {QUICK_LINKS.map((link) => (
               <Link
                 key={link.title}
                 href={link.href}
-                className={`group flex flex-col bg-card p-8 transition-colors hover:bg-background lg:col-span-2 ${
-                  index === 3 ? 'lg:col-start-2' : index === 4 ? 'lg:col-start-4' : ''
-                }`}
+                className="group flex min-h-64 flex-col bg-card p-7 transition-colors hover:bg-background lg:min-h-80 lg:p-8"
               >
                 <span className="flex size-10 items-center justify-center rounded-sm border border-border bg-background text-accent">
                   {link.icon}
                 </span>
-                <div className="mt-6 flex items-baseline justify-between">
-                  <h2 className="text-lg font-medium tracking-tight">
-                    {link.title}
-                  </h2>
-                  <span
-                    className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent"
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
+                <div className="mt-6 flex items-baseline justify-between gap-3">
+                  <h2 className="text-lg font-medium tracking-tight">{link.title}</h2>
+                  <span className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent" aria-hidden="true">→</span>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {link.body}
-                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{link.body}</p>
               </Link>
             ))}
           </div>
