@@ -4,33 +4,27 @@ import { DownloadIcon } from '@/components/support/support-section'
 type FileType = 'Software' | 'Firmware' | 'Manuals' | 'Datasheets' | 'Certificates' | 'Other'
 
 type DownloadItem = {
-  name: string
   fileName: string
-  description: string
-  products: string[]
-  version: string
   date: string
-  os?: string
   size: string
+  sha256: string
   type: FileType
-  releaseNotes?: string
 }
 
 const DOWNLOADS: DownloadItem[] = [
-  { name: 'Configuration Utility', fileName: 'iqtronic-configuration-utility.zip', description: 'Configuration and diagnostics utility for IQtronic controllers.', products: ['IQSocket'], version: 'v3.4.1', date: '2026-08-18', os: 'Windows', size: '42.8 MB', type: 'Software', releaseNotes: '#' },
-  { name: 'Controller Firmware', fileName: 'iqtronic-controller-firmware.bin', description: 'Production firmware package for remote switching and reboot devices.', products: ['Controller'], version: 'v2.8.0', date: '2026-07-29', size: '8.6 MB', type: 'Firmware', releaseNotes: '#' },
-  { name: 'IQSocket User Manual', fileName: 'iqsocket-user-manual.pdf', description: 'Installation, configuration and operating guide.', products: ['IQSocket'], version: 'Rev. 5.2', date: '2026-06-12', size: '3.1 MB', type: 'Manuals' },
-  { name: 'ENVISTATION Datasheet', fileName: 'envistation-datasheet.pdf', description: 'Technical specifications for the rugged weather station range.', products: ['ENVISTATION'], version: 'Rev. 2.1', date: '2026-05-24', size: '1.4 MB', type: 'Datasheets' },
-  { name: 'SENSORAGE Firmware', fileName: 'sensorage-firmware.bin', description: 'Firmware update package for sensor data loggers.', products: ['SENSORAGE'], version: 'v1.9.3', date: '2026-04-06', os: 'Windows', size: '12.2 MB', type: 'Firmware' },
-  { name: 'CE Declaration of Conformity', fileName: 'ce-declaration-of-conformity.pdf', description: 'Declaration of conformity for IQtronic controller products.', products: ['IQSocket'], version: '2026-01', date: '2026-01-15', size: '820 KB', type: 'Certificates' },
-  { name: 'Battery Monitor Integration Notes', fileName: 'battery-monitor-integration-notes.pdf', description: 'Application notes for integrating BMS data into monitoring systems.', products: ['BMS'], version: 'Rev. 1.0', date: '2025-11-20', size: '690 KB', type: 'Other' },
+  { fileName: 'configuration-utility.zip', date: '2026-08-18', size: '42.8 MB', sha256: '9f3a…c821', type: 'Software' },
+  { fileName: 'controller-firmware.bin', date: '2026-07-29', size: '8.6 MB', sha256: 'a71c…04ef', type: 'Firmware' },
+  { fileName: 'user-manual.pdf', date: '2026-06-12', size: '3.1 MB', sha256: '42bd…91a0', type: 'Manuals' },
+  { fileName: 'datasheet.pdf', date: '2026-05-24', size: '1.4 MB', sha256: 'd18e…77b2', type: 'Datasheets' },
+  { fileName: 'firmware-update.bin', date: '2026-04-06', size: '12.2 MB', sha256: '6c04…a5d9', type: 'Firmware' },
+  { fileName: 'declaration-of-conformity.pdf', date: '2026-01-15', size: '820 KB', sha256: 'b0e2…6f14', type: 'Certificates' },
 ]
 
 const FILTERS: Array<'All' | FileType> = ['All', 'Software', 'Firmware', 'Manuals', 'Datasheets', 'Certificates', 'Other']
 const ALPHABET = ['All', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')]
 
 export function DownloadCenter() {
-  const filtered = [...DOWNLOADS].sort((a, b) => a.name.localeCompare(b.name))
+  const filtered = [...DOWNLOADS].sort((a, b) => a.fileName.localeCompare(b.fileName))
 
   return (
     <div>
@@ -72,11 +66,11 @@ export function DownloadCenter() {
           <div className="flex items-end justify-between gap-4"><div><p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">Technical library</p><h2 className="mt-3 text-2xl font-semibold tracking-tight">Available files</h2></div><p className="text-sm text-muted-foreground">{filtered.length} files</p></div>
           <div className="mt-8 overflow-hidden rounded-sm border border-border">
             {filtered.length > 0 ? filtered.map((item) => (
-              <article key={item.name} className="border-b border-border bg-background p-5 last:border-b-0 lg:p-6">
+              <article key={item.fileName} className="border-b border-border bg-background p-5 last:border-b-0 lg:p-6">
                 <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
-                  <div className="min-w-0 xl:w-[42%]"><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{item.type}</p><h3 className="mt-2 text-base font-semibold tracking-tight">{item.name}</h3><p className="mt-1 break-all font-mono text-xs text-foreground">{item.fileName}</p><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p><div className="mt-3 flex flex-wrap gap-1.5">{item.products.map((product) => <span key={product} className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground">{product}</span>)}</div></div>
-                  <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-xs text-muted-foreground sm:grid-cols-4 xl:min-w-[390px]"><div><dt className="font-mono text-[10px] uppercase tracking-[0.12em]">Version</dt><dd className="mt-1 text-foreground">{item.version}</dd></div><div><dt className="font-mono text-[10px] uppercase tracking-[0.12em]">Uploaded</dt><dd className="mt-1 text-foreground">{item.date}</dd></div><div><dt className="font-mono text-[10px] uppercase tracking-[0.12em]">File size</dt><dd className="mt-1 text-foreground">{item.size}</dd></div><div><dt className="font-mono text-[10px] uppercase tracking-[0.12em]">OS</dt><dd className="mt-1 text-foreground">{item.os ?? 'All platforms'}</dd></div></dl>
-                  <div className="flex shrink-0 items-center gap-4"><Link href="#" aria-label={`Download ${item.fileName}`} className="inline-flex size-10 items-center justify-center rounded-sm border border-border bg-card text-foreground transition-colors hover:border-accent hover:text-accent"><DownloadIcon className="size-4" /></Link>{item.releaseNotes ? <Link href={item.releaseNotes} className="text-xs font-medium text-foreground underline decoration-border underline-offset-4 hover:decoration-accent">Release notes</Link> : null}</div>
+                  <div className="min-w-0 xl:flex-1"><p className="break-all font-mono text-sm font-medium text-foreground">{item.fileName}</p><p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{item.type}</p></div>
+                  <dl className="grid grid-cols-3 gap-5 text-xs text-muted-foreground sm:min-w-[390px] sm:grid-cols-3"><div><dt className="font-mono text-[10px] uppercase tracking-[0.12em]">File size</dt><dd className="mt-1 text-foreground">{item.size}</dd></div><div><dt className="font-mono text-[10px] uppercase tracking-[0.12em]">Uploaded</dt><dd className="mt-1 text-foreground">{item.date}</dd></div><div><dt className="font-mono text-[10px] uppercase tracking-[0.12em]">SHA-256</dt><dd className="mt-1 font-mono text-foreground">{item.sha256}</dd></div></dl>
+                  <Link href="#" aria-label={`Download ${item.fileName}`} className="inline-flex size-10 shrink-0 items-center justify-center rounded-sm border border-border bg-card text-foreground transition-colors hover:border-accent hover:text-accent"><DownloadIcon className="size-4" /></Link>
                 </div>
               </article>
             )) : <p className="bg-background p-8 text-sm text-muted-foreground">No files match your filters.</p>}
