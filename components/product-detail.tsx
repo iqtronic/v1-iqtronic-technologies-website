@@ -68,6 +68,23 @@ export function ProductDetail({ product }: { product: Product }) {
         </div>
       </nav>
 
+      {product.lifecycle === 'planned' ? (
+        <section className="border-b border-border bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10 lg:py-12">
+            <div className="overflow-hidden rounded-sm border border-border bg-card">
+              <Image
+                src="/images/iqsocket-lan-future.png"
+                alt="IQtronic future product page — this page is being prepared"
+                width={2400}
+                height={1350}
+                className="h-auto w-full"
+                priority
+              />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* Product header */}
       <section className="border-b border-border bg-background">
         <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10 lg:py-16">
