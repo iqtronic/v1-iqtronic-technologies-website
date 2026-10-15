@@ -68,7 +68,9 @@ export function ProductEvolution({ product }: { product: Product }) {
                     'group relative flex w-56 flex-col gap-3 rounded-sm border p-3 transition-colors lg:mb-3 lg:w-auto lg:flex-row lg:items-center',
                     entry.isCurrent
                       ? 'border-accent bg-accent/5'
-                      : 'border-border bg-background hover:border-foreground/40',
+                      : entry.lifecycle === 'planned'
+                        ? 'border-emerald-300/70 bg-emerald-50/70 hover:border-emerald-400'
+                        : 'border-border bg-background hover:border-foreground/40',
                   )}
                 >
                   {/* Current-product marker on the rail */}
@@ -122,8 +124,17 @@ export function ProductEvolution({ product }: { product: Product }) {
                         Current Product
                       </span>
                     ) : (
-                      <span className="mt-2 inline-flex items-center rounded-sm border border-border bg-card px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                        {LIFECYCLE_LABELS[entry.lifecycle]}
+                      <span
+                        className={cn(
+                          'mt-2 inline-flex items-center rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em]',
+                          entry.lifecycle === 'planned'
+                            ? 'border-emerald-300 bg-emerald-100 text-emerald-800'
+                            : 'border-border bg-card text-muted-foreground',
+                        )}
+                      >
+                        {entry.lifecycle === 'planned'
+                          ? 'Under development'
+                          : LIFECYCLE_LABELS[entry.lifecycle]}
                       </span>
                     )}
 
