@@ -20,7 +20,11 @@ const COLUMNS = [
   },
   {
     title: 'Enclosures',
-    links: ['Own Tooling', 'Injection Moulds', 'OEM Customization'],
+    links: [
+      { label: 'Own Tooling', href: '/enclosures#own-tooling' },
+      { label: 'Injection Moulds', href: '/enclosures#injection-moulds' },
+      { label: 'OEM Customization', href: '/enclosures#oem-customization' },
+    ],
   },
 ]
 
