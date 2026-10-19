@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 const LABS = [
   {
+    id: 'emc-laboratory',
     name: 'EMC Laboratory',
     gallery: [
       { src: '/images/emc-lab.png', alt: 'IQtronic EMC laboratory chamber' },
@@ -11,6 +12,7 @@ const LABS = [
     tags: ['EN 61000', 'Radiated & conducted', 'Pre-compliance'],
   },
   {
+    id: 'microwave-laboratory',
     name: 'Microwave Laboratory',
     gallery: [
       { src: '/images/microwave-lab.png', alt: 'IQtronic microwave laboratory' },
@@ -20,6 +22,7 @@ const LABS = [
     tags: ['VNA / spectrum', 'Antenna tuning', 'Up to GHz'],
   },
   {
+    id: 'wind-tunnel',
     name: 'Wind Tunnel',
     gallery: [
       { src: '/images/wind-tunnel.png', alt: 'IQtronic wind tunnel testing facility' },
@@ -51,6 +54,7 @@ export function Laboratories() {
         <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {LABS.map((lab) => (
             <article
+              id={lab.id}
               key={lab.name}
               className="group flex flex-col overflow-hidden rounded-sm border border-border bg-card transition-shadow hover:shadow-md"
             >

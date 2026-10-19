@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 const COLUMNS = [
   {
@@ -11,7 +12,11 @@ const COLUMNS = [
   },
   {
     title: 'Laboratories',
-    links: ['EMC Laboratory', 'Microwave Laboratory', 'Wind Tunnel'],
+    links: [
+      { label: 'EMC Laboratory', href: '/laboratories#emc-laboratory' },
+      { label: 'Microwave Laboratory', href: '/laboratories#microwave-laboratory' },
+      { label: 'Wind Tunnel', href: '/laboratories#wind-tunnel' },
+    ],
   },
   {
     title: 'Enclosures',
@@ -44,16 +49,19 @@ export function SiteFooter() {
                 {column.title}
               </h3>
               <ul className="mt-4 flex flex-col gap-3">
-                {column.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-foreground transition-colors hover:text-accent"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {column.links.map((link) => {
+                  const item = typeof link === 'string' ? { label: link, href: '#' } : link
+                  return (
+                    <li key={item.label}>
+                      <Link
+                        href={item.href}
+                        className="text-sm text-foreground transition-colors hover:text-accent"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}
