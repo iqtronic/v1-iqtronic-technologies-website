@@ -5,6 +5,8 @@ const LABS = [
     id: 'emc-laboratory',
     name: 'EMC Laboratory',
     gallery: [
+      { src: '/images/development/dev-emc-chamber.png', alt: 'IQtronic EMC testing chamber' },
+      { src: '/images/engineering-quality-emc.png', alt: 'EMC compliance test equipment' },
       { src: '/images/emc-lab.png', alt: 'IQtronic EMC laboratory chamber' },
       { src: '/images/development/dev-emc-spectrum.png', alt: 'EMC spectrum analysis during testing' },
     ],
@@ -15,6 +17,8 @@ const LABS = [
     id: 'microwave-laboratory',
     name: 'Microwave Laboratory',
     gallery: [
+      { src: '/images/history-1999-parabolic.png', alt: 'Microwave parabolic antenna testing' },
+      { src: '/images/history-1999-yagi.png', alt: 'RF antenna laboratory equipment' },
       { src: '/images/microwave-lab.png', alt: 'IQtronic microwave laboratory' },
       { src: '/images/history-1999-rf-hero.png', alt: 'RF and microwave equipment detail' },
     ],
@@ -25,6 +29,8 @@ const LABS = [
     id: 'wind-tunnel',
     name: 'Wind Tunnel',
     gallery: [
+      { src: '/images/iqtronic-envistation-ethernet-weather-station.jpg', alt: 'IQtronic weather station for wind testing' },
+      { src: '/images/iqtronic-temperature-sensor.png', alt: 'Environmental temperature sensor testing' },
       { src: '/images/wind-tunnel.png', alt: 'IQtronic wind tunnel testing facility' },
       { src: '/images/weather-station.png', alt: 'Weather station prepared for environmental testing' },
     ],
