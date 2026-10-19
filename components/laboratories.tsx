@@ -3,19 +3,28 @@ import Image from 'next/image'
 const LABS = [
   {
     name: 'EMC Laboratory',
-    image: '/images/emc-lab.png',
+    gallery: [
+      { src: '/images/emc-lab.png', alt: 'IQtronic EMC laboratory chamber' },
+      { src: '/images/development/dev-emc-spectrum.png', alt: 'EMC spectrum analysis during testing' },
+    ],
     body: 'Emissions and immunity testing in a shielded anechoic chamber, supporting CE marking and pre-compliance.',
     tags: ['EN 61000', 'Radiated & conducted', 'Pre-compliance'],
   },
   {
     name: 'Microwave Laboratory',
-    image: '/images/microwave-lab.png',
+    gallery: [
+      { src: '/images/microwave-lab.png', alt: 'IQtronic microwave laboratory' },
+      { src: '/images/history-1999-rf-hero.png', alt: 'RF and microwave equipment detail' },
+    ],
     body: 'RF and microwave characterisation with vector network and spectrum analysis for antennas and high-frequency designs.',
     tags: ['VNA / spectrum', 'Antenna tuning', 'Up to GHz'],
   },
   {
     name: 'Wind Tunnel',
-    image: '/images/wind-tunnel.png',
+    gallery: [
+      { src: '/images/wind-tunnel.png', alt: 'IQtronic wind tunnel testing facility' },
+      { src: '/images/weather-station.png', alt: 'Weather station prepared for environmental testing' },
+    ],
     body: 'Aerodynamic and environmental testing of sensors and enclosures under controlled, repeatable airflow.',
     tags: ['Calibrated airflow', 'Sensor qualification', 'Durability'],
   },
@@ -45,14 +54,21 @@ export function Laboratories() {
               key={lab.name}
               className="group flex flex-col overflow-hidden rounded-sm border border-border bg-card transition-shadow hover:shadow-md"
             >
-              <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-border">
-                <Image
-                  src={lab.image || '/placeholder.svg'}
-                  alt={`IQtronic ${lab.name}`}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+              <div className="grid grid-cols-1 gap-2 border-b border-border bg-secondary/40 p-2">
+                {lab.gallery.map((image) => (
+                  <div
+                    key={image.src}
+                    className="relative aspect-[4/3] overflow-hidden rounded-sm border border-border bg-card"
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                ))}
               </div>
               <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-xl font-medium tracking-tight">
