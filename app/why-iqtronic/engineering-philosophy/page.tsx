@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
@@ -77,6 +78,16 @@ export default function EngineeringPhilosophyPage() {
                 <h1 className="mt-5 text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
                   Our engineering philosophy.
                 </h1>
+                <div className="relative mt-10 aspect-square w-full overflow-hidden rounded-sm border border-border bg-card">
+                  <Image
+                    src="/images/engineering-philosophy-hero.png"
+                    alt="Industrial electronics engineering workbench"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 38vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
               <div className="lg:col-span-7">
                 <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
