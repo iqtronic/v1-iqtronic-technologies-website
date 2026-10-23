@@ -133,6 +133,17 @@ const DOWNLOAD_CARDS = [
   },
 ]
 
+const OTHER_SOFTWARE = [
+  {
+    name: 'IQlocator',
+    description: 'Windows utility for locating and identifying IQtronic devices on the network.',
+  },
+  {
+    name: 'BLE Terminal',
+    description: 'Windows terminal utility for direct Bluetooth Low Energy device communication.',
+  },
+]
+
 function DownloadButton({
   label,
   href,
@@ -358,6 +369,40 @@ export default function IQcontrolPage() {
               <div className="lg:col-span-7">
                 <ScreenshotCarousel shots={SUITE.shots} label={SUITE.name} />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Other commonly used Windows software */}
+        <section className="border-b border-border bg-background">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
+            <div className="flex items-center gap-5" aria-hidden="true">
+              <div className="h-px flex-1 bg-border" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                Other commonly used software
+              </span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border md:grid-cols-2">
+              {OTHER_SOFTWARE.map((software) => (
+                <div key={software.name} className="flex flex-col justify-between bg-card p-8 lg:p-10">
+                  <div>
+                    <div className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
+                      Windows software
+                    </div>
+                    <h2 className="mt-4 text-2xl font-semibold tracking-tight text-foreground">
+                      {software.name}
+                    </h2>
+                    <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+                      {software.description}
+                    </p>
+                  </div>
+                  <div className="mt-8">
+                    <StoreBadge store="windows" href="#" caption={software.name} />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
