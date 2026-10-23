@@ -197,6 +197,26 @@ export function SiteHeader() {
         </div>
       </div>
 
+      {/* Primary mobile links stay visible; secondary navigation remains in the menu. */}
+      <nav
+        className="grid grid-cols-3 border-t border-border bg-background md:hidden"
+        aria-label="Primary mobile navigation"
+      >
+        {[
+          { label: 'Products', href: '/products' },
+          { label: 'Why IQtronic', href: '/why-iqtronic' },
+          { label: 'Support', href: '/support' },
+        ].map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="border-r border-border px-2 py-2.5 text-center text-[11px] font-medium text-muted-foreground transition-colors last:border-r-0 hover:bg-secondary hover:text-foreground"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+
       {/* Desktop mega menu panel */}
       <div
         className={cn(
