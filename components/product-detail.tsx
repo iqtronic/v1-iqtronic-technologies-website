@@ -504,52 +504,7 @@ export function ProductDetail({ product }: { product: Product }) {
         </div>
       </section>
 
-      {/* Documents & software preview */}
-      <section className="border-b border-border bg-background">
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
-          <div className="max-w-2xl">
-            <SectionEyebrow>Documents &amp; software</SectionEyebrow>
-            <h2 className="mt-4 text-balance text-2xl font-semibold tracking-tight sm:text-3xl">
-              Documents &amp; software
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Everything you need for installation, configuration and operation.
-            </p>
-          </div>
-
-          <div className="mt-10 overflow-hidden rounded-sm border border-border bg-card">
-            <ul aria-label="Documents and software" className="divide-y divide-border">
-              {[
-                { icon: 'PDF', name: 'User Manual', meta: 'PDF · v2.1 · 2.4 MB', hash: 'a84f92c1…9b21' },
-                { icon: 'PDF', name: 'IQTS_GS300 Datasheet', meta: 'PDF · 850 kB', hash: '42d53f8a…8f11' },
-                { icon: 'APP', name: 'IQtronic Configuration Tool', meta: 'EXE · v2.4.1 · 18 MB', hash: '82bc19aa…203d' },
-                { icon: 'FW', name: 'Firmware 3.12', meta: 'BIN · v3.12 · 1.2 MB', hash: '729ab51c…991e' },
-              ].map((file) => (
-                <li key={file.name} className="flex flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:gap-6 lg:px-5">
-                  <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-sm border border-border bg-background font-mono text-[9px] font-medium tracking-[0.08em] text-accent">
-                    {file.icon}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-medium tracking-tight text-foreground">{file.name}</div>
-                    <div className="mt-1 font-mono text-[11px] text-muted-foreground">{file.meta}</div>
-                  </div>
-                  <div className="flex items-center gap-2 font-mono text-[11px] text-muted-foreground sm:ml-auto">
-                    <span>SHA-256: {file.hash}</span>
-                    <button type="button" aria-label={`Copy SHA-256 for ${file.name}`} className="inline-flex size-7 items-center justify-center rounded-sm border border-border text-muted-foreground transition-colors hover:border-accent hover:text-accent">
-                      <span aria-hidden="true">□</span>
-                    </button>
-                  </div>
-                  <a href="#" className="inline-flex items-center justify-center rounded-sm border border-border px-3 py-2 text-xs font-medium text-foreground transition-colors hover:border-accent hover:text-accent sm:ml-2">
-                    Download <span className="ml-2 text-accent" aria-hidden="true">↓</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Documents */}
+      {/* Documentation & downloads */}
       <section
         id="documents"
         className="scroll-mt-20 border-b border-border bg-card"
@@ -561,38 +516,15 @@ export function ProductDetail({ product }: { product: Product }) {
               Documentation &amp; downloads
             </h2>
           </div>
-          <ul className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-            {product.documents.map((document) => (
-              <li key={document.title}>
-                <a
-                  href="#"
-                  className="group flex items-center justify-between gap-4 bg-card p-5 transition-colors hover:bg-background"
-                >
-                  <div>
-                    <div className="text-sm font-medium tracking-tight">
-                      {document.title}
-                    </div>
-                    {document.meta ? (
-                      <div className="mt-1 font-mono text-[11px] text-muted-foreground">
-                        {document.meta}
-                      </div>
-                    ) : null}
-                  </div>
-                  <span className="flex shrink-0 items-center gap-2">
-                    <span className="rounded-sm border border-border px-2 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-                      {document.type}
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="text-muted-foreground transition-transform group-hover:translate-y-0.5 group-hover:text-accent"
-                    >
-                      ↓
-                    </span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-10 border border-dashed border-border bg-background px-6 py-7 text-sm text-muted-foreground sm:px-7">
+            Datasheets, manuals and firmware for this product will be available here. Need a document now? Please go to:{' '}
+            <Link
+              href="/download-center"
+              className="font-medium text-accent transition-colors hover:text-foreground"
+            >
+              Download center →
+            </Link>
+          </div>
         </div>
       </section>
 
