@@ -125,10 +125,19 @@ export function ProductDetail({ product }: { product: Product }) {
               <div className="mt-6 flex flex-wrap items-center gap-2">
                 <LifecycleBadge lifecycle={product.lifecycle} />
                 <AvailabilityBadge availability={product.availability} />
-                <EstimatedTimeBadge label="2wks" />
-              </div>
+  <EstimatedTimeBadge label="2wks" />
+  </div>
 
-              {/* Lifecycle detail */}
+  <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
+    <span className="inline-flex shrink-0 items-center rounded-sm border border-accent/40 bg-accent/5 px-4 py-2 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-accent">
+      Producer
+    </span>
+    <div className="min-w-0 flex-1 rounded-sm border border-border bg-card px-4 py-2 text-sm font-medium text-foreground">
+      IQtronic Technologies Europe s.r.o.
+    </div>
+  </div>
+  
+  {/* Lifecycle detail */}
               {(() => {
                 const items = [
                   product.lifecycleDetail.productionStart
